@@ -28,8 +28,6 @@ let {
 let auth_page = $state("select")
 let user = $derived(data.user)
 
-$inspect(data.user)
-
 async function next() {
     if (data.app_info){
         auth_page = "authorize"

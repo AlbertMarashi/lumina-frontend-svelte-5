@@ -5,7 +5,6 @@ import AccountCircle from "svelte-material-icons/AccountCircle.svelte"
 import ExitToApp from "svelte-material-icons/ExitToApp.svelte"
 import AccountPlus from "svelte-material-icons/AccountPlus.svelte"
 import ChevronRight from "svelte-material-icons/ChevronRight.svelte"
-    import type { GetUserResult } from "$lib/queries/surreal_queries";
 
 export let auth_page: string
 export let user: App.PageData["user"]
