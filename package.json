@@ -1,0 +1,47 @@
+{
+  "name": "lumina-frontend-svelte-5",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev --host --port 5111",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "sync:queries": "surreal-codegen --dir './src/lib/queries/' --schema './database_schema.surql' --output './src/lib/queries/surreal_queries.ts'",
+    "sync": "surreal import database_schema.surql --endpoint http://127.0.0.1:8000 -u root -p root --ns development --db lumina",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@types/eslint": "^8.56.7",
+    "eslint": "^9.0.0",
+    "eslint-plugin-svelte": "^2.36.0",
+    "globals": "^15.0.0",
+    "svelte": "^5.0.0-next.1",
+    "svelte-check": "^3.6.0",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0-alpha.20",
+    "vite": "^5.0.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "@auth/core": "^0.34.1",
+    "@auth/sveltekit": "^1.4.1",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/mixpanel-browser": "^2.49.1",
+    "@types/node": "^20.14.10",
+    "jose": "^5.6.3",
+    "mixpanel-browser": "^2.53.0",
+    "runed": "^0.15.0",
+    "satori": "^0.10.14",
+    "satori-html": "^0.3.2",
+    "schema-dts": "^1.1.2",
+    "surrealdb.js": "^1.0.0-beta.9",
+    "svelte-material-icons": "^3.0.5",
+    "zod": "^3.23.8"
+  }
+}

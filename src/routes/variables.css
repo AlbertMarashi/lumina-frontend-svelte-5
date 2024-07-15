@@ -1,0 +1,44 @@
+
+
+/** ===== GLOBAL CSS VARIABLES ===== */
+:root {
+    --brand-rgb: 116,70,246;
+    --brand: rgb(var(--brand-rgb));
+
+    /** Light Mode Theme */
+    --background-rgb: 255, 255, 255;
+    --background: rgb(var(--background-rgb));
+
+    --foreground-rgb: 17, 16, 15;
+    --foreground: rgb(var(--foreground-rgb));
+
+    /** Dark Mode Theme */
+    --background-rgb: 17, 16, 15;
+    --background: rgb(var(--background-rgb));
+
+    --foreground-rgb: 255, 255, 255;
+    --foreground: rgb(var(--foreground-rgb));
+
+    --red-rgb: 226, 84, 84;
+    --red: rgb(var(--red-rgb));
+
+    --orange-rgb: 255, 137, 71;
+    --orange: rgb(var(--orange-rgb));
+
+    --yellow-rgb: 242, 201, 76;
+    --yellow: rgb(var(--yellow-rgb));
+
+    --lime-rgb: 173, 212, 74;
+    --lime: rgb(var(--lime));
+
+    --green-rgb: 0, 180, 115;
+    --green: rgb(var(--green-rgb));
+
+    --blue-rgb: 84, 158, 226;
+    --blue: rgb(var(--blue-rgb));
+
+    --purple-rgb: 116, 70, 246;
+    --purple: rgb(var(--purple-rgb));
+
+    --copilot-rgb: var(--purple-rgb);
+}

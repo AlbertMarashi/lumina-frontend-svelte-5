@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "short_name": "Lumina",
+    "name": "Lumina Hub",
+    "id": "earth.lumina",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/images/lumina-app-icon.svg",
+            "type": "image/svg+xml",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/images/lumina-app-icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "background_color": "#15181C",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#7446F6",
+    "shortcuts": [
+
+    ],
+    "description": "Lumina Government Hub App"
+}
