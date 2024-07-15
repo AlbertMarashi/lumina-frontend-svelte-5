@@ -15,9 +15,12 @@ export async function load({ data }) {
 
     const db = await safe_db()
 
-    const [user_arr] = await db.typed(GetUserQuery)
+    let user: GetUserResult[0][0] | null = null
 
-    const user: typeof user_arr[0] | null = user_arr[0] ?? null
+    if (data.token) {
+        const [user_arr] = await db.typed(GetUserQuery)
+        user = user_arr[0] ?? null
+    }
 
     if(browser) {
         mixpanel.init(PUBLIC_MIXPANEL_TOKEN, { debug: dev })
