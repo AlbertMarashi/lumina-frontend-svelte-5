@@ -20,8 +20,8 @@ export async function POST({ request }) {
 
     if (!user) {
         throw error(400, {
-            code: "USER_NOT_FOUND",
-            message: "User not found",
+            code: "INVALID_CREDENTIALS",
+            message: "User not found or password is incorrect",
         })
     }
 

@@ -15,9 +15,10 @@ import ShieldAccount from "svelte-material-icons/ShieldAccount.svelte"
 import Web from "svelte-material-icons/Web.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
-import { signIn } from "@auth/sveltekit/client";
 import mixpanel from "mixpanel-browser";
 import { page } from "$app/stores";
+import { set_cookie } from "$lib/utils/cookie";
+import { invalidateAll } from "$app/navigation";
 
 enum DisplayPage {
     Email,
@@ -25,16 +26,15 @@ enum DisplayPage {
 }
 
 export let auth_page: string
+export let next: () => void
 
 let display = DisplayPage.Email
-
 let user = {
     email: "",
     password: "",
 }
 
 async function signin () {
-    console.log("signin")
     mixpanel.track("Authenticate", {
         mode: "login",
         method: "email_password"
@@ -42,11 +42,27 @@ async function signin () {
 
     const has_redirect = $page.url.searchParams.get("redirect")
 
-    await signIn("credentials", {
-        email: user.email,
-        password: user.password,
-        callbackUrl: has_redirect ? $page.url.href : "/app"
+    let res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+            email: user.email,
+            password: user.password,
+        }),
     })
+
+    console.log(res)
+
+    if (!res.ok) return $page.data.alerts.create_alert("error", await res.json())
+
+    let data = await res.json() as { token: string }
+
+    console.log(data)
+
+    $page.data.alerts.create_alert("success", "Login Successful")
+    set_cookie("token", null)
+    set_cookie("token", data.token)
+    await invalidateAll()
+    next()
 }
 
 </script>
