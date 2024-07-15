@@ -47,6 +47,7 @@ DEFINE FIELD user ON TABLE account TYPE record<user>;
 
 DEFINE INDEX search_by_user ON TABLE account COLUMNS user;
 DEFINE INDEX search_by_provider ON TABLE account COLUMNS provider, provider_id;
+DEFINE INDEX compound_unique_account ON TABLE account COLUMNS user, provider, provider_id UNIQUE;
 
 
 
@@ -62,7 +63,7 @@ DEFINE SCOPE users;
 -----------------
 DEFINE TABLE application SCHEMAFULL
     PERMISSIONS
-        FOR SELECT, CREATE, UPDATE WHERE user = $auth;
+        FOR SELECT, CREATE, UPDATE WHERE application.user = $auth;
 
 DEFINE FIELD created_at ON TABLE application TYPE datetime DEFAULT time::now();
 DEFINE FIELD updated_at ON TABLE application TYPE datetime VALUE time::now();
@@ -72,10 +73,37 @@ DEFINE FIELD application_type ON TABLE application TYPE string;
 -----------------
 -- QUESTION ASSESSMENTS --
 -----------------
+DEFINE TABLE question_assessment SCHEMAFULL
+    PERMISSIONS
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
 
+DEFINE FIELD user ON TABLE question_assessment TYPE record<user>;
+DEFINE FIELD updated_at ON TABLE question_assessment TYPE datetime VALUE time::now();
+DEFINE FIELD created_at ON TABLE question_assessment TYPE datetime DEFAULT time::now();
+DEFINE FIELD course_slug ON TABLE question_assessment TYPE string;
+DEFINE FIELD unit_slug ON TABLE question_assessment TYPE string;
+DEFINE FIELD question_slug ON TABLE question_assessment TYPE string;
+DEFINE FIELD answer ON TABLE question_assessment TYPE string;
+DEFINE FIELD feedback ON TABLE question_assessment TYPE string;
+DEFINE FIELD assessment ON TABLE question_assessment TYPE string;
 
------------------
---
+DEFINE INDEX compound_unique_assessment ON TABLE question_assessment COLUMNS user, course_slug, unit_slug, question_slug UNIQUE;
+
+-------------------
+-- UNIT PROGRESS --
+-------------------
+DEFINE TABLE unit_progress SCHEMAFULL
+    PERMISSIONS
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+
+DEFINE FIELD user ON TABLE unit_progress TYPE record<user>;
+DEFINE FIELD updated_at ON TABLE unit_progress TYPE datetime VALUE time::now();
+DEFINE FIELD status ON TABLE unit_progress TYPE string;
+DEFINE FIELD unit_slug ON TABLE unit_progress TYPE string;
+DEFINE FIELD course_slug ON TABLE unit_progress TYPE string;
+DEFINE FIELD created_at ON TABLE unit_progress TYPE datetime DEFAULT time::now();
+
+DEFINE INDEX compound_unique_progress ON TABLE unit_progress COLUMNS user, course_slug, unit_slug  UNIQUE;
 
 ------------------
 -- ORGANISATION --

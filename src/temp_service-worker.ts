@@ -36,18 +36,17 @@ self.addEventListener("push", event => {
 
                 body: event.data.text(),
                 icon: "/images/lumina-app-icon.png",
-                image: "/images/lumina-app-icon.png",
                 badge: "/images/lumina-app-icon.png",
-                actions: [
-                    {
-                        action: "open",
-                        title: "Open",
-                    },
-                    {
-                        action: "close",
-                        title: "Close",
-                    }
-                ]
+                // actions: [
+                //     {
+                //         action: "open",
+                //         title: "Open",
+                //     },
+                //     {
+                //         action: "close",
+                //         title: "Close",
+                //     }
+                // ]
                 // data:
             }
             await self.registration.showNotification(title, options)
