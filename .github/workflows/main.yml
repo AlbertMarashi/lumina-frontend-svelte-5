@@ -50,6 +50,9 @@ jobs:
     # - name: Sync Queries to the Database
     #   run: |
     #     bun sync:queries
+    - name: Install dependencies
+      run: |
+        bun i
     - name: Svelte Check
       run: |
         bun check
