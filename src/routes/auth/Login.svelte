@@ -15,11 +15,7 @@ import ShieldAccount from "svelte-material-icons/ShieldAccount.svelte"
 import Web from "svelte-material-icons/Web.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
-import mixpanel from "mixpanel-browser";
-import { page } from "$app/stores";
-import { set_cookie } from "$lib/utils/cookie";
-import { invalidateAll } from "$app/navigation";
-    import { safe_db } from "$lib/stores/database";
+import { login } from "$lib/utils/login.svelte"
 
 enum DisplayPage {
     Email,
@@ -36,30 +32,7 @@ let user = {
 }
 
 async function signin () {
-    const db = await safe_db()
-
-    mixpanel.track("Authenticate", {
-        mode: "login",
-        method: "email_password"
-    })
-
-    let res = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({
-            email: user.email,
-            password: user.password,
-        }),
-    })
-
-    if (!res.ok) return $page.data.alerts.create_alert("error", await res.json())
-
-    let data = await res.json() as { token: string }
-
-    $page.data.alerts.create_alert("success", "Login Successful")
-    await db.authenticate(data.token)
-    set_cookie("token", null)
-    set_cookie("token", data.token)
-    await invalidateAll()
+    await login(user.email, user.password)
     next()
 }
 
@@ -83,9 +56,9 @@ async function signin () {
             <Button
                 style="branded"
                 disabled={!user.email.includes("@")}
+                onclick={() => display = DisplayPage.Password}
                 right_icon={ChevronRight}
-                text="Enter password"
-                onclick={ () => display = DisplayPage.Password }/>
+                text="Enter password"/>
         {/if}
         {#if display === DisplayPage.Password}
             <div class="hidden">
@@ -98,9 +71,9 @@ async function signin () {
             <div class="segment">
                 <Segment
                     left_icon={Account}
+                    onclick={() => display = DisplayPage.Email}
                     right_icon={SwapHorizontal}
-                    text={user.email}
-                    onclick={ () => display = DisplayPage.Email }/>
+                    text={user.email}/>
             </div>
             <Password
                 focus_on_mount={true}
@@ -108,16 +81,16 @@ async function signin () {
             <Button
                 style="branded"
                 disabled={!user.password}
+                onclick={asyncStatus(signin)}
                 right_icon={ExitToApp}
-                text="Sign In"
-                onclick={ asyncStatus(signin) }/>
+                text="Sign In"/>
         {/if}
         <div
             class="forgot-password"
+            onclick={() => auth_page = "forgot-password"}
+            onkeydown={e => { if (e.key === "Enter") auth_page = "forgot-password" }}
             role="button"
-            tabindex="0"
-            onkeydown={ e => { if (e.key === "Enter") auth_page = "forgot-password" } }
-            onclick={ () => auth_page = "forgot-password" }>Forgot Password?</div>
+            tabindex="0">Forgot Password?</div>
     </Box>
 </Card>
 <div class="security">

@@ -37,7 +37,7 @@ export default [
             "array-element-newline": ["error", "consistent"],
             "no-self-assign": "off",
             "indent": ["error", 4, { "SwitchCase": 1 }],
-            "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+            "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" , "varsIgnorePattern": "^_" }],
             "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
             "svelte/indent": ["error", {
                 "indentScript": false,

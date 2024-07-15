@@ -17,7 +17,7 @@ DEFINE FIELD last_name ON TABLE user TYPE string;
 DEFINE FIELD email ON TABLE user TYPE string
     VALUE string::lowercase($value)
     ASSERT string::is::email($value);
-DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now() READONLY;
+DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now(); -- READONLY;
 DEFINE FIELD updated_at ON TABLE user TYPE datetime VALUE time::now();
 DEFINE FIELD image ON TABLE user TYPE option<string>;
 DEFINE FIELD calling_code ON TABLE user TYPE string;

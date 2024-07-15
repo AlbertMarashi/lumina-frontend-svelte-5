@@ -13,10 +13,8 @@ import asyncStatus from "$lib/utils/asyncStatus"
 import { page } from "$app/stores"
 import { safe_db } from "$lib/stores/database"
 import { CreateUserQuery } from "$lib/queries/surreal_queries"
-import { RecordId } from "surrealdb.js"
 import mixpanel from "mixpanel-browser"
-import { set_cookie } from "$lib/utils/cookie"
-import { invalidateAll } from "$app/navigation"
+import { login } from "$lib/utils/login.svelte"
 
 let {
     next
@@ -50,7 +48,7 @@ async function signup () {
     if (invalid || !phone.country) return
     const db = await safe_db()
     try {
-        let referrer = localStorage.getItem("referral")
+        // let referrer = localStorage.getItem("referral")
 
         let [created] = await db.typed(CreateUserQuery, {
             email: user.email,
@@ -77,26 +75,8 @@ async function signup () {
         return $page.data.alerts.create_alert("error", { code: "FAILED_ACCOUNT_CREATION", message: e })
     }
 
-    {
-        let res = await fetch("/api/login", {
-            method: "POST",
-            body: JSON.stringify({
-                email: user.email,
-                password: user.password,
-            }),
-        })
-
-
-        if (!res.ok) return $page.data.alerts.create_alert("error", await res.json())
-        let data = await res.json() as { token: string }
-
-        $page.data.alerts.create_alert("success", "Login Successful")
-        await db.authenticate(data.token)
-        set_cookie("token", null)
-        set_cookie("token", data.token)
-        await invalidateAll()
-        next()
-    }
+    await login(user.email, user.password)
+    next()
 }
 </script>
 <Card padding="24px">

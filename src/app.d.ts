@@ -10,8 +10,6 @@ declare global {
 		// interface Platform {}
 
 		interface Locals {
-			// Returns a safe client-authenticated SurrealDB
-			db: () => Promise<Surreal>
 			// Authenticated session
 			token: string | null
 		}

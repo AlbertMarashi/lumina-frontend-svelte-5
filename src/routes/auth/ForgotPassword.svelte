@@ -9,21 +9,17 @@ import ChevronRight from "svelte-material-icons/ChevronRight.svelte"
 import ShieldAccount from "svelte-material-icons/ShieldAccount.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
+import { api } from "$lib/utils/api"
+import { page } from "$app/stores"
 
 let email = $state("")
 
 async function reset_password () {
-// let res = await $page.data.graph.gmutation(SendPasswordResetEmailDocument, {
-    //     email
-    // })
+    let { error } = await api<{ error: unknown }>("/api/forgot-password", "POST", { email })
 
+    if (error) return $page.data.alerts.create_alert("error", error)
 
-    // if (!res.data || res.error) {
-    //     $page.data.alerts.create_alert("error", "Failed to send password reset email")
-    //     return
-    // }
-
-    // $page.data.alerts.create_alert("success", "Password reset email sent")
+    $page.data.alerts.create_alert("success", "Password reset email sent")
 }
 
 </script>
@@ -47,8 +43,8 @@ async function reset_password () {
         <Button
             style="branded"
             disabled={!email.includes("@")}
+            onclick={asyncStatus(reset_password)}
             right_icon={ChevronRight}
-            text="Send Reset Email"
-            on:click={ asyncStatus(reset_password) }/>
+            text="Send Reset Email"/>
     </Box>
 </Card>

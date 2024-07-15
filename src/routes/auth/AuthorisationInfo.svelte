@@ -13,9 +13,6 @@ import OpenInNew from "svelte-material-icons/OpenInNew.svelte"
 import ShieldCheck from "svelte-material-icons/ShieldCheck.svelte"
 import { scopes } from "./scopes"
 
-import { page } from "$app/stores"
-import OverlayLoading from "$lib/display/OverlayLoading.svelte"
-import { goto } from "$app/navigation"
 import type { OAuthApp } from "$lib/types/OAuth"
 import asyncStatus from "$lib/utils/asyncStatus"
 
@@ -124,9 +121,9 @@ async function authorise() {
         <Button
             style="branded"
             disabled={!user_selected}
+            onclick={asyncStatus(authorise)}
             right_icon={ShieldCheck}
-            text="Authorise"
-            on:click={ asyncStatus(authorise) }/>
+            text="Authorise"/>
     </div>
 </div>
 <style>

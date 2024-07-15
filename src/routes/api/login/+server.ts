@@ -1,6 +1,6 @@
 import { error, json } from "@sveltejs/kit"
 import { z } from "zod"
-import { surrealdb_admin } from "../../../surrealdb_admin.js"
+import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
 import { UserLoginQuery } from "$lib/queries/surreal_queries.js"
 import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 import { sign_jwt } from "$lib/utils/jwt.js"

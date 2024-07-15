@@ -17,12 +17,9 @@ import { goto, invalidateAll } from "$app/navigation"
 import PageHead from "$lib/components/PageHead.svelte"
 import { onMount } from "svelte"
 import ForgotPassword from "./ForgotPassword.svelte"
-import type { PageData } from "./$types"
 
 let {
     data,
-}: {
-    data: PageData
 } = $props()
 
 let auth_page = $state("select")

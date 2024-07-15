@@ -1,11 +1,11 @@
 <script lang="ts">
 import Icon from "$lib/display/Icon.svelte"
-import type { MeQueryQueryResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries/surreal_queries"
 import AccountCircle from "svelte-material-icons/AccountCircle.svelte"
 import SwapHorizontal from "svelte-material-icons/SwapHorizontal.svelte"
 
 export let auth_page: string
-export let user: MeQueryQueryResult[0]
+export let user: GetUserResult[0][0]
 
 </script>
 <button on:click={ () => auth_page = "select" }>

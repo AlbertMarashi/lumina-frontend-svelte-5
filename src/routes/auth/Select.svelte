@@ -5,12 +5,19 @@ import AccountCircle from "svelte-material-icons/AccountCircle.svelte"
 import ExitToApp from "svelte-material-icons/ExitToApp.svelte"
 import AccountPlus from "svelte-material-icons/AccountPlus.svelte"
 import ChevronRight from "svelte-material-icons/ChevronRight.svelte"
+import type { GetUserResult } from "$lib/queries/surreal_queries"
 
-export let auth_page: string
-export let user: App.PageData["user"]
-export let next: () => void
+let {
+    auth_page = $bindable(),
+    user,
+    next
+}: {
+    auth_page: string
+    user: GetUserResult[0][0] | null
+    next: () => void
+} = $props()
 
-let buttons = [
+let buttons = $derived([
     ...user ? [{
         title: `${user.first_name} ${user.last_name}`,
         icon: AccountCircle,
@@ -29,7 +36,7 @@ let buttons = [
         action: () => auth_page = "create",
         description: "Create an account for yourself"
     }
-]
+])
 
 </script>
 <div class="what-is">
@@ -49,11 +56,11 @@ let buttons = [
 </div>
 <div class="buttons">
     {#each buttons as button}
-        <button on:click={ button.action }>
+        <button onclick={button.action}>
             <div class="vertical">
                 <div class="horizontal">
                     <div class="icon">
-                        <svelte:component this={ button.icon }/>
+                        <Icon icon={button.icon}/>
                     </div>
                     <div class="title">
                         { button.title }
