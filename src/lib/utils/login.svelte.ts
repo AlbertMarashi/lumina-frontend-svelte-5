@@ -15,19 +15,20 @@ export async function login(email: string, password: string) {
         method: "email_password"
     })
 
-    const { token, error } = await api<{ token: string, error: unknown }>("/api/login", "POST", {
-        email,
-        password,
-    })
+    try {
+        const { token } = await api<{ token: string, error: unknown }>("/api/login", "POST", {
+            email,
+            password,
+        })
 
-    if (error) {
+        page_data.alerts.create_alert("success", "Login Successful")
+        await db.authenticate(token)
+        set_cookie("token", null)
+        set_cookie("token", token)
+        await invalidateAll()
+    } catch (error) {
+        console.error(error)
         page_data.alerts.create_alert("error", error)
         throw new Error("Failed to login")
     }
-
-    page_data.alerts.create_alert("success", "Login Successful")
-    await db.authenticate(token)
-    set_cookie("token", null)
-    set_cookie("token", token)
-    await invalidateAll()
 }

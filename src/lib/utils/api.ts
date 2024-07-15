@@ -8,7 +8,7 @@ export async function api<T>(url: string, method: string, body: Record<string, u
     })
 
     if (!res.ok) {
-        throw new Error(await res.json())
+        throw await res.json()
     } else {
         return await res.json()
     }
