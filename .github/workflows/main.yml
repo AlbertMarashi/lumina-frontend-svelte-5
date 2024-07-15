@@ -47,9 +47,9 @@ jobs:
 
         # Set the namespace to the branch name
         echo "PUBLIC_SURREAL_NAMESPACE=${{ github.ref_name }}" >> $GITHUB_ENV
-    - name: Sync Queries to the Database
-      run: |
-        bun sync:queries
+    # - name: Sync Queries to the Database
+    #   run: |
+    #     bun sync:queries
     - name: Svelte Check
       run: |
         bun check
