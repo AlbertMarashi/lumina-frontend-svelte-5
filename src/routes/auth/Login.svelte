@@ -19,6 +19,7 @@ import mixpanel from "mixpanel-browser";
 import { page } from "$app/stores";
 import { set_cookie } from "$lib/utils/cookie";
 import { invalidateAll } from "$app/navigation";
+    import { safe_db } from "$lib/stores/database";
 
 enum DisplayPage {
     Email,
@@ -35,12 +36,12 @@ let user = {
 }
 
 async function signin () {
+    const db = await safe_db()
+
     mixpanel.track("Authenticate", {
         mode: "login",
         method: "email_password"
     })
-
-    const has_redirect = $page.url.searchParams.get("redirect")
 
     let res = await fetch("/api/login", {
         method: "POST",
@@ -50,15 +51,12 @@ async function signin () {
         }),
     })
 
-    console.log(res)
-
     if (!res.ok) return $page.data.alerts.create_alert("error", await res.json())
 
     let data = await res.json() as { token: string }
 
-    console.log(data)
-
     $page.data.alerts.create_alert("success", "Login Successful")
+    await db.authenticate(data.token)
     set_cookie("token", null)
     set_cookie("token", data.token)
     await invalidateAll()

@@ -40,6 +40,7 @@
     "satori": "^0.10.14",
     "satori-html": "^0.3.2",
     "schema-dts": "^1.1.2",
+    "@sendgrid/mail": "^8.1.3",
     "surrealdb.js": "^1.0.0-beta.9",
     "svelte-material-icons": "^3.0.5",
     "zod": "^3.23.8"

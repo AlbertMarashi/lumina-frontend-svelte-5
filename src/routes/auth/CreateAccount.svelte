@@ -3,90 +3,100 @@ import ShieldAccount from "svelte-material-icons/ShieldAccount.svelte"
 import Email from "svelte-material-icons/Email.svelte"
 import Input from "$lib/controls/Input.svelte"
 import Button from "$lib/controls/Button.svelte"
-
 import Password from "$lib/controls/Password.svelte"
 import PhoneInput from "$lib/controls/PhoneInput.svelte"
 import type { Country } from "$lib/data/countries"
-import { createEventDispatcher } from "svelte"
 import Card from "$lib/layouts/Card.svelte"
 import Box from "$lib/layouts/Box.svelte"
 import Icon from "$lib/display/Icon.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
+import { page } from "$app/stores"
+import { safe_db } from "$lib/stores/database"
+import { CreateUserQuery } from "$lib/queries/surreal_queries"
+import { RecordId } from "surrealdb.js"
+import mixpanel from "mixpanel-browser"
+import { set_cookie } from "$lib/utils/cookie"
+import { invalidateAll } from "$app/navigation"
 
-let dispatch = createEventDispatcher<{ next: void }>()
+let {
+    next
+}: {
+    next: () => void
+} = $props()
 
-let user = {
+
+let user = $state({
     email: "",
     password: "",
     first_name: "",
     last_name: "",
-}
+})
 
-let phone: { country: Country | null, number: string } = {
+let phone: { country: Country | null, number: string } = $state({
     country: null,
     number: "",
-}
+})
 
-$: invalid = !(
+let invalid = $derived(!(
     user.email &&
     user.password &&
     user.first_name &&
     user.last_name &&
     phone.country &&
     phone.number
-)
+))
 
 async function signup () {
+    if (invalid || !phone.country) return
+    const db = await safe_db()
+    try {
+        let referrer = localStorage.getItem("referral")
 
-// {
-    //     if (invalid || !phone.country) return
+        let [created] = await db.typed(CreateUserQuery, {
+            email: user.email,
+            password: user.password,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            phone_number: phone.number,
+            country_code: phone.country.code,
+            calling_code: phone.country.calling_code,
+        // TODO
+            // referrer: undefined,
+        })
 
-    //     let referrer = localStorage.getItem("referral")
+        console.log(created)
 
-    //     const { error } = await $page.data.graph.gmutation(CreateUserDocument, {
-    //         first_name: user.first_name,
-    //         last_name: user.last_name,
-    //         email: user.email,
-    //         password: user.password,
-    //         calling_code: phone.country.calling_code,
-    //         country_code: phone.country.code,
-    //         phone_number: phone.number,
-    //         referrer,
-    //     })
+        if (!created) return $page.data.alerts.create_alert("error", { code: "FAILED_ACCOUNT_CREATION", message: "Failed to create account" })
 
-    //     if (error) {
-    //         $page.data.alerts.create_alert("error", error.message)
-    //         return
-    //     }
+        mixpanel.track("Create Account", {
+            country_code: phone.country.code,
+        })
 
-    //     $page.data.alerts.create_alert("success", "Account Created")
-    // }
+        $page.data.alerts.create_alert("success", "Account Created")
+    } catch (e) {
+        return $page.data.alerts.create_alert("error", { code: "FAILED_ACCOUNT_CREATION", message: e })
+    }
 
-    // {
-    //     let res = await fetch("/api/login", {
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //             email: user.email,
-    //             password: user.password
-    //         }),
-    //     })
+    {
+        let res = await fetch("/api/login", {
+            method: "POST",
+            body: JSON.stringify({
+                email: user.email,
+                password: user.password,
+            }),
+        })
 
-    //     let { data, errors } = await res.json() as { data?: LoginMutation, errors?: GraphQLError[]}
 
-    //     if (errors || !data) {
-    //         if (errors) {
-    //             for (let error of errors) {
-    //                 $page.data.alerts.create_alert("error", error.message)
-    //             }
-    //         } else {
-    //             $page.data.alerts.create_alert("error", "Login failed")
-    //         }
-    //     } else {
-    //         $page.data.alerts.create_alert("success", "Login Successful")
-    //         set_cookie("token", data.auth_token)
-    //         dispatch("next")
-    //     }
-    // }
+        if (!res.ok) return $page.data.alerts.create_alert("error", await res.json())
+        let data = await res.json() as { token: string }
+
+        $page.data.alerts.create_alert("success", "Login Successful")
+        await db.authenticate(data.token)
+        set_cookie("token", null)
+        set_cookie("token", data.token)
+        await invalidateAll()
+        next()
+    }
 }
 </script>
 <Card padding="24px">
@@ -128,13 +138,13 @@ async function signup () {
         </div>
         <Password
             autocomplete="new-password"
-            on:keyup={ e => { if (e.key === "Enter" && user.password) asyncStatus(signup)() } }
             bind:value={ user.password }/>
         <Button
             style="branded"
             disabled={invalid}
+            onclick={asyncStatus(signup)}
             right_icon={ShieldAccount}
-            on:click={ asyncStatus(signup) }/>
+            text="Create Account"/>
     </Box>
 </Card>
 <style>

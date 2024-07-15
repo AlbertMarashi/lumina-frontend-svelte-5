@@ -21,12 +21,14 @@ import type { PageData } from "./$types"
 
 let {
     data,
-} = $props<{
+}: {
     data: PageData
-}>()
+} = $props()
 
 let auth_page = $state("select")
-let user = $derived(data.session?.user)
+let user = $derived(data.user)
+
+$inspect(data.user)
 
 async function next() {
     if (data.app_info){
@@ -74,7 +76,7 @@ onMount(() => {
                     next={next}
                     bind:auth_page/>
             {:else if auth_page == "forgot-password"}
-                <ForgotPassword next={next}/>
+                <ForgotPassword/>
             {:else if auth_page == "create"}
                 <CreateAccount next={next}/>
             {/if}

@@ -1,6 +1,7 @@
+import type { GetUserResult } from "$lib/queries/surreal_queries"
 import type { AlertsStore } from "$lib/stores/alerts"
 import type { Surreal } from "surrealdb.js"
-import type { Session } from "@auth/core/types"
+// import type { Session } from "@auth/core/types"
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
@@ -12,7 +13,6 @@ declare global {
 			// Returns a safe client-authenticated SurrealDB
 			db: () => Promise<Surreal>
 			// Authenticated session
-			session: Session | null
 			token: string | null
 		}
 
@@ -20,7 +20,7 @@ declare global {
 			// Safe client-authenticated SurrealDB
 			db: Surreal;
             alerts: AlertsStore;
-			session?: Session | null
+			user: GetUserResult[0][0] | null
 		}
 
 		interface Error {
@@ -32,36 +32,36 @@ declare global {
 	}
 }
 
-declare module "@auth/core/types" {
-	// interface JWT {
-	// 	id: string
-	// 	email: string
-	// 	name: string
-	// 	image?: string
-	// }
+// declare module "@auth/core/types" {
+// 	// interface JWT {
+// 	// 	id: string
+// 	// 	email: string
+// 	// 	name: string
+// 	// 	image?: string
+// 	// }
 
-	interface User {
-		id: string
-		name: string
-		email: string
-		image?: string,
-		provider?: string,
-	}
+// 	interface User {
+// 		id: string
+// 		name: string
+// 		email: string
+// 		image?: string,
+// 		provider?: string,
+// 	}
 
-	interface Session {
-		user: User//& DefaultSession["user"]
-		expires: string
-	}
-}
+// 	interface Session {
+// 		user: User//& DefaultSession["user"]
+// 		expires: string
+// 	}
+// }
 
-declare module "@auth/core/jwt" {
-	interface JWT {
-		id: string
-		email: string
-		name: string
-		image?: string
-	}
-}
+// declare module "@auth/core/jwt" {
+// 	interface JWT {
+// 		id: string
+// 		email: string
+// 		name: string
+// 		image?: string
+// 	}
+// }
 
 
 declare module "svelte/elements" {

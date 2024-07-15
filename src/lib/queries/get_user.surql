@@ -6,4 +6,4 @@ SELECT
     role
     // referral count
     -- citizenship_status
-FROM ONLY $auth
+FROM $auth LIMIT 1

@@ -8,14 +8,16 @@ DEFINE TABLE user SCHEMAFULL
             -- OR ... let users see other users if... temporary disabled
         FOR UPDATE
             # Allow users to update their own details
-            WHERE id = $auth;
+            WHERE id = $auth
+        FOR CREATE
+            WHERE true;
 
 DEFINE FIELD first_name ON TABLE user TYPE string;
 DEFINE FIELD last_name ON TABLE user TYPE string;
 DEFINE FIELD email ON TABLE user TYPE string
     VALUE string::lowercase($value)
     ASSERT string::is::email($value);
-DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now();
+DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now() READONLY;
 DEFINE FIELD updated_at ON TABLE user TYPE datetime VALUE time::now();
 DEFINE FIELD image ON TABLE user TYPE option<string>;
 DEFINE FIELD calling_code ON TABLE user TYPE string;
@@ -27,9 +29,10 @@ DEFINE FIELD referrer ON TABLE user TYPE option<record<user>>;
 # Users can have no password because of oauth
 # Must be bcrypted
 DEFINE FIELD password ON TABLE user TYPE option<string>
-    # Disable users from changing or reading their password
-    # May allow them to change their own password in the future
-    PERMISSIONS NONE;
+    PERMISSIONS
+        FOR DELETE, SELECT WHERE false
+        FOR UPDATE WHERE id = $auth
+        FOR CREATE WHERE true;
 
 DEFINE INDEX email_index ON TABLE user COLUMNS email UNIQUE;
 

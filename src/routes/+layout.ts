@@ -3,7 +3,7 @@ import { browser, dev } from "$app/environment"
 import { PUBLIC_MIXPANEL_TOKEN } from "$env/static/public"
 import mixpanel from "mixpanel-browser"
 import { init_safe_surreal_db_client, isolated_global, safe_db } from "$lib/stores/database"
-import { GetUserQuery } from "$lib/queries/surreal_queries.js"
+import { GetUserQuery, type GetUserResult } from "$lib/queries/surreal_queries.js"
 
 export async function load({ data }) {
     const alerts = alerts_init([])
@@ -15,7 +15,9 @@ export async function load({ data }) {
 
     const db = await safe_db()
 
-    const [user] = await db.typed(GetUserQuery)
+    const [user_arr] = await db.typed(GetUserQuery)
+
+    const user: typeof user_arr[0] | null = user_arr[0] ?? null
 
     if(browser) {
         mixpanel.init(PUBLIC_MIXPANEL_TOKEN, { debug: dev })

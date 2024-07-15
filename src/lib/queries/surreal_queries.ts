@@ -1,13 +1,25 @@
-import { type RecordId, Surreal } from "surrealdb.js"
+import { type RecordId, Surreal } from 'surrealdb.js';
 export const UserLoginQuery = "SELECT * FROM user WHERE email = $email AND password AND crypto::bcrypt::compare(password, $password) LIMIT 1;"
-export type UserLoginResult = [Array<{calling_code:string,country_code:string,email:string,first_name:string,id:RecordId< |"user">,image:string|null,joined:Date,last_name:string,password:string|null,phone_number:string,referrer:RecordId< |"user">|null,role:string|null,stripe_customer_id:string|null,updated_at:Date,}>,]
+export type UserLoginResult = [Array<{calling_code:string,country_code:string,email:string,first_name:string,id:RecordId< |'user'>,image:string|undefined,joined:Date,last_name:string,password:string|undefined,phone_number:string,referrer:RecordId< |'user'>|undefined,role:string|undefined,stripe_customer_id:string|undefined,updated_at:Date,}>,]
 export type UserLoginVariables = {    password: string,
     email: string,
 }
-export const GetUserQuery = "SELECT id, first_name, last_name, email, role FROM ONLY $auth;"
-export type GetUserResult = [{email:string,first_name:string,id:RecordId< |"user">,last_name:string,role:string|null,},]
+export const CreateUserQuery = "CREATE ONLY user SET email = $email, password = crypto::bcrypt::generate($password), first_name = $first_name, last_name = $last_name, phone_number = $phone_number, country_code = $country_code, calling_code = $calling_code, referrer = $referrer;"
+export type CreateUserResult = [{calling_code:string,country_code:string,email:string,first_name:string,id:RecordId< |'user'>,image:string|undefined,joined:Date,last_name:string,password:string|undefined,phone_number:string,referrer:RecordId< |'user'>|undefined,role:string|undefined,stripe_customer_id:string|undefined,updated_at:Date,},]
+export type CreateUserVariables = {    first_name: string,
+    calling_code: string,
+    referrer?: RecordId< |'user'>,
+    last_name: string,
+    password: string,
+    phone_number: string,
+    country_code: string,
+    email: string,
+}
+export const GetUserQuery = "SELECT id, first_name, last_name, email, role FROM $auth LIMIT 1;"
+export type GetUserResult = [Array<{email:string,first_name:string,id:RecordId< |'user'>,last_name:string,role:string|undefined,}>,]
 export type Queries = {
     [UserLoginQuery]: {variables: UserLoginVariables, result: UserLoginResult }
+    [CreateUserQuery]: {variables: CreateUserVariables, result: CreateUserResult }
     [GetUserQuery]: {variables: never, result: GetUserResult }
 }
 

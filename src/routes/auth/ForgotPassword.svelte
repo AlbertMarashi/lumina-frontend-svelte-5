@@ -10,8 +10,8 @@ import ShieldAccount from "svelte-material-icons/ShieldAccount.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
 
+let email = $state("")
 
-let email = ""
 async function reset_password () {
 // let res = await $page.data.graph.gmutation(SendPasswordResetEmailDocument, {
     //     email
