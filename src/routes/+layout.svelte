@@ -40,6 +40,9 @@ afterNavigate(() => {
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .light_mode {
