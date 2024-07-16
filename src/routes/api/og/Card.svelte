@@ -1,7 +1,7 @@
 <script lang="ts">
 import LogoEdge from "$lib/icons/LogoEdge.svelte"
 import Settlement from "$lib/icons/Settlement.svelte"
-import "../../../variables.css"
+import "../../variables.css"
 export let title: string
 export const description: string | null = null
 
