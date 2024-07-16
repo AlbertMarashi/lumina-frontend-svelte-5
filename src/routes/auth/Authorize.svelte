@@ -29,7 +29,7 @@ export let user: GetUserResult[0][0]
 </button>
 <style>
 button {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(var(--foreground-rgb), 0.08);
     display: flex;
     align-items: center;
     border-radius: 4px;
@@ -37,7 +37,7 @@ button {
     padding: 24px;
     width: 100%;
     &:is(:hover, :focus) {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(var(--foreground-rgb), 0.04);
     }
 }
 

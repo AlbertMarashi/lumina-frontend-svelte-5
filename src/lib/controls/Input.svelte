@@ -90,10 +90,10 @@ onMount(() => {
     cursor: pointer;
     border-radius: 50px;
     &:hover {
-        background: color-mix(white, 6%);
+        background: color-mix(var(--foreground), 6%);
     }
     &:active {
-        background: color-mix(white, 12%);
+        background: color-mix(var(--foreground), 12%);
     }
 }
 
@@ -111,7 +111,7 @@ input {
     padding-left: 6px;
     margin: 0;
     &::placeholder {
-        color: white;
+        color: var(--foreground);
         opacity: 0.3;
     }
 }
@@ -122,7 +122,7 @@ input {
     align-items: center;
     cursor: text;
     display: flex;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--foreground-rgb), 0.1);
 }
 
 .icon {
@@ -130,6 +130,6 @@ input {
     padding: 6px;
     display: inline-flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(var(--foreground-rgb), 0.5);
 }
 </style>

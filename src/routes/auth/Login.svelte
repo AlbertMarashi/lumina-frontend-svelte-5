@@ -43,7 +43,8 @@ async function signin () {
         max_width="360px">
         <Heading
             center={true}
-            left_icon={ShieldAccount}>Login</Heading>
+            left_icon={ShieldAccount}
+            text="Login"/>
         {#if display === DisplayPage.Email}
             <Input
                 name="email"
@@ -56,9 +57,9 @@ async function signin () {
             <Button
                 style="branded"
                 disabled={!user.email.includes("@")}
+                label="Enter password"
                 onclick={() => display = DisplayPage.Password}
-                right_icon={ChevronRight}
-                text="Enter password"/>
+                right_icon={ChevronRight}/>
         {/if}
         {#if display === DisplayPage.Password}
             <div class="hidden">
@@ -81,9 +82,9 @@ async function signin () {
             <Button
                 style="branded"
                 disabled={!user.password}
+                label="Sign In"
                 onclick={asyncStatus(signin)}
-                right_icon={ExitToApp}
-                text="Sign In"/>
+                right_icon={ExitToApp}/>
         {/if}
         <div
             class="forgot-password"
@@ -130,7 +131,7 @@ async function signin () {
     align-items: center;
     gap: 12px;
     margin-top: 10px;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(var(--foreground-rgb), 0.06);
     padding: 10px;
     border-radius: 4px;
 }
@@ -146,7 +147,7 @@ async function signin () {
     outline: 0;
 
     &:is(:hover, :focus) {
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(var(--foreground-rgb), 0.06);
     }
 }
 </style>

@@ -49,7 +49,8 @@ async function reset_password() {
             padding={true}>
             <Heading
                 center={true}
-                left_icon={ShieldAccount}>Reset Password</Heading>
+                left_icon={ShieldAccount}
+                text="Reset Password"/>
             <div class="email">
                 { data.email }
             </div>
@@ -59,9 +60,9 @@ async function reset_password() {
             <Button
                 style="branded"
                 disabled={!password}
+                label="Reset Password"
                 onclick={asyncStatus(reset_password)}
-                right_icon={Send}
-                text="Reset Password"/>
+                right_icon={Send}/>
         </Box>
     </Card>
 </div>
@@ -69,8 +70,8 @@ async function reset_password() {
     .email {
         padding: 6px;
         border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(var(--foreground-rgb), 0.08);
+        color: rgba(var(--foreground-rgb), 0.6);
         align-self: center;
     }
 

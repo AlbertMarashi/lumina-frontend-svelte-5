@@ -81,7 +81,7 @@ let buttons = $derived([
 .buttons {
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--foreground-rgb), 0.04);
     border-radius: 4px;
     width: 100%;
     overflow: hidden;
@@ -92,10 +92,10 @@ button {
     align-items: center;
     outline: 0;
     padding: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(var(--foreground-rgb), 0.1);
 
     &:is(:hover, :focus) {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(var(--foreground-rgb), 0.04);
     }
 
     &:first-child {

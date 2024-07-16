@@ -24,7 +24,7 @@ a {
 
 a:hover {
     color: rgba(var(--brand-rgb), 0.8);
-    color: color-mix(in srgb, var(--brand) 80%, var(--white) 20%);
+    color: color-mix(in srgb, var(--brand) 80%, var(--foreground) 20%);
 }
 
 hr {

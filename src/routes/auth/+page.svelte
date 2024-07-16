@@ -77,9 +77,9 @@ onMount(() => {
             {/if}
             <Button
                 style="transparent"
+                label="Back"
                 left_icon={ArrowLeft}
-                onclick={() => auth_page = "select"}
-                text="Back"/>
+                onclick={() => auth_page = "select"}/>
         {/if}
     </div>
     {#if data.app_info}
@@ -102,7 +102,7 @@ onMount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--foreground-rgb), 0.04);
 }
 
 .flex {

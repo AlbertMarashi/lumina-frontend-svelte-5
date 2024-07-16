@@ -21,7 +21,7 @@ export let name: string | undefined = undefined
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: white;
+    color: var(--foreground);
     width: 100%;
 }
 </style>

@@ -121,9 +121,9 @@ async function authorise() {
         <Button
             style="branded"
             disabled={!user_selected}
+            label="Authorise"
             onclick={asyncStatus(authorise)}
-            right_icon={ShieldCheck}
-            text="Authorise"/>
+            right_icon={ShieldCheck}/>
     </div>
 </div>
 <style>
@@ -135,7 +135,7 @@ async function authorise() {
 }
 
 .logo {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(var(--foreground-rgb), 0.06);
     display: inline-flex;
     border-radius: 8px;
     color: var(--green);
@@ -144,8 +144,8 @@ async function authorise() {
 .app-tag {
     font-size: 18px;
     font-weight: 600;
-    color: white;
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--foreground);
+    background: rgba(var(--foreground-rgb), 0.06);
     border-radius: 4px;
     padding: 6px 10px;
 }
@@ -161,21 +161,21 @@ async function authorise() {
         gap: 12px;
 
         & span {
-            color: white;
+            color: var(--foreground);
             font-weight: 500;
         }
     }
 }
 .section {
     padding: 24px 0;
-    border-bottom: 1px solid color-mix(in srgb, white 10%, transparent);
-    color: color-mix(in srgb, white 60%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    color: color-mix(in srgb, var(--foreground) 60%, transparent);
     gap: 12px;
     display: flex;
     flex-direction: column;
 
     & strong {
-        color: white;
+        color: var(--foreground);
         font-weight: 600;
     }
 

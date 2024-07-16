@@ -36,7 +36,7 @@ let {
 
 @keyframes loading-message {
     from {
-        color: white;
+        color: var(--foreground);
     }
     to {
         color: var(--brand);

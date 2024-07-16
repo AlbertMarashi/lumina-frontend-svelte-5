@@ -20,6 +20,8 @@ export async function load({ data }) {
     if (data.token) {
         const [user_arr] = await db.typed(GetUserQuery)
         user = user_arr[0] ?? null
+    } else {
+        db.invalidate()
     }
 
     if(browser) {

@@ -79,15 +79,15 @@ export function focus() {
 
 .other-option {
     padding: 16px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
     cursor: pointer;
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(var(--foreground-rgb), 0.5);
     &:last-child {
         border-bottom: none;
     }
     & strong {
-        color: white;
+        color: var(--foreground);
     }
     font-weight: 500;
     border-radius: 4px;
@@ -102,9 +102,9 @@ export function focus() {
 .option {
     padding: 6px;
     width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.08);
     &:is(:hover, :focus) {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(var(--foreground-rgb), 0.04);
         outline: 0;
         cursor: pointer;
     }

@@ -78,9 +78,9 @@ onMount(detectServiceWorkerUpdate)
     text-align: center;
     padding: 16px;
     background: var(--background);
-    border: 1px solid color-mix(in srgb, white, 10%);
+    border: 1px solid rgba(var(--foreground-rgb), 0.1);
     border-radius: 4px;
-    box-shadow: 0 0 5px color-mix(in srgb, black, 10%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     gap: 16px;
 
     & .alert-title {

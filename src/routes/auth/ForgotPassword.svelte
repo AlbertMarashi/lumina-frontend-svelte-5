@@ -29,9 +29,8 @@ async function reset_password () {
         max_width="360px">
         <Heading
             center={true}
-            left_icon={ShieldAccount}>
-            Reset Password
-        </Heading>
+            left_icon={ShieldAccount}
+            text="Reset Password"/>
         <Input
             name="email"
             autocomplete="email"
@@ -43,8 +42,8 @@ async function reset_password () {
         <Button
             style="branded"
             disabled={!email.includes("@")}
+            label="Send Reset Email"
             onclick={asyncStatus(reset_password)}
-            right_icon={ChevronRight}
-            text="Send Reset Email"/>
+            right_icon={ChevronRight}/>
     </Box>
 </Card>

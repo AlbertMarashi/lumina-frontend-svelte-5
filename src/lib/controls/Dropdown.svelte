@@ -67,7 +67,7 @@ async function resize() {
 }
 
 .dropdown {
-    background: color-mix(in srgb, var(--background) 90%, white);
+    background: color-mix(in srgb, var(--background) 90%, var(--foreground));
     box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;

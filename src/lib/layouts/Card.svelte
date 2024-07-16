@@ -55,8 +55,8 @@ function handle_keyup(e: KeyboardEvent) {
 <style>
 .card {
     border-radius: 6px;
-    color: white;
-    background: color-mix(in srgb, white 4%, var(--background));
+    color: var(--foreground);
+    background: color-mix(in srgb, var(--foreground) 4%, var(--background));
     width: 100%;
     display: flex;
     outline: none;
@@ -69,7 +69,7 @@ function handle_keyup(e: KeyboardEvent) {
         cursor: pointer;
 
         &:hover {
-            background: color-mix(in srgb, white 8%, var(--background));
+            background: color-mix(in srgb, var(--foreground) 8%, var(--background));
         }
 
         &:focus-visible, &:focus {
@@ -79,11 +79,12 @@ function handle_keyup(e: KeyboardEvent) {
     }
 
     &.shadow {
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 8px -4px rgba(0, 0, 0, 0.5);
+        /* border: 1px solid rgba(var(--foreground-rgb), 0.05); */
     }
 
     &.reset_bg {
-        background: color-mix(in srgb, white 10%, var(--background));
+        background: color-mix(in srgb, var(--foreground) 6%, var(--background));
 
     }
 

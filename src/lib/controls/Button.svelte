@@ -8,16 +8,16 @@ let {
     style = "branded",
     hug = true,
     disabled,
-    text,
+    label,
     onclick = () => {},
 } = $props<{
     href?: string | null
-    left_icon?: IconComponent
-    right_icon?: IconComponent
-    style: "translucent" | "transparent" | "branded"
+    left_icon?: IconComponent | string
+    right_icon?: IconComponent | string
+    style?: "translucent" | "transparent" | "branded"
     hug?: boolean
     disabled?: boolean
-    text?: string
+    label?: string
     onclick?: (e: Event) => void
 }>()
 
@@ -33,6 +33,7 @@ function handle_keyup(e: KeyboardEvent) {
         clicked(e)
     }
 }
+
 </script>
 
 <svelte:element
@@ -48,17 +49,27 @@ function handle_keyup(e: KeyboardEvent) {
 >
     {#if left_icon}
         <span class="icon">
-            <svelte:component this={ left_icon } />
+            {#if typeof left_icon !== "string"}
+                <svelte:component this={ left_icon } />
+            {:else if typeof left_icon === "string"}
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                {@html left_icon}
+            {/if}
         </span>
     {/if}
-    {#if text}
+    {#if label}
         <span class="text">
-            { text }
+            { label }
         </span>
     {/if}
     {#if right_icon}
         <span class="icon">
-            <svelte:component this={ right_icon } />
+            {#if typeof right_icon !== "string"}
+                <svelte:component this={ right_icon } />
+            {:else if typeof right_icon === "string"}
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                {@html right_icon}
+            {/if}
         </span>
     {/if}
 </svelte:element>
@@ -66,7 +77,7 @@ function handle_keyup(e: KeyboardEvent) {
 <style>
 .button {
     padding: 10px 10px;
-    color: white;
+    color: var(--foreground);
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
@@ -94,9 +105,10 @@ function handle_keyup(e: KeyboardEvent) {
 
         &.branded {
             background: var(--brand);
+            color: white;
 
             &:is(:hover, :focus) {
-                background: color-mix(in srgb, var(--brand), white 14%);
+                background: color-mix(in srgb, var(--brand), var(--foreground) 14%);
             }
 
             &:active {
@@ -105,28 +117,28 @@ function handle_keyup(e: KeyboardEvent) {
         }
 
         &.translucent {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(var(--foreground-rgb), 0.08);
 
             &:hover, &:focus {
-                background: color-mix(in srgb, white 14%, transparent);
+                background: color-mix(in srgb, var(--foreground) 14%, transparent);
             }
 
             &:active {
-                background: rgba(255, 255, 255, 0.08);
+                background: rgba(var(--foreground-rgb), 0.08);
             }
         }
 
         &.transparent {
-            color: color-mix(in srgb, white 60%, transparent);
-            background: color-mix(in srgb, white 0%, transparent);
+            color: color-mix(in srgb, var(--foreground) 60%, transparent);
+            background: color-mix(in srgb, var(--foreground) 0%, transparent);
 
             &:hover, &:focus {
-                background: color-mix(in srgb, white 12%, transparent);
-                color: white;
+                background: color-mix(in srgb, var(--foreground) 12%, transparent);
+                color: var(--foreground);
             }
 
             &:active {
-                background: rgba(255, 255, 255, 0.06);
+                background: rgba(var(--foreground-rgb), 0.06);
             }
         }
     }
@@ -134,9 +146,9 @@ function handle_keyup(e: KeyboardEvent) {
     &.disabled {
         cursor: default;
         background: transparent;
-        outline: 1px solid rgba(255, 255, 255, 0.1);
+        outline: 1px solid rgba(var(--foreground-rgb), 0.1);
         outline-offset: 1px;
-        color: color-mix(in srgb, white 30%, transparent);
+        color: color-mix(in srgb, var(--foreground) 30%, transparent);
     }
 }
 </style>

@@ -111,7 +111,7 @@ let search_component: Search
         flex: 1;
         display: flex;
         align-items: center;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(var(--foreground-rgb), 0.1);
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
     }
@@ -131,7 +131,7 @@ let search_component: Search
         margin: 0;
 
         &::placeholder {
-            color: white;
+            color: var(--foreground-rgb);
             opacity: 0.3;
         }
     }
@@ -144,13 +144,13 @@ let search_component: Search
         align-items: center;
         padding-left: 6px;
         height: 44px;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(var(--foreground-rgb), 0.1);
 
         &:focus,
         &:hover {
             outline: none;
             cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(var(--foreground-rgb), 0.15);
         }
 
         & .country-data {
@@ -169,12 +169,12 @@ let search_component: Search
             }
         }
 
-        & .country-title {
+        /* & .country-title {
             font-size: 13px;
             text-transform: uppercase;
             font-weight: 500;
-            color: color-mix(white, rgba(255, 255, 255, 0.8));
-        }
+            color: color-mix(in srgb, var(--background) rgba(var(--foreground-rgb), 0.8));
+        } */
     }
 }
 :global {
@@ -1516,7 +1516,7 @@ let search_component: Search
         width: 40px;
         height: 30px;
         background-repeat: no-repeat;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(var(--foreground-rgb), 0.1);
         background-position: 0px 0;
     }
 

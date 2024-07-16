@@ -31,7 +31,7 @@ export function focus() {
 <style>
 .search-wrapper {
     padding: 0 12px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(var(--foreground-rgb), 0.08);
     display: flex;
     align-items: center;
     font-size: 16px;
@@ -45,6 +45,6 @@ export function focus() {
     padding: 8px 0;
     font-size: 16px;
     outline: 0;
-    color: white
+    color:  var(--foreground);
 }
 </style>

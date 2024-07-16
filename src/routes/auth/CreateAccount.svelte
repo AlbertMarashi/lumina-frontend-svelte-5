@@ -122,9 +122,9 @@ async function signup () {
         <Button
             style="branded"
             disabled={invalid}
+            label="Create Account"
             onclick={asyncStatus(signup)}
-            right_icon={ShieldAccount}
-            text="Create Account"/>
+            right_icon={ShieldAccount}/>
     </Box>
 </Card>
 <style>

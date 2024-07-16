@@ -68,8 +68,8 @@ $: tag = href ? "a" : "div" as "a" | "div"
 <style>
 .segment {
     padding: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    color: white;
+    background: rgba(var(--foreground-rgb), 0.06);
+    color: var(--foreground);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -78,7 +78,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
     font-weight: 500;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(var(--foreground-rgb), 0.1);
     }
 
     &:focus-visible {
@@ -89,7 +89,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
     &.branded {
         background: var(--brand);
         &:hover {
-            background: color-mix(in srgb, var(--brand), white 12%);
+            background: color-mix(in srgb, var(--brand), var(--foreground) 12%);
         }
     }
 
@@ -97,7 +97,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
         cursor: default;
         opacity: 0.5;
         background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(var(--foreground-rgb), 0.1);
     }
     & .text {
         padding: 2px 6px;

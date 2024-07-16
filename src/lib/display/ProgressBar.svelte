@@ -26,7 +26,7 @@ $: progress.set(width, {
 .progress-bar {
     width: 100%;
     height: 12px;
-    background: color-mix(in srgb, white, 10%);
+    background: rgba(var(--foreground-rgb), 0.1);
     overflow: hidden;
     border-radius: 50px;
 }

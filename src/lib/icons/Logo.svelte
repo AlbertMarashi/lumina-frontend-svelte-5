@@ -17,7 +17,7 @@ import Lumina from "$lib/icons/LogoEdge.svelte"
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: white;
+    color: var(--foreground);
 
     & .symbol {
         font-size: 30px;

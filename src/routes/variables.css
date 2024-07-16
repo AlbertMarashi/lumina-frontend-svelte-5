@@ -6,18 +6,18 @@
     --brand: rgb(var(--brand-rgb));
 
     /** Light Mode Theme */
-    --background-rgb: 255, 255, 255;
+    --background-rgb: 242, 240, 245;
     --background: rgb(var(--background-rgb));
 
-    --foreground-rgb: 17, 16, 15;
+    --foreground-rgb: 16, 14, 18;
     --foreground: rgb(var(--foreground-rgb));
 
     /** Dark Mode Theme */
-    --background-rgb: 17, 16, 15;
+    /* --background-rgb: 23, 23, 28;
     --background: rgb(var(--background-rgb));
 
     --foreground-rgb: 255, 255, 255;
-    --foreground: rgb(var(--foreground-rgb));
+    --foreground: rgb(var(--foreground-rgb)); */
 
     --red-rgb: 226, 84, 84;
     --red: rgb(var(--red-rgb));
