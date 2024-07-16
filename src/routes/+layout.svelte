@@ -20,10 +20,33 @@ afterNavigate(() => {
     })
 })
 </script>
-<PageLoaderBar/>
-<AlertBar/>
+<div
+    class="wrapper"
+    class:light_mode={ !global_state.dark_mode }>
 
-{#if global_state.loading}
-    <OverlayLoading position="fixed"/>
-{/if}
-{@render children()}
+    <PageLoaderBar/>
+    <AlertBar/>
+
+    {#if global_state.loading}
+        <OverlayLoading position="fixed"/>
+    {/if}
+    {@render children()}
+</div>
+<style>
+
+.wrapper {
+    background: var(--background);
+    color: var(--foreground);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.light_mode {
+    --background-rgb: 242, 240, 245;
+    --background: rgb(var(--background-rgb));
+
+    --foreground-rgb: 16, 14, 18;
+    --foreground: rgb(var(--foreground-rgb));
+}
+</style>

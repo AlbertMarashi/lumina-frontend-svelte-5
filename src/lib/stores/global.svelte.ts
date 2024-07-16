@@ -1,4 +1,5 @@
 
 export const global_state = $state({
-    loading: false
+    loading: false,
+    dark_mode: true,
 })

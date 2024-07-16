@@ -24,6 +24,9 @@ import TikTok from "$lib/icons/TikTok.svelte"
 import Facebook from "svelte-material-icons/Facebook.svelte"
 import Youtube from "svelte-material-icons/Youtube.svelte"
 import type { GetUserResult } from "$lib/queries/surreal_queries"
+import { global_state } from "$lib/stores/global.svelte"
+import Moon from "svelte-material-icons/WeatherNight.svelte"
+import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
 
 let {
     sidebar_opened = $bindable(),
@@ -52,6 +55,10 @@ function toggle(toggling: "notifications" | "account") {
                 icon={ChevronDoubleLeft}
                 onclick={() => sidebar_opened = !sidebar_opened}/>
             <Logo/>
+            <spacer></spacer>
+            <IconButton
+                icon={global_state.dark_mode ? Moon : Sun}
+                onclick={() => global_state.dark_mode = !global_state.dark_mode}/>
         </div>
         <div class="section">
             <NavLink
@@ -198,6 +205,9 @@ aside {
     }
 }
 
+spacer {
+    flex: 1;
+}
 .scrim {
     position: fixed;
     top: 0;
@@ -221,6 +231,7 @@ aside {
     & .top {
         display: flex;
         gap: 8px;
+        /* justify-content: space-between; */
         padding: 0 8px;
     }
 

@@ -46,7 +46,7 @@ function handle_keyup(e: KeyboardEvent) {
     font-weight: 600;
     font-size: 24px;
     &.opacity {
-        color: color-mix(in srgb, var(--foreground) 40%, transparent);
+        color: color-mix(in srgb, var(--foreground) 60%, transparent);
     }
 
     &:hover {

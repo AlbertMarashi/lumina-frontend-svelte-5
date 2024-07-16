@@ -14,6 +14,7 @@ a {
     padding: 10px;
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 8px;
     font-weight: 500;
     justify-content: center;

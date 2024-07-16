@@ -11,6 +11,9 @@ import { onMount } from "svelte"
 import Button from "$lib/controls/Button.svelte"
 import { getNearestScrollableParent } from "$lib/utils/scrollable_parent"
 import type { GetUserResult } from "$lib/queries/surreal_queries"
+import { global_state } from "$lib/stores/global.svelte"
+import Moon from "svelte-material-icons/WeatherNight.svelte"
+import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
 
 let {
     sidebar_opened = $bindable(),
@@ -65,6 +68,9 @@ function toggle(toggling: "notifications" | "account") {
         <Logo/>
     </div>
     <div class="side">
+        <IconButton
+            icon={global_state.dark_mode ? Moon : Sun}
+            onclick={() => global_state.dark_mode = !global_state.dark_mode}/>
         {#if user}
             <IconButton
                 href="/"
