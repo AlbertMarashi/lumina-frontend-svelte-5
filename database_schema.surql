@@ -164,7 +164,10 @@ DEFINE INDEX compound_unique_statement_vote ON TABLE statement_vote COLUMNS user
 -- DEBATE SCORING AND VIEWS --
 ------------------------------
 
-DEFINE TABLE ranked_statements AS
+REMOVE TABLE ranked_statements;
+REMOVE TABLE scored_statements;
+
+DEFINE TABLE ranked_statement AS
     SELECT
         math::mean(rating) AS rating_avg,
         count() as total_votes,
@@ -172,7 +175,7 @@ DEFINE TABLE ranked_statements AS
     FROM statement_vote
     GROUP BY statement;
 
-DEFINE TABLE scored_statements AS
+DEFINE TABLE scored_statement AS
     SELECT
         *,
         fn::calc_score(total_votes, rating_avg) AS score
