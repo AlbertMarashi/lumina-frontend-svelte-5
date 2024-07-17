@@ -103,7 +103,87 @@ DEFINE FIELD unit_slug ON TABLE unit_progress TYPE string;
 DEFINE FIELD course_slug ON TABLE unit_progress TYPE string;
 DEFINE FIELD created_at ON TABLE unit_progress TYPE datetime DEFAULT time::now();
 
-DEFINE INDEX compound_unique_progress ON TABLE unit_progress COLUMNS user, course_slug, unit_slug  UNIQUE;
+DEFINE INDEX compound_unique_progress ON TABLE unit_progress COLUMNS user, course_slug, unit_slug UNIQUE;
+
+-----------------
+-- STATEMENTS --
+-----------------
+
+DEFINE TABLE statement SCHEMAFULL
+    PERMISSIONS
+        -- Let all users see statements
+        FOR SELECT WHERE true
+
+        -- Let users create and delete statements
+        FOR CREATE WHERE user = $auth
+
+        -- prevent users from updating or deleting their statements after 5 minutes
+        FOR UPDATE, DELETE WHERE updated_at < time::now() + duration::mins(5);
+
+DEFINE FIELD author ON TABLE statement TYPE record<user> READONLY;
+DEFINE FIELD created_at ON TABLE statement TYPE datetime DEFAULT time::now() READONLY;
+DEFINE FIELD replying ON TABLE statement TYPE option<object> READONLY;
+DEFINE FIELD replying.to ON TABLE statement TYPE option<record<statement>> READONLY;
+DEFINE FIELD replying.side ON TABLE statement TYPE option<string> READONLY; -- "support" or "against"
+DEFINE FIELD content ON TABLE statement TYPE string;
+
+DEFINE INDEX search_by_author ON TABLE statement COLUMNS author;
+
+---------------------
+-- STATEMENT VOTES --
+---------------------
+
+DEFINE TABLE statement_vote SCHEMAFULL
+    PERMISSIONS
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+
+DEFINE FIELD user ON TABLE statement_vote TYPE record<user>;
+DEFINE FIELD rating ON TABLE statement_vote TYPE int ASSERT $value >= 0 AND $value <= 5; -- 0 = disagree, 5 = agree
+DEFINE FIELD created_at ON TABLE statement_vote TYPE datetime DEFAULT time::now() READONLY;
+DEFINE FIELD statement ON TABLE statement_vote TYPE record<statement> READONLY; -- The statement that was voted on
+
+-- Unique compound index on the user, statement so that a user can only vote once on a statement
+DEFINE INDEX compound_unique_statement_vote ON TABLE statement_vote COLUMNS user, statement UNIQUE;
+
+------------------
+-- LAUGH REACTS --
+------------------
+
+-- DEFINE TABLE laugh_react SCHEMAFULL
+--     PERMISSIONS
+--         FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+
+-- DEFINE FIELD user ON TABLE laugh_react TYPE record<user>;
+-- DEFINE FIELD created_at ON TABLE laugh_react TYPE datetime DEFAULT time::now() READONLY;
+-- DEFINE FIELD statement ON TABLE laugh_react TYPE record<statement> READONLY; -- The statement that was laughed on
+
+-- -- Unique compound index on the user, statement so that a user can only laugh once on a statement
+-- DEFINE INDEX compound_unique_laugh_react ON TABLE laugh_react COLUMNS user, statement UNIQUE;
+
+------------------------------
+-- DEBATE SCORING AND VIEWS --
+------------------------------
+
+DEFINE TABLE ranked_statements AS
+    SELECT
+        math::mean(rating) AS rating_avg,
+        count() as total_votes,
+        statement
+    FROM statement_vote
+    GROUP BY statement;
+
+DEFINE TABLE scored_statements AS
+    SELECT
+        *,
+        fn::calc_score(total_votes, rating_avg) AS score
+    FROM ranked_statements;
+
+DEFINE FUNCTION fn::calc_score($vote_count: number, $average_rating: number) {
+    RETURN function($vote_count, $average_rating) {
+        const [voteCount, averageRating] = arguments;
+        return Math.log10(voteCount + 1.5) * averageRating;
+    };
+};
 
 ------------------
 -- ORGANISATION --

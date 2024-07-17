@@ -8,7 +8,7 @@ export let right_icon_opacity = 0.5
 export let left_icon_opacity = 0.5
 export let text_opacity = 1
 export let tabindex: number | undefined = undefined
-export let style: "translucent" | "branded" = "translucent"
+export let style: "translucent" | "branded" | "outline" = "translucent"
 export let disabled = false
 export let text: string | undefined = undefined
 export let onclick: (e: MouseEvent | KeyboardEvent) => void
@@ -67,7 +67,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
 
 <style>
 .segment {
-    padding: 6px;
+    padding: 8px;
     background: rgba(var(--foreground-rgb), 0.06);
     color: var(--foreground);
     display: inline-flex;
@@ -76,7 +76,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
     border-radius: 50px;
     cursor: pointer;
     font-weight: 500;
-
+    font-size: 15px;
     &:hover {
         background: rgba(var(--foreground-rgb), 0.1);
     }
@@ -93,6 +93,14 @@ $: tag = href ? "a" : "div" as "a" | "div"
         }
     }
 
+    &.outline {
+        background: transparent;
+        outline: 1px solid rgba(var(--foreground-rgb), 0.1);
+        &:hover {
+            background: rgba(var(--foreground-rgb), 0.1);
+        }
+    }
+
     &.disabled {
         cursor: default;
         opacity: 0.5;
@@ -100,11 +108,11 @@ $: tag = href ? "a" : "div" as "a" | "div"
         border: 1px solid rgba(var(--foreground-rgb), 0.1);
     }
     & .text {
-        padding: 2px 6px;
+        padding: 1px 6px;
         line-height: 100%;
     }
     & .icon {
-        font-size: 20px;
+        font-size: 18px;
         display: inline-flex;
     }
 }

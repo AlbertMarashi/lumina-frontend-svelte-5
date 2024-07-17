@@ -6,11 +6,12 @@
     --brand: rgb(var(--brand-rgb));
 
     /** Light Mode Theme */
-    --background-rgb: 242, 240, 245;
+    /* We now define these in the root layout for switching themes */
+    /* --background-rgb: 242, 240, 245;
     --background: rgb(var(--background-rgb));
 
     --foreground-rgb: 16, 14, 18;
-    --foreground: rgb(var(--foreground-rgb));
+    --foreground: rgb(var(--foreground-rgb)); */
 
     /** Dark Mode Theme */
     --background-rgb: 23, 23, 28;
@@ -41,4 +42,14 @@
     --purple: rgb(var(--purple-rgb));
 
     --copilot-rgb: var(--purple-rgb);
+}
+
+
+/* check if any children have the light_mode class */
+html:has(.light_mode) {
+    --background-rgb: 242, 240, 245;
+    --background: rgb(var(--background-rgb));
+
+    --foreground-rgb: 16, 14, 18;
+    --foreground: rgb(var(--foreground-rgb));
 }

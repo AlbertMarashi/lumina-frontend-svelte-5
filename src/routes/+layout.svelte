@@ -21,6 +21,7 @@ afterNavigate(() => {
 })
 </script>
 <div
+    style:display="contents"
     class="wrapper"
     class:light_mode={ !global_state.dark_mode }>
 
@@ -32,24 +33,3 @@ afterNavigate(() => {
     {/if}
     {@render children()}
 </div>
-<style>
-
-.wrapper {
-    background: var(--background);
-    color: var(--foreground);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.light_mode {
-    --background-rgb: 242, 240, 245;
-    --background: rgb(var(--background-rgb));
-
-    --foreground-rgb: 16, 14, 18;
-    --foreground: rgb(var(--foreground-rgb));
-}
-</style>
