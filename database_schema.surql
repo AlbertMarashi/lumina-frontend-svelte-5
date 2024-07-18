@@ -17,7 +17,7 @@ DEFINE FIELD last_name ON TABLE user TYPE string;
 DEFINE FIELD email ON TABLE user TYPE string
     VALUE string::lowercase($value)
     ASSERT string::is::email($value);
-DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now(); -- READONLY;
+DEFINE FIELD joined ON TABLE user TYPE datetime DEFAULT time::now();
 DEFINE FIELD updated_at ON TABLE user TYPE datetime VALUE time::now();
 DEFINE FIELD image ON TABLE user TYPE option<string>;
 DEFINE FIELD calling_code ON TABLE user TYPE string;
@@ -77,12 +77,12 @@ DEFINE TABLE question_assessment SCHEMAFULL
     PERMISSIONS
         FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
 
-DEFINE FIELD user ON TABLE question_assessment TYPE record<user>;
-DEFINE FIELD updated_at ON TABLE question_assessment TYPE datetime VALUE time::now();
-DEFINE FIELD created_at ON TABLE question_assessment TYPE datetime DEFAULT time::now();
-DEFINE FIELD course_slug ON TABLE question_assessment TYPE string;
-DEFINE FIELD unit_slug ON TABLE question_assessment TYPE string;
-DEFINE FIELD question_slug ON TABLE question_assessment TYPE string;
+DEFINE FIELD user ON TABLE question_assessment TYPE record<user> READONLY;
+DEFINE FIELD updated_at ON TABLE question_assessment TYPE datetime VALUE time::now() READONLY;
+DEFINE FIELD created_at ON TABLE question_assessment TYPE datetime DEFAULT time::now() READONLY;
+DEFINE FIELD course_slug ON TABLE question_assessment TYPE string READONLY;
+DEFINE FIELD unit_slug ON TABLE question_assessment TYPE string READONLY;
+DEFINE FIELD question_slug ON TABLE question_assessment TYPE string READONLY;
 DEFINE FIELD answer ON TABLE question_assessment TYPE string;
 DEFINE FIELD feedback ON TABLE question_assessment TYPE string;
 DEFINE FIELD assessment ON TABLE question_assessment TYPE string;
@@ -96,12 +96,12 @@ DEFINE TABLE unit_progress SCHEMAFULL
     PERMISSIONS
         FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
 
-DEFINE FIELD user ON TABLE unit_progress TYPE record<user>;
+DEFINE FIELD user ON TABLE unit_progress TYPE record<user> READONLY;
 DEFINE FIELD updated_at ON TABLE unit_progress TYPE datetime VALUE time::now();
 DEFINE FIELD status ON TABLE unit_progress TYPE string;
-DEFINE FIELD unit_slug ON TABLE unit_progress TYPE string;
-DEFINE FIELD course_slug ON TABLE unit_progress TYPE string;
-DEFINE FIELD created_at ON TABLE unit_progress TYPE datetime DEFAULT time::now();
+DEFINE FIELD unit_slug ON TABLE unit_progress TYPE string READONLY;
+DEFINE FIELD course_slug ON TABLE unit_progress TYPE string READONLY;
+DEFINE FIELD created_at ON TABLE unit_progress TYPE datetime DEFAULT time::now() READONLY;
 
 DEFINE INDEX compound_unique_progress ON TABLE unit_progress COLUMNS user, course_slug, unit_slug UNIQUE;
 
@@ -118,16 +118,19 @@ DEFINE TABLE statement SCHEMAFULL
         FOR CREATE WHERE user = $auth
 
         -- prevent users from updating or deleting their statements after 5 minutes
-        FOR UPDATE, DELETE WHERE updated_at < time::now() + duration::mins(5);
+        FOR UPDATE, DELETE WHERE created_at < time::now() + duration::mins(5);
 
-DEFINE FIELD author ON TABLE statement TYPE record<user> READONLY;
-DEFINE FIELD created_at ON TABLE statement TYPE datetime DEFAULT time::now() READONLY;
-DEFINE FIELD replying ON TABLE statement TYPE option<object> READONLY;
-DEFINE FIELD replying.to ON TABLE statement TYPE option<record<statement>> READONLY;
-DEFINE FIELD replying.side ON TABLE statement TYPE option<string> READONLY; -- "support" or "against"
+DEFINE FIELD author ON TABLE statement TYPE record<user> VALUE $auth READONLY;
+DEFINE FIELD created_at ON TABLE statement TYPE datetime VALUE time::now() READONLY;
+DEFINE FIELD updated_at ON TABLE statement TYPE datetime VALUE time::now();
+DEFINE FIELD replying_to ON TABLE statement TYPE option<record<statement>> READONLY;
+DEFINE FIELD side ON TABLE statement TYPE option<string> READONLY; -- "support" or "against"
 DEFINE FIELD content ON TABLE statement TYPE string;
 
 DEFINE INDEX search_by_author ON TABLE statement COLUMNS author;
+REMOVE FIELD replying ON TABLE statement;
+REMOVE FIELD replying.to ON TABLE statement;
+REMOVE FIELD replying.side ON TABLE statement;
 
 ---------------------
 -- STATEMENT VOTES --
@@ -164,9 +167,6 @@ DEFINE INDEX compound_unique_statement_vote ON TABLE statement_vote COLUMNS user
 -- DEBATE SCORING AND VIEWS --
 ------------------------------
 
--- REMOVE TABLE ranked_statements;
--- REMOVE TABLE scored_statements;
-
 DEFINE TABLE ranked_statement AS
     SELECT
         math::mean(rating) AS rating_avg,
@@ -179,10 +179,12 @@ DEFINE TABLE scored_statement AS
     SELECT
         *,
         fn::calc_score(total_votes, rating_avg) AS score
-    FROM ranked_statement;
+    FROM ranked_statement
+    PERMISSIONS
+        FOR SELECT WHERE true;
 
 DEFINE FUNCTION fn::calc_score($vote_count: number, $average_rating: number) {
-    RETURN function($vote_count, $average_rating) {
+    RETURN <number> function($vote_count, $average_rating) {
         const [voteCount, averageRating] = arguments;
         return Math.log10(voteCount + 1.5) * averageRating;
     };

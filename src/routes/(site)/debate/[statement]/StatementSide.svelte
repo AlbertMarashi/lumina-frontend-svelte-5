@@ -3,6 +3,8 @@ import type { ComponentProps } from "svelte"
 import Statement from "./Statement.svelte"
 import Segment from "$lib/controls/Segment.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"
+import Card from "$lib/layouts/Card.svelte"
+import Button from "$lib/controls/Button.svelte"
 
 
 let {
@@ -35,9 +37,20 @@ let title = {
         </top>
     </heading-area>
     <statements>
-        {#each statements as statement}
-            <Statement statement={statement} />
-        {/each}
+        {#if statements.length}
+            {#each statements as statement}
+                <Statement statement={statement} />
+            {/each}
+        {:else}
+            <card>
+                <helper>No replies { title[side].toLowerCase() } to this statement yet, be the first to reply!</helper>
+                <Button
+                    style="transparent"
+                    label="Add your reply"
+                    left_icon={Plus}
+                    onclick={() => {}} />
+            </card>
+        {/if}
     </statements>
 </side>
 <style>
@@ -49,6 +62,22 @@ side {
     border: 1px solid rgba(var(--foreground-rgb), 0.1);
     border-radius: 16px;
     flex: 1;
+}
+
+card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    background: var(--background);
+    border-radius: 8px;
+    border: 1px solid rgba(var(--foreground-rgb), 0.1);
+    align-items: center;
+    helper {
+        color: rgba(var(--foreground-rgb), 0.5);
+        font-size: 16px;
+        text-align: center;
+    }
 }
 
 heading-area {

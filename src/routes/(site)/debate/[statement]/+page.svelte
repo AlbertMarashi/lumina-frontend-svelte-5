@@ -7,6 +7,7 @@ import RocketLaunch from "svelte-material-icons/RocketLaunch.svelte"
 import Alert from "svelte-material-icons/Alert.svelte"
 import Emoticon from "svelte-material-icons/Emoticon.svelte"
 import Clock from "svelte-material-icons/Clock.svelte"
+import type { ComponentProps } from "svelte"
 
 let { data } = $props()
 
@@ -37,7 +38,7 @@ const filters = [
 </script>
 <debate>
     <section>
-        <Statement statement={data.debate.current} />
+        <Statement statement={data.debate.current as ComponentProps<Statement>["statement"]} />
     </section>
     <section>
         <FlexWrap>
@@ -52,10 +53,10 @@ const filters = [
         <sides>
             <StatementSide
                 side="support"
-                statements={data.debate.support}/>
+                statements={data.debate.support as ComponentProps<Statement>["statement"][]}/>
             <StatementSide
                 side="against"
-                statements={data.debate.against}/>
+                statements={data.debate.against as ComponentProps<Statement>["statement"][]}/>
         </sides>
     </section>
 </debate>

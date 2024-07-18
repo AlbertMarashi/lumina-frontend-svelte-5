@@ -1,0 +1,2 @@
+
+CREATE statement CONTENT $statement;

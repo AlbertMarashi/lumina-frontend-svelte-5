@@ -6,20 +6,25 @@ import DotsHorizontal from "svelte-material-icons/DotsHorizontal.svelte"
 import Comment from "svelte-material-icons/Comment.svelte"
 // import Emoticon from "svelte-material-icons/Emoticon.svelte"
 import Tag from "$lib/display/Tag.svelte"
-
+import type { RecordId } from "surrealdb.js"
 
 interface Statement {
-    id: string,
-    rating: number,
+    id: RecordId<"statement">,
     replying?: {
-        to: Statement,
-        side: "support" | "against"
+        to?: Statement | RecordId<"statement">,
+        side?: "support" | "against"
     },
-    author: string,
-    total_replies: number,
-    // laughs: number,
+    author: RecordId<"user">,
     content: string,
     created_at: Date
+}
+
+interface ScoredStatement {
+    statement: Statement,
+    score: number,
+    rating_avg: number,
+    total_votes: number,
+    total_replies: number
 }
 
 let {
@@ -27,20 +32,20 @@ let {
     scale = 1,
 }: {
     scale?: number,
-    statement: Statement
+    statement: ScoredStatement
 } = $props()
 
 </script>
-{#if statement.replying?.to}
+{#if statement.statement.replying?.to}
     <svelte:self
         scale={scale * 0.9}
-        statement={statement.replying.to}/>
+        statement={statement.statement.replying.to}/>
 {/if}
 <statement
-    style:--side-color-rgb={ statement.replying ? statement.replying.side === "support" ? "var(--green-rgb)" : "var(--red-rgb)" : undefined }
+    style:--side-color-rgb={ statement.statement.replying ? statement.statement.replying.side === "support" ? "var(--green-rgb)" : "var(--red-rgb)" : undefined }
     style:zoom={ scale }>
     <top>
-        <RatingBar rating={statement.rating} />
+        <RatingBar rating={statement.rating_avg} />
         <right>
             <button>
                 { statement.total_replies }
@@ -56,12 +61,12 @@ let {
         </right>
     </top>
     <content>
-        { statement.content }
+        { statement.statement.content }
     </content>
     <bottom>
         <author>
             <Icon icon={AccountCircle} />
-            { statement.author }
+            { statement.statement.author }
         </author>
         <Tag
             --color="var(--foreground)"

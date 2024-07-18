@@ -88,7 +88,7 @@ function handle_keyup(e: KeyboardEvent) {
     font-weight: 600;
 
     & .text {
-        padding: 0px 12px;
+        padding: 2px 12px;
     }
 
     &.hug {
