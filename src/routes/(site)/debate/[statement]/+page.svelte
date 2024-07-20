@@ -38,7 +38,7 @@ const filters = [
 </script>
 <debate>
     <section>
-        <Statement statement={data.debate.current as ComponentProps<Statement>["statement"]} />
+        <Statement scored_statement={data.debate.current as ComponentProps<Statement>["scored_statement"]} />
     </section>
     <section>
         <FlexWrap>
@@ -53,10 +53,10 @@ const filters = [
         <sides>
             <StatementSide
                 side="support"
-                statements={data.debate.support as ComponentProps<Statement>["statement"][]}/>
+                statements={data.debate.support as ComponentProps<Statement>["scored_statement"][]}/>
             <StatementSide
                 side="against"
-                statements={data.debate.against as ComponentProps<Statement>["statement"][]}/>
+                statements={data.debate.against as ComponentProps<Statement>["scored_statement"][]}/>
         </sides>
     </section>
 </debate>

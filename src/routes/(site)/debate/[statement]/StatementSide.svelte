@@ -3,7 +3,6 @@ import type { ComponentProps } from "svelte"
 import Statement from "./Statement.svelte"
 import Segment from "$lib/controls/Segment.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"
-import Card from "$lib/layouts/Card.svelte"
 import Button from "$lib/controls/Button.svelte"
 
 
@@ -11,7 +10,7 @@ let {
     statements,
     side,
 }: {
-    statements: ComponentProps<Statement>["statement"][],
+    statements: ComponentProps<Statement>["scored_statement"][],
     side: "support" | "against",
 } = $props()
 
@@ -38,8 +37,8 @@ let title = {
     </heading-area>
     <statements>
         {#if statements.length}
-            {#each statements as statement}
-                <Statement statement={statement} />
+            {#each statements as scored_statement}
+                <Statement scored_statement={scored_statement} />
             {/each}
         {:else}
             <card>

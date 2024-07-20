@@ -10,10 +10,8 @@ import type { RecordId } from "surrealdb.js"
 
 interface Statement {
     id: RecordId<"statement">,
-    replying?: {
-        to?: Statement | RecordId<"statement">,
-        side?: "support" | "against"
-    },
+    replying_to?: Statement | RecordId<"statement">,
+    side?: "support" | "against"
     author: RecordId<"user">,
     content: string,
     created_at: Date
@@ -28,27 +26,27 @@ interface ScoredStatement {
 }
 
 let {
-    statement,
+    scored_statement,
     scale = 1,
 }: {
     scale?: number,
-    statement: ScoredStatement
+    scored_statement: ScoredStatement
 } = $props()
 
 </script>
-{#if statement.statement.replying?.to}
+<!-- {#if statement.statement.replying_to}
     <svelte:self
         scale={scale * 0.9}
         statement={statement.statement.replying.to}/>
-{/if}
+{/if} -->
 <statement
-    style:--side-color-rgb={ statement.statement.replying ? statement.statement.replying.side === "support" ? "var(--green-rgb)" : "var(--red-rgb)" : undefined }
+    style:--side-color-rgb={ scored_statement.statement.replying_to ? scored_statement.statement.side === "support" ? "var(--green-rgb)" : "var(--red-rgb)" : undefined }
     style:zoom={ scale }>
     <top>
-        <RatingBar rating={statement.rating_avg} />
+        <RatingBar rating={scored_statement.rating_avg} />
         <right>
             <button>
-                { statement.total_replies }
+                { scored_statement.total_replies }
                 <Icon icon={Comment} />
             </button>
             <!-- <button>
@@ -61,12 +59,12 @@ let {
         </right>
     </top>
     <content>
-        { statement.statement.content }
+        { scored_statement.statement.content }
     </content>
     <bottom>
         <author>
             <Icon icon={AccountCircle} />
-            { statement.statement.author }
+            { scored_statement.statement.author }
         </author>
         <Tag
             --color="var(--foreground)"
