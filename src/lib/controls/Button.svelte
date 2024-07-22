@@ -76,7 +76,7 @@ function handle_keyup(e: KeyboardEvent) {
 
 <style>
 .button {
-    padding: 10px 10px;
+    padding: 9px 10px;
     color: var(--foreground);
     display: inline-flex;
     align-items: center;
@@ -88,7 +88,7 @@ function handle_keyup(e: KeyboardEvent) {
     font-weight: 600;
 
     & .text {
-        padding: 2px 12px;
+        padding: 2px 11px;
     }
 
     &.hug {

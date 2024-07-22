@@ -1,0 +1,1 @@
+SELECT VALUE count FROM ONLY user_count LIMIT 1

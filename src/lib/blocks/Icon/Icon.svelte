@@ -24,3 +24,8 @@ async function load_icon(name: string) {
         {@html icon_svg}
     </icon>
 {/if}
+<style>
+icon {
+    display: inline-flex;
+}
+</style>

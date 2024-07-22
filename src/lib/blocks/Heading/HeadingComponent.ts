@@ -22,6 +22,11 @@ export default {
             defaultValue: null,
         },
         {
+            name: "color",
+            type: "string",
+            defaultValue: "var(--brand)",
+        },
+        {
             name: "level",
             type: "number",
             defaultValue: 1,

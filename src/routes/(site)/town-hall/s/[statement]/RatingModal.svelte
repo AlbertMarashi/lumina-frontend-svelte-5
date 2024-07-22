@@ -60,8 +60,6 @@ async function vote(rating: number) {
         $page.data.alerts.create_alert("error", e)
     }
 }
-
-$inspect(my_rating)
 </script>
 <rating-modal>
     <description>

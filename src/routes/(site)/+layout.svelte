@@ -42,8 +42,11 @@ register("editor.settings", {
             { name: "Background", value: "var(--background)" },
             { name: "Brand", value: "var(--brand)" },
             { name: "Brand RGB", value: "var(--brand-rgb)" },
+            { name: "Red", value: "var(--red)" },
+            { name: "Red RGB", value: "var(--red-rgb)" },
         ],
         spacing: [
+            { name: "None", value: "0" },
             { name: "Padding Small", value: "8px" },
             { name: "Padding Medium", value: "16px" },
             { name: "Padding Large", value: "24px" },
@@ -51,8 +54,9 @@ register("editor.settings", {
         ],
         fontFamily: false,
         maxWidth: [
-            { name: "Text", value: "600px" },
-            { name: "Container", value: "1200px" },
+            { name: "Small", value: "600px" },
+            { name: "Medium", value: "1000px" },
+            { name: "Large", value: "1200px" },
         ],
         border: [
             { name: "Border", value: "1px solid rgba(var(--foreground-rgb), 0.1)" },
@@ -89,9 +93,9 @@ register("editor.settings", {
             bind:sidebar_opened
             bind:dropdown
             bind:user={ data.user }/>
-        <main>
+        <inner-content>
             {@render children()}
-        </main>
+        </inner-content>
         <AppBar
             bind:dropdown
             bind:sidebar_opened
@@ -123,7 +127,7 @@ register("editor.settings", {
     flex-direction: column;
     flex: 1;
 }
-main {
+inner-content {
     flex: 1;
 }
 .popout {

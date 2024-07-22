@@ -9,12 +9,14 @@ let {
     right_icon,
     level = 1,
     underline = false,
+    color
 } : {
     level: 1 | 2 | 3 | 4 | 5 | 6,
     underline: boolean,
     text: string
     left_icon: string | undefined
-    right_icon: string | undefined
+    right_icon: string | undefined,
+    color?: string
 } = $props()
 
 let left_icon_svg = $derived( left_icon ? icons[left_icon] : undefined)
@@ -34,4 +36,5 @@ async function load_icon(name: string) {
     level={level}
     right_icon={right_icon_svg}
     text={text}
-    underline={underline}/>
+    underline={underline}
+    underline_color={color}/>

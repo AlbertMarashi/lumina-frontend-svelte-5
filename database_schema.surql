@@ -36,6 +36,10 @@ DEFINE FIELD password ON TABLE user TYPE option<string>
 
 DEFINE INDEX email_index ON TABLE user COLUMNS email UNIQUE;
 
+DEFINE TABLE user_count AS SELECT count() FROM user GROUP ALL
+    PERMISSIONS
+        FOR SELECT WHERE true;
+
 -------------------
 -- ACCOUNT TABLE --
 -------------------

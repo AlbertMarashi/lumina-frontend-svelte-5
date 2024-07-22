@@ -8,6 +8,7 @@ export let left_icon: IconComponent | string | null = null
 export let left_icon_color = "var(--brand)"
 export let right_icon: IconComponent | string | null = null
 export let right_icon_color = "var(--brand)"
+export let underline_color: string | null = null
 export let level: 1 | 2 | 3 | 4 | 5 | 6 = 1
 export let id: string | null = null
 export let underline = false
@@ -18,6 +19,7 @@ export let text: string
 <svelte:element
     this={ "h" + level }
     {id}
+    style:--underline-color={ underline_color }
     class="heading"
     class:center
     class:underline>
@@ -76,8 +78,8 @@ icon {
             left: 0;
             right: 0;
             top: 60%;
-            background: var(--brand);
-            opacity: 0.3;
+            background: var(--underline-color, var(--brand));
+            opacity: 0.4;
             z-index: -1;
         }
     }

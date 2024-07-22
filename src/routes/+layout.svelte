@@ -11,7 +11,6 @@ import { global_state } from "$lib/stores/global.svelte"
 import mixpanel from "mixpanel-browser"
 
 let {
-    data,
     children,
 } = $props()
 

@@ -15,7 +15,6 @@ let {
 } = $props()
 
 let current_tags = $derived(new SvelteSet($page.url.searchParams.get("tag")?.split(",")))
-$inspect(current_tags)
 let in_current = $derived(current_tags.has(text))
 let without_self = $derived(new SvelteSet([...current_tags].filter(tag => tag !== text)))
 let with_self = $derived(new SvelteSet([...current_tags, text]))
