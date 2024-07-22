@@ -1,0 +1,1 @@
+CREATE statement_vote CONTENT $vote;

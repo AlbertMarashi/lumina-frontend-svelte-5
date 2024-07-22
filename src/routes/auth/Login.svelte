@@ -47,7 +47,7 @@ async function signin () {
             text="Login"/>
         {#if display === DisplayPage.Email}
             <Input
-                name="email"
+                name="Email"
                 autocomplete="email"
                 focus_on_mount={true}
                 left_icon={Email}

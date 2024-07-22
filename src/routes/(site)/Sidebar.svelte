@@ -27,6 +27,7 @@ import type { GetUserResult } from "$lib/queries/surreal_queries"
 import { global_state } from "$lib/stores/global.svelte"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
 import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
+import Capitol from "$lib/icons/Capitol.svelte"
 
 let {
     sidebar_opened = $bindable(),
@@ -68,6 +69,10 @@ function toggle(toggling: "notifications" | "account") {
         </div>
         <section class="section">
             <h4>Services</h4>
+            <NavLink
+                href="/town-hall"
+                left_icon={Capitol}
+                text="Town Hall"/>
             <NavLink
                 href="/citizenship"
                 left_icon={Passport}

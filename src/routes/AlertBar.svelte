@@ -1,40 +1,12 @@
-<div class="action-container-wrapper">
-    {#each $alerts as alert}
-        <div
-            bind:this={ elements[alert.id] }
-            class="action-bar"
-            class:error={ alert.type === "error" }
-            class:success={ alert.type === "success" }
-            class:warning={ alert.type === "warning" }
-            role="button"
-            tabindex="0"
-            on:keypress={ e => {
-                if (e.key === "Enter") {
-                    remove(alert.id)
-                }
-            } }
-            on:click={ () => remove(alert.id) }>
-            <div class="icon">
-                <svelte:component
-                    this={ icons[alert.type] }
-                    --size="22px"/>
-            </div>
-            <div class="text">
-                { alert.message }
-            </div>
-            <Close --size="22px"/>
-        </div>
-    {/each}
-</div>
 <script lang="ts">
 import Alert from "svelte-material-icons/Alert.svelte"
 import Info from "svelte-material-icons/AlertCircle.svelte"
-import Close from "svelte-material-icons/Close.svelte"
 import Check from "svelte-material-icons/CheckCircle.svelte"
 import { onMount, tick } from "svelte"
 import { browser } from "$app/environment"
 import type { Message } from "$lib/stores/alerts"
 import { page } from "$app/stores"
+import Icon from "$lib/display/Icon.svelte"
 
 $: alerts = $page.data.alerts.store
 
@@ -89,6 +61,30 @@ async function setBottomHeights () {
 }
 
 </script>
+<div class="action-container-wrapper">
+    {#each $alerts as alert}
+        <div
+            bind:this={ elements[alert.id] }
+            class="action-bar"
+            class:error={ alert.type === "error" }
+            class:info={ alert.type === "info" }
+            class:success={ alert.type === "success" }
+            class:warning={ alert.type === "warning" }
+            role="button"
+            tabindex="0"
+            on:keypress={ e => {
+                if (e.key === "Enter") {
+                    remove(alert.id)
+                }
+            } }
+            on:click={ () => remove(alert.id) }>
+            <Icon icon={icons[alert.type]}/>
+            <div class="text">
+                { alert.message }
+            </div>
+        </div>
+    {/each}
+</div>
 <style>
 .action-container-wrapper {
     position: fixed;
@@ -103,7 +99,7 @@ async function setBottomHeights () {
 
     & .action-bar {
         cursor: pointer;
-        background: var(--brand);
+        background: var(--background);
         position: fixed;
         width: 100%;
         max-width: 500px;
@@ -112,26 +108,28 @@ async function setBottomHeights () {
         box-shadow: 0 0 5px color-mix(in srgb, black, 10%);
         border-radius: 5px;
         z-index: 251;
-        color: white;
+        color: rgba(var(--foreground-rgb), 1);
+        --color: rgba(var(--color-rgb), 1);
         transition: 0.2s ease-in-out;
         display: grid;
-        grid-template-columns: min-content 1fr min-content;
+        grid-template-columns: min-content 1fr;
         align-items: center;
+        border: 2px solid rgba(var(--color-rgb), 1);
+        gap: 8px;
         &.warning {
-            background: var(--yellow)
+            --color-rgb: var(--yellow-rgb)
         }
 
         &.error {
-            background: var(--red);
+            --color-rgb: var(--red-rgb)
         }
 
         &.success {
-            background: var(--green);
+            --color-rgb: var(--green-rgb)
         }
 
-        & .icon {
-            padding-right: 8px;
-            display: inline-flex;
+        &.info {
+            --color-rgb: var(--blue-rgb)
         }
     }
 }

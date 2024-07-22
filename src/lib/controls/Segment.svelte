@@ -96,8 +96,13 @@ $: tag = href ? "a" : "div" as "a" | "div"
     &.outline {
         background: transparent;
         outline: 1px solid rgba(var(--foreground-rgb), 0.1);
+        outline-offset: -1px;
         &:hover {
-            background: rgba(var(--foreground-rgb), 0.1);
+            background: rgba(var(--foreground-rgb), 0.05);
+        }
+        &:focus-visible {
+            outline: 2px solid var(--brand);
+            outline-offset: 2px;
         }
     }
 
@@ -106,6 +111,10 @@ $: tag = href ? "a" : "div" as "a" | "div"
         opacity: 0.5;
         background: transparent;
         border: 1px solid rgba(var(--foreground-rgb), 0.1);
+        &:hover {
+            background: transparent;
+            outline: none;
+        }
     }
     & .text {
         padding: 1px 6px;

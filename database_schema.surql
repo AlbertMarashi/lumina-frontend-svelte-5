@@ -63,7 +63,7 @@ DEFINE SCOPE users;
 -----------------
 DEFINE TABLE application SCHEMAFULL
     PERMISSIONS
-        FOR SELECT, CREATE, UPDATE WHERE application.user = $auth;
+        FOR SELECT, CREATE, UPDATE WHERE $auth AND application.user = $auth;
 
 DEFINE FIELD created_at ON TABLE application TYPE datetime VALUE time::now() READONLY;
 DEFINE FIELD updated_at ON TABLE application TYPE datetime VALUE time::now();
@@ -75,7 +75,7 @@ DEFINE FIELD application_type ON TABLE application TYPE string;
 -----------------
 DEFINE TABLE question_assessment SCHEMAFULL
     PERMISSIONS
-        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE $auth AND user = $auth;
 
 DEFINE FIELD user ON TABLE question_assessment TYPE record<user> READONLY;
 DEFINE FIELD updated_at ON TABLE question_assessment TYPE datetime VALUE time::now();
@@ -94,7 +94,7 @@ DEFINE INDEX compound_unique_assessment ON TABLE question_assessment COLUMNS use
 -------------------
 DEFINE TABLE unit_progress SCHEMAFULL
     PERMISSIONS
-        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE $auth AND user = $auth;
 
 DEFINE FIELD user ON TABLE unit_progress TYPE record<user> READONLY;
 DEFINE FIELD updated_at ON TABLE unit_progress TYPE datetime VALUE time::now();
@@ -111,11 +111,11 @@ DEFINE INDEX compound_unique_progress ON TABLE unit_progress COLUMNS user, cours
 
 DEFINE TABLE statement SCHEMAFULL
     PERMISSIONS
-        -- Let all users see statements
+        -- let anyone see statements
         FOR SELECT WHERE true
 
-        -- Let users create and delete statements
-        FOR CREATE WHERE author = $auth
+        -- let users create statements
+        FOR CREATE WHERE $auth AND author = $auth
 
         -- prevent users from updating or deleting their statements after 5 minutes
         FOR UPDATE, DELETE WHERE created_at < time::now() + duration::mins(5);
@@ -126,8 +126,18 @@ DEFINE FIELD updated_at ON TABLE statement TYPE datetime VALUE time::now();
 DEFINE FIELD replying_to ON TABLE statement TYPE option<record<statement>> READONLY;
 DEFINE FIELD side ON TABLE statement TYPE option<string> READONLY; -- "support" or "against"
 DEFINE FIELD content ON TABLE statement TYPE string;
+DEFINE FIELD tags ON TABLE statement TYPE option<set<string>>;
 
 DEFINE INDEX search_by_author ON TABLE statement COLUMNS author;
+
+DEFINE EVENT on_delete_delete_children_and_votes ON TABLE statement
+    WHEN $event == "DELETE"
+    THEN {
+        DELETE FROM statement_vote WHERE statement = $before.id;
+        DELETE FROM statement WHERE replying_to = $before.id;
+        DELETE FROM statement_author_data WHERE id = statement_author_data:[$before.id];
+        DELETE FROM statement_replies WHERE id = statement_replies:[$before.id];
+    };
 
 ---------------------
 -- STATEMENT VOTES --
@@ -135,10 +145,10 @@ DEFINE INDEX search_by_author ON TABLE statement COLUMNS author;
 
 DEFINE TABLE statement_vote SCHEMAFULL
     PERMISSIONS
-        FOR SELECT, CREATE, UPDATE, DELETE WHERE user = $auth;
+        FOR SELECT, CREATE, UPDATE, DELETE WHERE $auth AND user = $auth;
 
-DEFINE FIELD user ON TABLE statement_vote TYPE record<user>;
-DEFINE FIELD rating ON TABLE statement_vote TYPE int ASSERT $value >= 0 AND $value <= 5; -- 0 = disagree, 5 = agree
+DEFINE FIELD user ON TABLE statement_vote TYPE record<user> DEFAULT $auth READONLY;
+DEFINE FIELD rating ON TABLE statement_vote TYPE int ASSERT $value >= 0 AND $value <= 4; -- 0 = disagree, 5 = agree
 DEFINE FIELD created_at ON TABLE statement_vote TYPE datetime VALUE time::now() READONLY;
 DEFINE FIELD updated_at ON TABLE statement_vote TYPE datetime VALUE time::now();
 DEFINE FIELD statement ON TABLE statement_vote TYPE record<statement> READONLY; -- The statement that was voted on
@@ -164,13 +174,12 @@ DEFINE INDEX compound_unique_statement_vote ON TABLE statement_vote COLUMNS user
 ------------------------------
 -- DEBATE SCORING AND VIEWS --
 ------------------------------
-REMOVE TABLE ranked_statement;
-REMOVE TABLE scored_statement;
 
 DEFINE TABLE statement_rating AS
     SELECT
-        math::mean(rating) AS rating_avg,
-        count() as total_votes
+        math::mean(<float> rating) AS rating_avg,
+        count() as total_votes,
+        statement
     FROM statement_vote
     GROUP BY statement;
 
@@ -179,6 +188,26 @@ DEFINE TABLE statement_score AS
         *,
         fn::calc_score(total_votes, rating_avg) AS score
     FROM statement_rating
+    PERMISSIONS
+        FOR SELECT WHERE true;
+
+DEFINE TABLE statement_replies AS
+    SELECT
+        count() as total_replies,
+        replying_to
+    FROM statement
+    WHERE replying_to IS NOT NONE
+    GROUP BY replying_to
+    PERMISSIONS
+        FOR SELECT WHERE true;
+
+DEFINE TABLE statement_author_data AS
+    SELECT
+        -- id as statement,
+        id,
+        author.first_name + " " + author.last_name AS author_name
+    FROM statement
+    GROUP BY id
     PERMISSIONS
         FOR SELECT WHERE true;
 

@@ -8,8 +8,10 @@ export let text: string
 <style>
 .label {
     font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    opacity: 0.4;
+    font-weight: 800;
+    color: rgba(var(--foreground-rgb), 0.5);
+    padding: 0 12px;
+    padding-top: 0;
+    margin: 0 -12px;
 }
 </style>

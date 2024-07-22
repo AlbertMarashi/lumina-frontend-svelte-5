@@ -8,6 +8,7 @@ import { afterNavigate } from "$app/navigation"
 import { page } from "$app/stores"
 import OverlayLoading from "$lib/display/OverlayLoading.svelte"
 import { global_state } from "$lib/stores/global.svelte"
+import mixpanel from "mixpanel-browser"
 
 let {
     data,
@@ -15,7 +16,7 @@ let {
 } = $props()
 
 afterNavigate(() => {
-    data.mixpanel.track_pageview({
+    mixpanel.track_pageview({
         route: $page.route.id
     })
 })

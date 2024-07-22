@@ -1,16 +1,19 @@
 <script lang="ts">
-import type { ComponentProps } from "svelte"
+import { tick, type ComponentProps } from "svelte"
 import Statement from "./Statement.svelte"
 import Segment from "$lib/controls/Segment.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"
 import Button from "$lib/controls/Button.svelte"
+import AddStatement from "./AddStatement.svelte"
 
 
 let {
     statements,
+    statement,
     side,
 }: {
-    statements: ComponentProps<Statement>["scored_statement"][],
+    statements: ComponentProps<Statement>["statement"][],
+    statement: ComponentProps<Statement>["statement"],
     side: "support" | "against",
 } = $props()
 
@@ -24,6 +27,9 @@ let title = {
     "against": "In Opposition",
 }
 
+let show_add_statement = $state(false)
+let textinput: AddStatement = $state(undefined! as AddStatement)
+
 </script>
 <side style:--side-color-rgb={ side_colors[side] }>
     <heading-area>
@@ -32,22 +38,33 @@ let title = {
             <Segment
                 style="translucent"
                 left_icon={Plus}
-                onclick={() => {}}/>
+                onclick={async () => {
+                    show_add_statement = true
+                    await tick()
+                    textinput.focus()
+                }}/>
         </top>
     </heading-area>
     <statements>
+        {#if show_add_statement}
+            <AddStatement
+                bind:this={ textinput }
+                onclose={() => show_add_statement = false}
+                replying_to={statement.id}
+                side={side}/>
+        {/if}
         {#if statements.length}
-            {#each statements as scored_statement}
-                <Statement scored_statement={scored_statement} />
+            {#each statements as statement}
+                <Statement statement={statement} />
             {/each}
-        {:else}
+        {:else if !show_add_statement}
             <card>
                 <helper>No replies { title[side].toLowerCase() } to this statement yet, be the first to reply!</helper>
                 <Button
                     style="transparent"
                     label="Add your reply"
                     left_icon={Plus}
-                    onclick={() => {}} />
+                    onclick={() => show_add_statement = true} />
             </card>
         {/if}
     </statements>
@@ -66,7 +83,7 @@ side {
 card {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     padding: 16px;
     background: var(--background);
     border-radius: 8px;

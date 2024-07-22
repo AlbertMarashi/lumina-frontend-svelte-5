@@ -40,6 +40,5 @@ export async function load({ data }) {
     return {
         user,
         alerts,
-        mixpanel,
     }
 }

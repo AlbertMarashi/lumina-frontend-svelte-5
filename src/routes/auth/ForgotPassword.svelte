@@ -32,7 +32,7 @@ async function reset_password () {
             left_icon={ShieldAccount}
             text="Reset Password"/>
         <Input
-            name="email"
+            name="Email"
             autocomplete="email"
             focus_on_mount={true}
             left_icon={Email}
