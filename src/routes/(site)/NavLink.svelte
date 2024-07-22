@@ -5,16 +5,19 @@ import type { IconComponent } from "$lib/utils/icon_type"
 let {
     href,
     text,
-    left_icon
+    left_icon,
+    target
 } : {
     href: string
     text: string
-    left_icon: IconComponent
+    left_icon: IconComponent,
+    target?: string
 } = $props()
 </script>
 <a
     class="nav-link"
-    {href}>
+    {href}
+    target={target}>
     <Icon
         --size="24px"
         icon={left_icon} />

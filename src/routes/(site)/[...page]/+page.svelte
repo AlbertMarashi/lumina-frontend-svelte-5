@@ -32,7 +32,7 @@ Object.assign(icons, data.icons)
                 IconComponent,
             ]}
             data={{
-                citizen: false,
+                citizen: data.user?.has_citizenship_application,
             }}
             model="page" />
     {:else}

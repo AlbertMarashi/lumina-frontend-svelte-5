@@ -26,7 +26,7 @@
     --orange-rgb: 255, 137, 71;
     --orange: rgb(var(--orange-rgb));
 
-    --yellow-rgb: 242, 201, 76;
+    --yellow-rgb: 242, 200, 76;
     --yellow: rgb(var(--yellow-rgb));
 
     --lime-rgb: 173, 212, 74;
@@ -52,4 +52,7 @@ html:has(.light_mode) {
 
     --foreground-rgb: 16, 14, 18;
     --foreground: rgb(var(--foreground-rgb));
+
+    --yellow-rgb: 220, 180, 40;
+    --yellow: rgb(var(--yellow-rgb));
 }

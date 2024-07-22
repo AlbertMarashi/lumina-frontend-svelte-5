@@ -69,13 +69,13 @@ $: tag = href ? "a" : "div" as "a" | "div"
 .segment {
     padding: 8px;
     background: rgba(var(--foreground-rgb), 0.06);
-    color: var(--foreground);
+    color: rgba(var(--foreground-rgb), 0.9);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 550;
     font-size: 15px;
     &:hover {
         background: rgba(var(--foreground-rgb), 0.1);
@@ -88,6 +88,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
 
     &.branded {
         background: var(--brand);
+        color: white;
         &:hover {
             background: color-mix(in srgb, var(--brand), var(--foreground) 12%);
         }

@@ -80,10 +80,12 @@ function toggle(toggling: "notifications" | "account") {
             <NavLink
                 href="https://luminauniversity.earth"
                 left_icon={LightUniversity}
+                target="_blank"
                 text="Lumina University"/>
             <NavLink
                 href={site_data.socials.discord}
                 left_icon={Discord}
+                target="_blank"
                 text="Join Discord Server"/>
         </section>
         <div class="section">
