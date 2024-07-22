@@ -42,7 +42,7 @@ let width = $derived(((vote_data?.rating_avg || 0) / 4) * 100)
                 if (e.key === "Enter") show_rating_ui = !show_rating_ui }}
             role="button"
             tabindex="0">
-            { my_rating ? "New" : "Rate Me" }
+            { my_rating ? "New - Rate Me" : "Rate Me" }
         </tag>
     {:else if my_rating}
         <tag>
