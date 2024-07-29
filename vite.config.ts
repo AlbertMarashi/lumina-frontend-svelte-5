@@ -8,4 +8,6 @@ export default defineConfig({
         // used for importing fonts in satori /api/og/+server.ts
         arraybuffer()
     ],
+
+    optimizeDeps: { exclude: ["isolated-vm"] },
 })

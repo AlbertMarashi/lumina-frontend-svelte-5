@@ -99,6 +99,8 @@ AUTH_SECRET=
 SENDGRID_KEY=
 LANGFUSE_SECRET_KEY=
 LANGFUSE_PUBLIC_KEY=
+# required for builder.io for some reason
+NODE_OPTIONS=--no-node-snapshot
 ```
 
 ## Generate a random secret key with the following command:

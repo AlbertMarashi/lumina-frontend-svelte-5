@@ -12,4 +12,7 @@ export default {
             defaultValue: "Shape",
         },
     ],
+    defaultStyles: {
+        display: "inline-flex",
+    }
 } satisfies RegisteredComponent

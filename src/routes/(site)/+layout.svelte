@@ -47,10 +47,11 @@ register("editor.settings", {
         ],
         spacing: [
             { name: "None", value: "0" },
-            { name: "Padding Small", value: "8px" },
-            { name: "Padding Medium", value: "16px" },
-            { name: "Padding Large", value: "24px" },
-            { name: "Padding Extra Large", value: "32px" },
+            { name: "Padding 8px", value: "8px" },
+            { name: "Padding 12px", value: "12px" },
+            { name: "Padding 16px", value: "16px" },
+            { name: "Padding 24px", value: "24px" },
+            { name: "Padding 32px", value: "32px" },
         ],
         fontFamily: false,
         maxWidth: [
@@ -58,9 +59,15 @@ register("editor.settings", {
             { name: "Medium", value: "1000px" },
             { name: "Large", value: "1200px" },
         ],
-        border: [
-            { name: "Border", value: "1px solid rgba(var(--foreground-rgb), 0.1)" },
-        ]
+        // border: [
+        //     { name: "Border", value: "1px solid rgba(var(--foreground-rgb), 0.1)" },
+        // ],
+        borderRadius: [
+            { name: "None", value: "0" },
+            { name: "Small", value: "4px" },
+            { name: "Medium", value: "8px" },
+            { name: "Large", value: "16px" },
+        ],
     },
 })
 

@@ -1,0 +1,42 @@
+<script lang="ts">
+
+let {
+    src,
+    name,
+}: {
+    src?: string,
+    name: string,
+} = $props()
+
+</script>
+<div class="author">
+    {#if src}
+        <img
+            class="author_img"
+            alt="{name} profile picture"
+            src={src}>
+    {/if}
+    <div class="author_name">
+        { name }
+    </div>
+</div>
+<style>
+.author {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--foreground);
+}
+
+.author_img {
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+}
+
+.author_name {
+    font-weight: 600;
+}
+</style>

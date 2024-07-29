@@ -25,7 +25,7 @@ export default [
         }
     },
     {
-        ignores: ["build/", ".svelte-kit/", "dist/", "src/lib/queries/surreal_queries.ts"]
+        ignores: ["build/", ".svelte-kit/", "dist/", "src/lib/queries/surreal_queries.ts", "css/"]
     },
     {
         rules: {

@@ -34,7 +34,8 @@ Object.assign(icons, data.icons)
             ]}
             data={{
                 citizen: data.user?.has_citizenship_application,
-                site_data
+                site_data,
+                press_releases: data.press_releases,
             }}
             model="page" />
     {:else}

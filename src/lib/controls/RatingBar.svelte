@@ -14,7 +14,7 @@ let {
     show_rating_ui: boolean
 } = $props()
 
-let show_rating = $derived(vote_data && vote_data.total_votes > 5)
+let show_rating = $derived(vote_data && vote_data.total_votes > 1)
 // let show_rating = $derived(true)
 let width = $derived(((vote_data?.rating_avg || 0) / 4) * 100)
 
