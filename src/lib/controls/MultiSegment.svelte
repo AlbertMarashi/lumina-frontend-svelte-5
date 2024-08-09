@@ -18,7 +18,10 @@ type T = $$Generic
 // Workaround for https://github.com/sveltejs/svelte/issues/7830
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface $$Slots {
-    default: { search: string, option: T }
+    default: {
+        search: string,
+        option: T 
+    }
 }
 
 export let name: string

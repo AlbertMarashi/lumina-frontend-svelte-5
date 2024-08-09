@@ -1,6 +1,6 @@
 <script lang="ts">
-import { onMount, onDestroy } from "svelte"
-import type { Object3D, Object3DEventMap } from "three"
+import {onMount, onDestroy} from "svelte"
+import type {Object3D, Object3DEventMap} from "three"
 type Countries = { features: object[] }
 
 let container: HTMLDivElement
@@ -8,7 +8,9 @@ let resizeObserver: ResizeObserver
 
 onMount(async () => {
     const [
-        { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight },
+        {
+            Scene, PerspectiveCamera, WebGLRenderer, AmbientLight 
+        },
         { default: ThreeGlobe },
         { default: countries },
     ] = await Promise.all([

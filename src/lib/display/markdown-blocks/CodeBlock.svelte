@@ -67,24 +67,24 @@ function copy() {
 .copy {
     display: inline-flex;
     cursor: pointer;
-    color: white;
+    color: var(--foreground-rgb);
     font-size: 20px;
     padding: 6px;
     border-radius: 4px;
     user-select: none;
-    color: rgba(255, 255, 255, 0.8);
-    background: color-mix(white 15%, var(--dark-app));
+    color: rgba(var(--foreground-rgb), 0.8);
+    background: color-mix(var(--foreground) 15%, var(--background));
     margin-left: auto;
 }
 
 .copy:hover,
 .copy:active {
-    color: white;
+    color: var(--foreground-rgb);
     background: rgba(var(--foreground-rgb), 0.1);
 }
 
 .header {
-    border-bottom: 1px solid rgba(var(--dark-rgb), 0.1);
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.1);
     padding: 4px;
     display: contents;
     align-items: center;
@@ -104,9 +104,9 @@ function copy() {
 
 .number {
     white-space: pre-wrap;
-    color: rgba(var(--dark-rgb), 0.4);
+    color: rgba(var(--foreground-rgb), 0.4);
     user-select: none;
-    background: rgba(var(--dark-rgb), 0.06);
+    background: rgba(var(--foreground-rgb), 0.06);
     padding: 0 6px;
     letter-spacing: 2px;
 }

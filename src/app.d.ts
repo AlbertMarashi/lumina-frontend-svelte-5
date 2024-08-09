@@ -6,28 +6,28 @@ import type { Surreal } from "surrealdb.js"
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
-	namespace App {
-		// interface Platform {}
+    namespace App {
+        // interface Platform {}
 
-		interface Locals {
-			// Authenticated session
-			token: string | null
-		}
+        interface Locals {
+            // Authenticated session
+            token: string | null
+        }
 
-		interface PageData {
-			// Safe client-authenticated SurrealDB
-			db: Surreal;
+        interface PageData {
+            // Safe client-authenticated SurrealDB
+            db: Surreal;
             alerts: AlertsStore;
-			user: GetUserResult[0][0] | null
-		}
+            user: GetUserResult[0][0] | null
+        }
 
-		interface Error {
+        interface Error {
             code?: string;
             cause?: Error;
             message: string;
             stack?: string;
         }
-	}
+    }
 }
 
 // declare module "@auth/core/types" {
@@ -63,11 +63,11 @@ declare global {
 
 
 declare module "svelte/elements" {
-	interface SvelteHTMLElements {
-		"svelte:element": HTMLAttributes<HTMLElement | HTMLAnchorElement> & {
-			href?: string
-		}
-		[name: `${string}${
+    interface SvelteHTMLElements {
+        "svelte:element": HTMLAttributes<HTMLElement | HTMLAnchorElement> & {
+            href?: string
+        }
+        [name: `${string}${
 			| "a"
 			| "b"
 			| "c"
@@ -95,9 +95,9 @@ declare module "svelte/elements" {
 			| "y"
 			| "z"
 		}`,
-		]: HTMLAttributes<HTMLElement> & {
-			href?: string
-		}
-	}
+        ]: HTMLAttributes<HTMLElement> & {
+            href?: string
+        }
+    }
 }
 export {}

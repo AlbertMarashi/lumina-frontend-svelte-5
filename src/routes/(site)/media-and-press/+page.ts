@@ -2,7 +2,9 @@ import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
 import { load_page_data } from "$lib/utils/load_page.js"
 import { fetchEntries } from "@builder.io/sdk-svelte"
 
-export async function load({ url, fetch }) {
+export async function load({
+    url, fetch 
+}) {
 
     const press_releases = (await fetchEntries({
         model: "press-releases",
@@ -11,7 +13,10 @@ export async function load({ url, fetch }) {
         sort: {
             "data.datePublished": -1
         },
-    }) || []).map(release => ({ ...release.data, tags: release.data?.tags?.map((tag: Record<string, unknown>) => tag.tag) }))
+    }) || []).map(release => ({
+        ...release.data,
+        tags: release.data?.tags?.map((tag: Record<string, unknown>) => tag.tag) 
+    }))
 
     console.log(press_releases[0])
 

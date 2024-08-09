@@ -1,11 +1,12 @@
 <script lang="ts">
 import Calendar from "svelte-material-icons/Calendar.svelte"
-import { onMount, onDestroy } from "svelte"
+import {onMount, onDestroy} from "svelte"
 
 // if the date difference is less than 3 days, we want to show something like:
 // "3 hours ago", "2 days ago", "10 minutes ago", etc.
 
 export let date: Date
+export let use_ago = false
 
 function get_day_suffix(day: number) {
     switch (day % 10) {

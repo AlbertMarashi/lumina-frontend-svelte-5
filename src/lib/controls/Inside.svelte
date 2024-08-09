@@ -1,5 +1,5 @@
 <script lang="ts">
-import { getContext, onMount } from "svelte"
+import {getContext, onMount} from "svelte"
 
 const nodes = getContext("clickoutside") as Node[]
 

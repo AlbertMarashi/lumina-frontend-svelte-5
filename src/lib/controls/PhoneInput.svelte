@@ -14,7 +14,10 @@ import { tick } from "svelte"
 import { escape_regex } from "$lib/utils/regex"
 
 export let name = "Phone Number"
-export let value: { country: CountryType | null, number: string }
+export let value: {
+    country: CountryType | null,
+    number: string 
+}
 export let autocomplete = "tel"
 export let placeholder = "Phone Number"
 let input_ref: HTMLInputElement

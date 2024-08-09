@@ -35,38 +35,104 @@ import { register } from "@builder.io/sdk-svelte"
 register("editor.settings", {
     designTokens: {
         colors: [
-            { name: "Foreground", value: "var(--foreground)" },
-            { name: "Foreground 65", value: "rgba(var(--foreground-rgb), 0.65)"},
-            { name: "Foreground 10", value: "rgba(var(--foreground-rgb), 0.1)"},
-            { name: "Foreground 05", value: "rgba(var(--foreground-rgb), 0.05)"},
-            { name: "Background", value: "var(--background)" },
-            { name: "Brand", value: "var(--brand)" },
-            { name: "Brand RGB", value: "var(--brand-rgb)" },
-            { name: "Red", value: "var(--red)" },
-            { name: "Red RGB", value: "var(--red-rgb)" },
+            {
+                name: "Foreground",
+                value: "var(--foreground)" 
+            },
+            {
+                name: "Foreground 65",
+                value: "rgba(var(--foreground-rgb), 0.65)"
+            },
+            {
+                name: "Foreground 10",
+                value: "rgba(var(--foreground-rgb), 0.1)"
+            },
+            {
+                name: "Foreground 05",
+                value: "rgba(var(--foreground-rgb), 0.05)"
+            },
+            {
+                name: "Background",
+                value: "var(--background)" 
+            },
+            {
+                name: "Brand",
+                value: "var(--brand)" 
+            },
+            {
+                name: "Brand RGB",
+                value: "var(--brand-rgb)" 
+            },
+            {
+                name: "Red",
+                value: "var(--red)" 
+            },
+            {
+                name: "Red RGB",
+                value: "var(--red-rgb)" 
+            },
         ],
         spacing: [
-            { name: "None", value: "0" },
-            { name: "Padding 8px", value: "8px" },
-            { name: "Padding 12px", value: "12px" },
-            { name: "Padding 16px", value: "16px" },
-            { name: "Padding 24px", value: "24px" },
-            { name: "Padding 32px", value: "32px" },
+            {
+                name: "None",
+                value: "0" 
+            },
+            {
+                name: "Padding 8px",
+                value: "8px" 
+            },
+            {
+                name: "Padding 12px",
+                value: "12px" 
+            },
+            {
+                name: "Padding 16px",
+                value: "16px" 
+            },
+            {
+                name: "Padding 24px",
+                value: "24px" 
+            },
+            {
+                name: "Padding 32px",
+                value: "32px" 
+            },
         ],
         fontFamily: false,
         maxWidth: [
-            { name: "Small", value: "600px" },
-            { name: "Medium", value: "1000px" },
-            { name: "Large", value: "1200px" },
+            {
+                name: "Small",
+                value: "600px" 
+            },
+            {
+                name: "Medium",
+                value: "1000px" 
+            },
+            {
+                name: "Large",
+                value: "1200px" 
+            },
         ],
         // border: [
         //     { name: "Border", value: "1px solid rgba(var(--foreground-rgb), 0.1)" },
         // ],
         borderRadius: [
-            { name: "None", value: "0" },
-            { name: "Small", value: "4px" },
-            { name: "Medium", value: "8px" },
-            { name: "Large", value: "16px" },
+            {
+                name: "None",
+                value: "0" 
+            },
+            {
+                name: "Small",
+                value: "4px" 
+            },
+            {
+                name: "Medium",
+                value: "8px" 
+            },
+            {
+                name: "Large",
+                value: "16px" 
+            },
         ],
     },
 })

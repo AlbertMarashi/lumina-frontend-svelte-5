@@ -94,14 +94,14 @@ let dropdown_toggled = false
 </InputWrapper>
 <style>
 .null {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.1);
     padding: 12px;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
     gap: 8px;
     &:is(:focus, :hover, :focus-within) {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(var(--foreground-rgb), 0.1);
         outline: none;
     }
 }

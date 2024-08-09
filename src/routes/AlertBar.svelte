@@ -2,7 +2,7 @@
 import Alert from "svelte-material-icons/Alert.svelte"
 import Info from "svelte-material-icons/AlertCircle.svelte"
 import Check from "svelte-material-icons/CheckCircle.svelte"
-import { onMount, tick } from "svelte"
+import {onMount, tick} from "svelte"
 import { browser } from "$app/environment"
 import type { Message } from "$lib/stores/alerts"
 import { page } from "$app/stores"

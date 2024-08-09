@@ -26,21 +26,22 @@ $: columns = block.children?.[0].children.length ?? 0
     width: 100%;
     grid-template-columns: repeat(var(--columns), fit-content(100%));
     overflow: hidden;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 1px solid rgba(var(--foreground-rgb), 0.08);
+    border-top: 1px solid rgba(var(--foreground-rgb), 0.08);
 }
 
 .grid-cell {
     padding: 4px 8px;
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.08);
+    border-right: 1px solid rgba(var(--foreground-rgb), 0.08);
+
     &::after {
         display: block;
         font-size: 0.1px;
     }
     &.header {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(var(--foreground-rgb), 0.08);
     }
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
     &:last-child {
         border-bottom-right-radius: 4px;
     }

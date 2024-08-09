@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createEventDispatcher, onDestroy, onMount } from "svelte"
+import {createEventDispatcher, onDestroy, onMount} from "svelte"
 
 
 export let viewport: Element
@@ -25,7 +25,12 @@ export let initiallyVisible = false
 /**
  * margin (px) from viewport top, right, bottom and left.
  */
-export let margin: { top?: number, right?: number, bottom?: number, left?: number } = {}
+export let margin: {
+    top?: number,
+    right?: number,
+    bottom?: number,
+    left?: number 
+} = {}
 
 
 /**
@@ -96,7 +101,7 @@ function setupViewport(viewport: Element|null) {
     element.addEventListener("scroll", onScroll, { passive: true })
 
     const observer = new ResizeObserver(entries => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         for (const _entry of entries) {
             wholeHeight = viewport?.scrollHeight ?? 0
             wholeWidth = viewport?.scrollWidth ?? 0
@@ -157,7 +162,10 @@ function setupThumb(thumb: HTMLDivElement) {
     if (thumb === HThumb) {
         HTeardownThumb?.()
         HThumb.addEventListener("mousedown" , () => console.log("foo"))
-        HThumb.addEventListener("mousedown", onThumbDown, { passive: true, capture: true })
+        HThumb.addEventListener("mousedown", onThumbDown, {
+            passive: true,
+            capture: true 
+        })
         HThumb.addEventListener("touchstart", onThumbDown, { passive: true })
 
         return () => {
@@ -177,7 +185,7 @@ function setupContents(contents: Element) {
     }
 
     const observer = new ResizeObserver(entries => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         for (const _entry of entries) {
             wholeHeight = viewport?.scrollHeight ?? 0
             wholeWidth = viewport?.scrollWidth ?? 0

@@ -1,8 +1,8 @@
 export type DeepPartial<T> =
     T extends number | string | boolean | null ? T :
-    T extends unknown[] ? Array<DeepPartial<T[number]>> :
-    T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } :
-    T;
+        T extends unknown[] ? Array<DeepPartial<T[number]>> :
+            T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } :
+                T;
 
 export type FilterKeysByValueType<ValueType, T> = {
     [K in keyof T]: T[K] extends ValueType ? K : never

@@ -2,7 +2,7 @@
 import IconButton from "$lib/controls/IconButton.svelte"
 import Logo from "$lib/icons/Logo.svelte"
 import NavLink from "./NavLink.svelte"
-import LightUniversity from "$lib/icons/LightUniversity.svelte"
+import LuminaUniversity from "$lib/icons/LuminaUniversity.svelte"
 import Passport from "svelte-material-icons/Passport.svelte"
 import Apps from "svelte-material-icons/Apps.svelte"
 import HomeOutline from "svelte-material-icons/HomeOutline.svelte"
@@ -79,7 +79,7 @@ function toggle(toggling: "notifications" | "account") {
                 text="Citizenship"/>
             <NavLink
                 href="https://luminauniversity.earth"
-                left_icon={LightUniversity}
+                left_icon={LuminaUniversity}
                 target="_blank"
                 text="Lumina University"/>
             <NavLink

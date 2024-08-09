@@ -2,7 +2,7 @@
 import Button from "$lib/controls/Button.svelte"
 import Icon from "$lib/display/Icon.svelte"
 import Tag from "$lib/display/Tag.svelte"
-import LightUniversity from "$lib/icons/LightUniversity.svelte"
+import LuminaUniversity from "$lib/icons/LuminaUniversity.svelte"
 import Flex from "$lib/layouts/Flex.svelte"
 
 import type { IconComponent } from "$lib/utils/icon_type"
@@ -25,7 +25,7 @@ export let app_slug: string
 $: tag_text = app.official ? "Official" : "3rd Party"
 
 let icons = {
-    "lumina-university": LightUniversity,
+    "lumina-university": LuminaUniversity,
 } as Record<string, IconComponent>
 
 async function authorise() {

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { tweened } from "svelte/motion"
 import { cubicOut } from "svelte/easing"
-import { afterNavigate, beforeNavigate } from "$app/navigation"
+import {afterNavigate, beforeNavigate} from "$app/navigation"
 import { fade } from "svelte/transition"
 
 export let loading = false

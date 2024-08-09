@@ -1,5 +1,5 @@
 <script lang="ts">
-import { tick, type ComponentProps } from "svelte"
+import {tick, type ComponentProps} from "svelte"
 import Statement from "./Statement.svelte"
 import Segment from "$lib/controls/Segment.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"

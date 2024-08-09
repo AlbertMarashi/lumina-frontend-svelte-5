@@ -3,7 +3,9 @@ import { StatementPageQuery } from "$lib/queries/surreal_queries"
 import { RecordId } from "surrealdb.js"
 import { error } from "@sveltejs/kit"
 
-export async function load({ params, depends }) {
+export async function load({
+    params, depends 
+}) {
     const db = await safe_db()
 
     const [statement] = await db.typed(StatementPageQuery, {

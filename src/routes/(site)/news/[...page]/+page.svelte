@@ -1,11 +1,6 @@
 <script lang="ts">
 import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
-import ButtonComponent from "$lib/blocks/Button/ButtonComponent"
-import HeadingComponent from "$lib/blocks/Heading/HeadingComponent.js"
-import IconComponent from "$lib/blocks/Icon/IconComponent.js"
-import MarkdownComponent from "$lib/blocks/Markdown/MarkdownComponent.js"
-import SpecialComponent from "$lib/blocks/Special/SpecialComponent.js"
-import TagComponent from "$lib/blocks/TagComponent/TagComponent.js"
+import { components } from "$lib/blocks/custom_components.js"
 import PageHead from "$lib/components/PageHead.svelte"
 import { icons } from "$lib/data/icons.svelte"
 import Author from "$lib/display/Author.svelte"
@@ -13,7 +8,7 @@ import DateComponent from "$lib/display/Date.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import Tag from "$lib/display/Tag.svelte"
-import { Content, isPreviewing } from "@builder.io/sdk-svelte"
+import {Content, isPreviewing} from "@builder.io/sdk-svelte"
 
 let {
     data,
@@ -43,14 +38,7 @@ Object.assign(icons, data.icons)
                 <Content
                     apiKey={PUBLIC_BUILDERIO_KEY}
                     content={data.content}
-                    customComponents={[
-                        ButtonComponent,
-                        SpecialComponent,
-                        TagComponent,
-                        HeadingComponent,
-                        IconComponent,
-                        MarkdownComponent,
-                    ]}
+                    customComponents={components}
                     data={{}}
                     model="press-releases" />
             {:else}

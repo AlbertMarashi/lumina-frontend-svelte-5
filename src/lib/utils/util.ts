@@ -14,7 +14,6 @@ export function find_icon_names(blocks: BuilderBlock[], icon_names: Set<string>)
         }
         if ("component" in block) {
             if (block.component?.name === "Columns") {
-
                 for (const column of block.component.options?.columns || []) {
                     find_icon_names(column.blocks || [], icon_names)
                 }
@@ -26,7 +25,6 @@ export function find_icon_names(blocks: BuilderBlock[], icon_names: Set<string>)
             } else if (block.component?.name === "Heading") {
                 if (block.component.options?.left_icon) icon_names.add(block.component.options.left_icon)
                 if (block.component.options?.right_icon) icon_names.add(block.component.options.right_icon)
-
             }
         }
     }

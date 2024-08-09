@@ -3,7 +3,9 @@
 import type { OAuthApp } from "$lib/types/OAuth.js"
 import { error } from "@sveltejs/kit"
 
-export async function load ({ parent, url, fetch }) {
+export async function load ({
+    parent, url, fetch 
+}) {
     const data = await parent()
 
     const slug = url.searchParams.get("app-slug")

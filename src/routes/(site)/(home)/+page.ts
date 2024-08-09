@@ -3,7 +3,9 @@ import { safe_db } from "$lib/stores/database.js"
 import { load_page_data } from "$lib/utils/load_page.js"
 import { error } from "@sveltejs/kit"
 
-export async function load({ url, fetch }) {
+export async function load({
+    url, fetch 
+}) {
     const db = await safe_db()
 
     const [user_count] = await db.typed(UserCountQuery)

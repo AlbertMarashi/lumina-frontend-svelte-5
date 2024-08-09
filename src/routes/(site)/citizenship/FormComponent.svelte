@@ -20,26 +20,20 @@ import Heading from "$lib/display/Heading.svelte"
 import Passport from "svelte-material-icons/Passport.svelte"
 import { invalidateAll } from "$app/navigation"
 import { regex_search } from "$lib/utils/regex"
-import type { GetUserResult } from "$lib/queries/surreal_queries";
-import asyncStatus from "$lib/utils/asyncStatus";
-    import { safe_db } from "$lib/stores/database";
+import type { GetUserResult } from "$lib/queries/surreal_queries"
+import asyncStatus from "$lib/utils/asyncStatus"
+import { safe_db } from "$lib/stores/database"
 
 $: data = $page.data
 
 export let user: NonNullable<GetUserResult[0][number]>
 
-enum Sexes {
-    Male = "Male",
-    Female = "Female",
-    Other = "Other"
-}
-
-let sexes = Object.values(Sexes)
+let sexes = ["Male", "Female", "Other"] as const
 
 type CitizenshipRegistration = {
     first_name: string,
     last_name: string,
-    sex: null | Sexes
+    sex: null | typeof sexes[number]
     country_of_citizenship: typeof countries,
     date_of_birth: string
     country_of_residence: typeof countries[number] | null
@@ -68,8 +62,6 @@ async function register() {
         throw new Error(error)
     }
 
-
-
     try {
         if (citizenship_registration.ethnic_groups.length == 0)
             throw new Error("You must select at least one ethnic group")
@@ -92,16 +84,17 @@ async function register() {
         const db = await safe_db()
 
         let [application] = await db.query(`
-            CREATE ONLY application CONTENT $application
-        `, {
-            application: {
-                application_type: "citizenship",
+                CREATE ONLY application CONTENT $application
+            `,
+            {
                 application: {
-                    ...normalised,
-                    user: user.id
+                    application_type: "citizenship",
+                    application: {
+                        ...normalised,
+                        user: user.id
+                    }
                 }
-            }
-        })
+            })
 
         if (!application) {
             throw new Error("Could not create application")
@@ -118,7 +111,9 @@ async function register() {
     }
 }
 </script>
-<Heading right_icon={Passport} text="Citizenship Registration"/>
+<Heading
+    right_icon={Passport}
+    text="Citizenship Registration"/>
 <div class="inputs">
     <IdentityPicker
         bind:first_name={ citizenship_registration.first_name }
@@ -128,8 +123,8 @@ async function register() {
             {#each sexes as sex}
                 <Segment
                     style={citizenship_registration.sex == sex ? "branded" : "translucent"}
-                    text={sex}
-                    onclick={ () => citizenship_registration.sex = sex }/>
+                    onclick={() => citizenship_registration.sex = sex}
+                    text={sex}/>
             {/each}
         </div>
     </InputWrapper>
@@ -211,9 +206,9 @@ async function register() {
     <div>
         <Button
             hug={true}
-            right_icon={ChevronRight}
+            label="Apply for citizenship"
             onclick={asyncStatus(register)}
-            label="Apply for citizenship"></Button>
+            right_icon={ChevronRight}></Button>
     </div>
 </div>
 <style>

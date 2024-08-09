@@ -83,7 +83,7 @@ $: user = data.user
 </Grid>
 <style>
 .notices {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--foreground-rgb), 0.04);
     display: flex;
     flex-direction: column;
     padding: 24px;

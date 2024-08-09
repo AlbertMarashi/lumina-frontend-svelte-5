@@ -19,9 +19,15 @@ export async function POST({ request }) {
     const [[user]] = await surrealdb_admin.typed(PasswordResetGetUserQuery, { email })
 
     if (!user) {
-        return json({ status: 404, body: { error: "No user found with that email address" } })
+        return json({
+            status: 404,
+            body: { error: "No user found with that email address" } 
+        })
     }
-    const token = await sign_jwt({ id: user.id.id, email }, { expiresIn: "1h" })
+    const token = await sign_jwt({
+        id: user.id.id,
+        email 
+    }, { expiresIn: "1h" })
 
     const request_url = new URL(request.url)
     request_url.pathname = "/reset"
@@ -56,8 +62,13 @@ export async function POST({ request }) {
             }
         })
         return json({ success: true })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     } catch (_) {
-        return json({ error: { message: "Failed to send password reset email", code: "failed_to_send_email" } }, { status: 500 })
+        return json({
+            error: {
+                message: "Failed to send password reset email",
+                code: "failed_to_send_email" 
+            } 
+        }, { status: 500 })
     }
 }

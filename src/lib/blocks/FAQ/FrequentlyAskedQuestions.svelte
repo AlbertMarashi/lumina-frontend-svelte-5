@@ -3,10 +3,16 @@ import Icon from "$lib/display/Icon.svelte"
 import { Blocks } from "@builder.io/sdk-svelte"
 import ChevronRight from "svelte-material-icons/ChevronRight.svelte"
 import ChevronDown from "svelte-material-icons/ChevronDown.svelte"
-export let questions: { open: boolean, question: unknown; answer: unknown }[] = []
+export let questions: {
+    open: boolean,
+    question: unknown;
+    answer: unknown 
+}[] = []
 </script>
 <faqs>
-    {#each questions as { question, answer, open }}
+    {#each questions as {
+        question, answer, open 
+    }}
         <details bind:open>
             <summary>
                 <Blocks

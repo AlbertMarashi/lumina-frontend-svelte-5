@@ -9,7 +9,7 @@ import ExitToApp from "svelte-material-icons/ExitToApp.svelte"
 import Settlement from "$lib/icons/Settlement.svelte"
 import { onMount } from "svelte"
 import Button from "$lib/controls/Button.svelte"
-import { getNearestScrollableParent } from "$lib/utils/scrollable_parent"
+import { getNearestScrollableParent } from "$lib/utils/element_utils"
 import type { GetUserResult } from "$lib/queries/surreal_queries"
 import { global_state } from "$lib/stores/global.svelte"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
@@ -27,7 +27,7 @@ let {
 
 let scrolled = $state(false)
 let header: HTMLElement = $state()!
-let nearest_vertical_scrollable_parent: HTMLElement | null = $state(null)
+let nearest_vertical_scrollable_parent: Element | null = $state(null)
 let authenticated = $derived(user != null)
 
 onMount(() => {
@@ -133,7 +133,7 @@ header {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         border: none;
         background: var(--background);
-        background: color-mix(white, var(--foreground) 8%, transparent);
+        background: color-mix(var(--background), var(--foreground) 8%, transparent);
         backdrop-filter: blur(10px);
     }
 }

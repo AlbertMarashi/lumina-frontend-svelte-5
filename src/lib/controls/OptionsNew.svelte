@@ -1,39 +1,41 @@
 <script
-    generics="X"
+    generics="T"
     lang="ts">
-import { createEventDispatcher } from "svelte"
+import type { Snippet } from "svelte"
 import ScrollbarRegion from "./ScrollbarRegion.svelte"
 
+let {
+    onselect,
+    selected,
+    options,
+    option,
+    escape_up,
+    escape_down,
+    allow_other,
+    search = $bindable("")
+}: {
+    onselect: (value: T) => void,
+    selected?: T,
+    options: T[],
+    allow_other?: ((query: string) => T) | undefined,
+    escape_up?: () => void,
+    escape_down?: () => void,
+    search?: string,
+    option: Snippet<[T]>
+} = $props()
 
-// TODO: REMOVE WHEN https://github.com/sveltejs/svelte-eslint-parser/issues/306 IS FIXED
-// eslint-disable-next-line no-undef, @typescript-eslint/no-explicit-any
-type T = X | any
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface $$Slots {
-    default: { option: T }
-}
-
-const dispatch = createEventDispatcher<{
-    select: T,
-    keyup: KeyboardEvent
-}>()
-
-export let options: T[]
-let els: HTMLDivElement[] = []
-export let allow_other: ((query: string) => T) | undefined = undefined
-export let search = ""
+let els: HTMLDivElement[] = $state([])
 
 function handle_keypress(e: KeyboardEvent, index: number, other?: T) {
     if (e.key === "Enter") {
-        dispatch("select", other || options[index])
+        onselect(other || options[index])
     }
     if (e.key === "ArrowUp") {
         if (index > 0) {
             els[index - 1].focus()
             els[index - 1].scrollIntoView()
         } else {
-            dispatch("keyup", e)
+            escape_up?.()
         }
     }
     if (e.key === "ArrowDown") {
@@ -41,7 +43,7 @@ function handle_keypress(e: KeyboardEvent, index: number, other?: T) {
             els[index + 1].focus()
             els[index - 1].scrollIntoView()
         } else {
-            dispatch("keyup", e)
+            escape_down?.()
         }
     }
 }
@@ -52,24 +54,28 @@ export function focus() {
 
 </script>
 <ScrollbarRegion>
-    {#each options as option, i}
+    {#each options as item, i}
         <div
             bind:this={ els[i] }
             class="option"
+            class:selected={ item === selected }
+            onclick={e => {
+                e.stopPropagation()
+                onselect(item)
+            }}
+            onkeyup={e => handle_keypress(e, i)}
             role="button"
-            tabindex="0"
-            on:keyup={ e => handle_keypress(e, i) }
-            on:click|stopPropagation={ _ => dispatch("select", option) }>
-            <slot {option}/>
+            tabindex="0">
+            {@render option(item)}
         </div>
     {/each}
     {#if typeof allow_other === "function" && options.length === 0}
         <div
             class="other-option"
+            onclick={_ => onselect(allow_other(search))}
+            onkeyup={e => handle_keypress(e, els.length, allow_other && allow_other(search))}
             role="button"
-            tabindex="0"
-            on:keyup={ e => handle_keypress(e, els.length, allow_other && allow_other(search)) }
-            on:click={ _ => dispatch("select", allow_other && allow_other(search)) }>
+            tabindex="0">
             Use "<strong>{ search }</strong>"
         </div>
     {:else if options.length === 0}
@@ -106,6 +112,9 @@ export function focus() {
     padding: 6px;
     width: 100%;
     border-bottom: 1px solid rgba(var(--foreground-rgb), 0.08);
+    &.selected {
+        background: rgba(var(--foreground-rgb), 0.08);
+    }
     &:is(:hover, :focus) {
         background: rgba(var(--foreground-rgb), 0.04);
         outline: 0;

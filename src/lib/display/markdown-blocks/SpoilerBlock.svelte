@@ -14,7 +14,7 @@ export let block: ContainerDirective
 <style>
 
 details {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(var(--foreground-rgb), 0.1);
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
@@ -29,7 +29,7 @@ details summary {
 
 details summary:hover,
 details summary:focus {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(var(--foreground-rgb), 0.1);
 }
 
 details .content {

@@ -8,13 +8,11 @@ import CommentOutline from "svelte-material-icons/CommentOutline.svelte"
 import Tag from "$lib/display/Tag.svelte"
 import { RecordId } from "surrealdb.js"
 import RatingModal from "./RatingModal.svelte"
-import { receive, send } from "./crossfade_statement.svelte"
+import {receive, send} from "./crossfade_statement.svelte"
 import GenericDropdown from "$lib/controls/GenericDropdown.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Expand from "svelte-material-icons/ArrowExpand.svelte"
-import { page } from "$app/stores"
-import { goto } from "$app/navigation"
 
 type Statement = {
     id: RecordId<"statement">,
@@ -90,11 +88,11 @@ let show_rating_ui = $state(false)
                 { statement.laughs || null }
                 <Icon icon={Emoticon} />
             </button> -->
-                <GenericDropdown>
+                <GenericDropdown position="bottom-right">
                     {#snippet element({ toggle })}
                     <button
-class="statement-button"
-onclick={toggle}>
+                        class="statement-button"
+                        onclick={toggle}>
                         <Icon icon={DotsHorizontal} />
                     </button>
                     {/snippet}

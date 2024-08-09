@@ -8,7 +8,7 @@ import TagComponent from "$lib/blocks/TagComponent/TagComponent.js"
 import PageHead from "$lib/components/PageHead.svelte"
 import { icons } from "$lib/data/icons.svelte"
 import site_data from "$lib/data/site_data.js"
-import { Content, isPreviewing } from "@builder.io/sdk-svelte"
+import {Content, isPreviewing} from "@builder.io/sdk-svelte"
 
 let {
     data,

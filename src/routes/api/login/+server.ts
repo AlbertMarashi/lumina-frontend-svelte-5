@@ -1,4 +1,4 @@
-import { error, json } from "@sveltejs/kit"
+import {error, json} from "@sveltejs/kit"
 import { z } from "zod"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
 import { UserLoginQuery } from "$lib/queries/surreal_queries.js"
@@ -11,7 +11,9 @@ const input = z.object({
 })
 
 export async function POST({ request }) {
-    const { email, password } = input.parse(await request.json())
+    const {
+        email, password 
+    } = input.parse(await request.json())
 
     const [[user]] = await surrealdb_admin.typed(UserLoginQuery, {
         email,

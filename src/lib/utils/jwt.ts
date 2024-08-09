@@ -1,5 +1,5 @@
 import { AUTH_SECRET } from "$env/static/private"
-import { SignJWT, jwtVerify, type JWTPayload } from "jose"
+import {SignJWT, jwtVerify, type JWTPayload} from "jose"
 
 const secret = new TextEncoder().encode(AUTH_SECRET)
 

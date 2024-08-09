@@ -11,11 +11,11 @@ export let tabindex: number | undefined = undefined
 export let style: "translucent" | "branded" | "outline" = "translucent"
 export let disabled = false
 export let text: string | undefined = undefined
-export let onclick: (e: MouseEvent | KeyboardEvent) => void
+export let onclick: undefined | ((e: MouseEvent | KeyboardEvent) => void) = undefined
 
 function click(e: MouseEvent | KeyboardEvent) {
     if (!disabled) {
-        onclick(e)
+        onclick?.(e)
     }
 }
 
@@ -88,6 +88,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
 
     &.branded {
         background: var(--brand);
+        background: color-mix(in srgb, var(--brand), var(--background) 12%);
         color: white;
         &:hover {
             background: color-mix(in srgb, var(--brand), var(--foreground) 12%);

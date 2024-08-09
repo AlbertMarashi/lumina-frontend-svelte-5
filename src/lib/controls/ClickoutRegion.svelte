@@ -1,7 +1,7 @@
 <script lang="ts">
 import { browser } from "$app/environment"
 
-import { onDestroy, onMount, setContext } from "svelte"
+import {onDestroy, onMount, setContext} from "svelte"
 
 let nodes: Node[] = []
 export let condition = true

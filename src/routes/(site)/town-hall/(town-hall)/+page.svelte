@@ -128,6 +128,8 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
             <statements>
                 {#each sort_by(tab, data.statements) as statement}
                     <Statement statement={statement}/>
+                    <Statement statement={statement}/>
+                    <Statement statement={statement}/>
                 {/each}
             </statements>
         </inner>

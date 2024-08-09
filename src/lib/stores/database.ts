@@ -1,5 +1,5 @@
 import { create_resolver } from "$lib/utils/resolver"
-import { PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
+import {PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE} from "$env/static/public"
 import Surreal from "surrealdb.js"
 
 class ClientStore {

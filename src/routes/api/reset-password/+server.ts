@@ -12,7 +12,9 @@ const input = z.object({
 })
 
 export async function POST({ request }) {
-    const { token, password } = input.parse(await request.json())
+    const {
+        token, password 
+    } = input.parse(await request.json())
 
     const { payload: { id } } = await verify_jwt<{ id: string }>(token)
 
@@ -22,7 +24,12 @@ export async function POST({ request }) {
     })
 
     if (!user) {
-        return json({ error: { message: "Something went wrong", code: "failed_to_update_user" } }, { status: 400 })
+        return json({
+            error: {
+                message: "Something went wrong",
+                code: "failed_to_update_user" 
+            } 
+        }, { status: 400 })
     }
 
     return json({ success: true })

@@ -1,5 +1,5 @@
-import { SURREAL_PASS, SURREAL_USER } from "$env/static/private"
-import { PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
+import {SURREAL_PASS, SURREAL_USER} from "$env/static/private"
+import {PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE} from "$env/static/public"
 import Surreal from "surrealdb.js"
 
 async function get_surreal_db_client() {

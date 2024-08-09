@@ -1,5 +1,5 @@
 <script lang="ts">
-import { UpdateStatementVoteQuery, VoteForStatementQuery } from "$lib/queries/surreal_queries"
+import {UpdateStatementVoteQuery, VoteForStatementQuery} from "$lib/queries/surreal_queries"
 import type { ComponentProps } from "svelte"
 import type Statement from "./Statement.svelte"
 import Icon from "$lib/display/Icon.svelte"
@@ -36,7 +36,10 @@ async function vote(rating: number) {
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to vote")
 
-            my_rating = { id: vote.id, rating }
+            my_rating = {
+                id: vote.id,
+                rating 
+            }
             await invalidate("app:statements")
             show_rating_ui = false
 
@@ -49,7 +52,10 @@ async function vote(rating: number) {
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to update vote")
 
-            my_rating = { id: vote.id, rating }
+            my_rating = {
+                id: vote.id,
+                rating 
+            }
             await invalidate("app:statements")
             show_rating_ui = false
 

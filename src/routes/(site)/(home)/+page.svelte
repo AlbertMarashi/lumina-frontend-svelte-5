@@ -6,7 +6,7 @@ import IconComponent from "$lib/blocks/Icon/IconComponent.js"
 import TagComponent from "$lib/blocks/TagComponent/TagComponent.js"
 import PageHead from "$lib/components/PageHead.svelte"
 import { icons } from "$lib/data/icons.svelte"
-import { Content, isPreviewing, type RegisteredComponent } from "@builder.io/sdk-svelte"
+import {Content, isPreviewing, type RegisteredComponent} from "@builder.io/sdk-svelte"
 import Globe from "./Globe.svelte"
 
 let {

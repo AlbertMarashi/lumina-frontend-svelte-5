@@ -3,7 +3,7 @@
 /// <reference lib="webworker" />
 declare let self: ServiceWorkerGlobalScope
 
-import { build, files, version } from "$service-worker"
+import {build, files, version} from "$service-worker"
 
 self.addEventListener("install", e => {
     console.info("[Service Worker] Install")

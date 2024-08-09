@@ -1,9 +1,11 @@
 import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
-import { find_icon_names, load_icons } from "$lib/utils/util.js"
+import {find_icon_names, load_icons} from "$lib/utils/util.js"
 import { fetchOneEntry } from "@builder.io/sdk-svelte"
 import { error } from "@sveltejs/kit"
 
-export async function load({ url, fetch: f }) {
+export async function load({
+    url, fetch: f
+}) {
     const content = await fetchOneEntry({
         model: "press-releases",
         apiKey: PUBLIC_BUILDERIO_KEY,

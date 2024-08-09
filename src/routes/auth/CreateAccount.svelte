@@ -30,7 +30,10 @@ let user = $state({
     last_name: "",
 })
 
-let phone: { country: Country | null, number: string } = $state({
+let phone: {
+    country: Country | null,
+    number: string 
+} = $state({
     country: null,
     number: "",
 })
@@ -64,7 +67,10 @@ async function signup () {
 
         console.log(created)
 
-        if (!created) return $page.data.alerts.create_alert("error", { code: "FAILED_ACCOUNT_CREATION", message: "Failed to create account" })
+        if (!created) return $page.data.alerts.create_alert("error", {
+            code: "FAILED_ACCOUNT_CREATION",
+            message: "Failed to create account" 
+        })
 
         mixpanel.track("Create Account", {
             country_code: phone.country.code,
@@ -72,7 +78,10 @@ async function signup () {
 
         $page.data.alerts.create_alert("success", "Account Created")
     } catch (e) {
-        return $page.data.alerts.create_alert("error", { code: "FAILED_ACCOUNT_CREATION", message: e })
+        return $page.data.alerts.create_alert("error", {
+            code: "FAILED_ACCOUNT_CREATION",
+            message: e 
+        })
     }
 
     await login(user.email, user.password)

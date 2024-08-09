@@ -1,5 +1,5 @@
 <script lang="ts">
-import { onMount, tick } from "svelte"
+import {onMount, tick} from "svelte"
 
 export let max_height: number = 320
 export let max_width: number = 320
@@ -41,7 +41,10 @@ async function resize() {
 
     // scroll into view
     await tick()
-    dropdown.scrollIntoView({ block: "nearest", inline: "nearest" })
+    dropdown.scrollIntoView({
+        block: "nearest",
+        inline: "nearest" 
+    })
 }
 
 </script>

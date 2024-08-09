@@ -1,6 +1,4 @@
 // import { handle as auth_handler } from "./auth"
-import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
-import { sign_jwt } from "$lib/utils/jwt"
 import { sequence } from "@sveltejs/kit/hooks"
 import { AsyncLocalStorage } from "node:async_hooks"
 import { isolated_global } from "./lib/stores/database"
@@ -37,7 +35,9 @@ export async function handleError({ error }) {
     }
 }
 
-async function create_async_local_storage({ event, resolve }: Parameters<typeof handle>[0]) {
+async function create_async_local_storage({
+    event, resolve
+}: Parameters<typeof handle>[0]) {
     const resolver = create_resolver<Surreal>()
 
     // let safe_surreal_db_client(event.locals.token)
@@ -47,7 +47,9 @@ async function create_async_local_storage({ event, resolve }: Parameters<typeof 
     }, async () => await resolve(event))
 }
 
-async function read_cookie({ event, resolve }: Parameters<typeof handle>[0]) {
+async function read_cookie({
+    event, resolve
+}: Parameters<typeof handle>[0]) {
     const token = event.cookies.get("token")
 
     if (token) {
