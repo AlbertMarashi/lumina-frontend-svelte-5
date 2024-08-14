@@ -43,7 +43,7 @@ function select_option(option: T | null) {
 
 let dropdown_toggled = false
 </script>
-<InputWrapper bind:name>
+<InputWrapper bind:name={ name }>
     <FlexWrap>
         <ClickoutRegion clicked_outside={() => dropdown_toggled = false}>
             <Inside>
@@ -70,7 +70,7 @@ let dropdown_toggled = false
                             </div>
                         {/if}
                         {#if typeof options === "function"}
-                            <Search bind:search/>
+                            <Search bind:search={ search }/>
                         {/if}
                         <Options
                             allow_other={allow_other}

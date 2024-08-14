@@ -42,7 +42,7 @@ onMount(() => {
             disabled={!editable}
             placeholder={placeholder}
             rows="1"
-            bind:value></textarea>
+            bind:value={ value }></textarea>
         <div class="textarea invisible">{ (value || placeholder) + "\n" }</div>
     </div>
 </input-wrapper>

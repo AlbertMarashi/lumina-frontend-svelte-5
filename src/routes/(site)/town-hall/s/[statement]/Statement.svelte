@@ -61,7 +61,7 @@ let show_rating_ui = $state(false)
     {#if show_rating_ui}
         <RatingModal
             statement={statement}
-            bind:show_rating_ui
+            bind:show_rating_ui={ show_rating_ui }
             bind:my_rating={ statement.my_rating }/>
     {/if}
     <inner>
@@ -69,17 +69,18 @@ let show_rating_ui = $state(false)
             <RatingBar
                 bind:my_rating={ statement.my_rating }
                 bind:vote_data={ statement.vote_data }
-                bind:show_rating_ui/>
+                bind:show_rating_ui={ show_rating_ui }/>
             <right>
                 <a
                     class="statement-button"
                     href="/town-hall/s/{statement.id.id}"
+
                     onclick={e => e.stopPropagation()}>
                     <Icon icon={Expand}/>
                 </a>
                 <a
                     class="statement-button"
-                    href="/town-hall/s/{statement.id.id}"
+                    href="/town-hall/s/${statement.id.id}"
                     onclick={e => e.stopPropagation()}>
                     { statement.total_replies || "" }
                     <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
@@ -110,7 +111,7 @@ let show_rating_ui = $state(false)
         <bottom>
             <author>
                 <Icon icon={AccountCircle} />
-                { statement.author_data?.author_name }
+                { statement.author_data!.author_name }
             </author>
             <Tag
                 --color="rgba(var(--foreground-rgb), 0.8)"

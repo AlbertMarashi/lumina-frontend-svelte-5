@@ -21,8 +21,8 @@ export let text: string
     {id}
     style:--underline-color={ underline_color }
     class="heading"
-    class:center
-    class:underline>
+    class:center={ center }
+    class:underline={ underline }>
     {#if left_icon && typeof left_icon !== "string"}
         <Icon
             --color={left_icon_color}
@@ -81,6 +81,16 @@ icon {
             background: var(--underline-color, var(--brand));
             opacity: 0.4;
             z-index: -1;
+        }
+    }
+}
+
+:global(html:has(.light_mode)) {
+    .heading {
+        &.underline {
+            &::before {
+                opacity: 0.2;
+            }
         }
     }
 }

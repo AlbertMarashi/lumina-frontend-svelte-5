@@ -67,20 +67,20 @@ async function reset_password() {
     </Card>
 </div>
 <style>
-    .email {
-        padding: 6px;
-        border-radius: 6px;
-        border: 1px solid rgba(var(--foreground-rgb), 0.08);
-        color: rgba(var(--foreground-rgb), 0.6);
-        align-self: center;
-    }
+.email {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(var(--foreground-rgb), 0.08);
+    color: rgba(var(--foreground-rgb), 0.6);
+    align-self: center;
+}
 
-    .flex {
-        display: flex;
-        height: 100%;
-        padding: 36px;
-        align-items: center;
-        gap: 36px;
-        flex-direction: column;
-    }
-    </style>
+.flex {
+    display: flex;
+    height: 100%;
+    padding: 36px;
+    align-items: center;
+    gap: 36px;
+    flex-direction: column;
+}
+</style>

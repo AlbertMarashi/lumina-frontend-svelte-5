@@ -24,7 +24,7 @@ let tags_query = $derived(nav_url_tags.length ? `?tag=${nav_url_tags.join(",")}`
 <svelte:element
     this={ onclick ? "span" : "a" }
     class="hashtag"
-    class:active
+    class:active={ active }
     href={onclick ? undefined : `/town-hall/${tags_query}`}
     onclick={onclick}
     role={onclick ? "button" : undefined}>

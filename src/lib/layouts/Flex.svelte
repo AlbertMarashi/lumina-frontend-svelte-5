@@ -13,7 +13,7 @@ export let text_align: "left" | "center" | "right" | undefined = undefined
     style:gap="{ gap }px"
     style:justify-content={ justify_content }
     style:flex-direction={ direction }
-    style:padding
+    style:padding={ padding }
     style:text-align={ text_align }
     style:max-width={ max_width }
     style:align-items={ align_items }

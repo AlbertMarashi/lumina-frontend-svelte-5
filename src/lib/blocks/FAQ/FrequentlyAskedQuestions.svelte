@@ -13,7 +13,7 @@ export let questions: {
     {#each questions as {
         question, answer, open 
     }}
-        <details bind:open>
+        <details bind:open={ open }>
             <summary>
                 <Blocks
                     blocks={question}

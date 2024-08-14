@@ -3,15 +3,15 @@
 let {
     opacity = false,
     text,
-} = $props<{
+}: {
     opacity?: boolean
     text: string
-}>()
+} = $props()
 </script>
 
 <span
     class="tag"
-    class:opacity>
+    class:opacity={ opacity }>
     <div class="text">
         { text }
     </div>

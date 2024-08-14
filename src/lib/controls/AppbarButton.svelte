@@ -27,7 +27,7 @@ function handle_keyup(e: KeyboardEvent) {
 <svelte:element
     this={ tag }
     class="button"
-    class:active
+    class:active={ active }
     href={href}
     role="button"
     tabindex="0"

@@ -37,7 +37,7 @@ register("editor.settings", {
         colors: [
             {
                 name: "Foreground",
-                value: "var(--foreground)" 
+                value: "var(--foreground)"
             },
             {
                 name: "Foreground 65",
@@ -53,64 +53,64 @@ register("editor.settings", {
             },
             {
                 name: "Background",
-                value: "var(--background)" 
+                value: "var(--background)"
             },
             {
                 name: "Brand",
-                value: "var(--brand)" 
+                value: "var(--brand)"
             },
             {
                 name: "Brand RGB",
-                value: "var(--brand-rgb)" 
+                value: "var(--brand-rgb)"
             },
             {
                 name: "Red",
-                value: "var(--red)" 
+                value: "var(--red)"
             },
             {
                 name: "Red RGB",
-                value: "var(--red-rgb)" 
+                value: "var(--red-rgb)"
             },
         ],
         spacing: [
             {
                 name: "None",
-                value: "0" 
+                value: "0"
             },
             {
                 name: "Padding 8px",
-                value: "8px" 
+                value: "8px"
             },
             {
                 name: "Padding 12px",
-                value: "12px" 
+                value: "12px"
             },
             {
                 name: "Padding 16px",
-                value: "16px" 
+                value: "16px"
             },
             {
                 name: "Padding 24px",
-                value: "24px" 
+                value: "24px"
             },
             {
                 name: "Padding 32px",
-                value: "32px" 
+                value: "32px"
             },
         ],
         fontFamily: false,
         maxWidth: [
             {
                 name: "Small",
-                value: "600px" 
+                value: "600px"
             },
             {
                 name: "Medium",
-                value: "1000px" 
+                value: "1000px"
             },
             {
                 name: "Large",
-                value: "1200px" 
+                value: "1200px"
             },
         ],
         // border: [
@@ -119,19 +119,19 @@ register("editor.settings", {
         borderRadius: [
             {
                 name: "None",
-                value: "0" 
+                value: "0"
             },
             {
                 name: "Small",
-                value: "4px" 
+                value: "4px"
             },
             {
                 name: "Medium",
-                value: "8px" 
+                value: "8px"
             },
             {
                 name: "Large",
-                value: "16px" 
+                value: "16px"
             },
         ],
     },
@@ -146,7 +146,7 @@ register("editor.settings", {
     <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-8MK9JSEJ2P"></script>
-    <script>
+    <script lang="ts">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -157,21 +157,21 @@ register("editor.settings", {
 <div class="app">
     <Sidebar
         bind:user={ data.user }
-        bind:sidebar_opened
-        bind:dropdown/>
+        bind:sidebar_opened={ sidebar_opened }
+        bind:dropdown={ dropdown }/>
     <div
         bind:this={ content }
         class="content">
         <Header
-            bind:sidebar_opened
-            bind:dropdown
+            bind:sidebar_opened={ sidebar_opened }
+            bind:dropdown={ dropdown }
             bind:user={ data.user }/>
         <inner-content>
             {@render children()}
         </inner-content>
         <AppBar
-            bind:dropdown
-            bind:sidebar_opened
+            bind:dropdown={ dropdown }
+            bind:sidebar_opened={ sidebar_opened }
             bind:user={ data.user }/>
     </div>
 </div>

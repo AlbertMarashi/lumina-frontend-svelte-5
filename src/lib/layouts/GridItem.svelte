@@ -41,9 +41,9 @@ export let columns: BreakpointColumns<string>
     style:justify-content={ typeof justify_content == "string" ? justify_content : undefined }
     style:flex-direction={ typeof flex_direction == "string" ? flex_direction : undefined }
     style:text-align={ text_align }
-    style:padding
+    style:padding={ padding }
     style:gap={ gap ? gap + "px" : undefined }
-    style:position
+    style:position={ position }
     class="grid-item">
     <slot/>
 </svelte:element>

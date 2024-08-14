@@ -25,9 +25,9 @@ export let columns: {
         style:padding-bottom={ padding_vertical ? `${padding_vertical}px` : undefined }
         style:grid-row-gap={ vertical_gap ? `${vertical_gap}px` : undefined }
         style:grid-column-gap={ horizontal_gap ? `${horizontal_gap}px` : undefined }
-        style:flex
+        style:flex={ flex }
         class="grid"
-        class:side_padding>
+        class:side_padding={ side_padding }>
         <slot/>
     </div>
 </div>

@@ -1,6 +1,8 @@
 <script lang="ts">
+import { page } from "$app/stores"
 import Icon from "$lib/display/Icon.svelte"
 import type { IconComponent } from "$lib/utils/icon_type"
+
 
 let {
     href,
@@ -13,9 +15,19 @@ let {
     left_icon: IconComponent,
     target?: string
 } = $props()
+
+let path = $derived($page.url.pathname)
+
+let active = $derived(path === href)
+let within_active = $derived( href !== "/" && path.length > href.length && path.startsWith(href) )
+
+$inspect(within_active)
+
 </script>
 <a
     class="nav-link"
+    class:active={ active }
+    class:within_active={ within_active }
     {href}
     target={target}>
     <Icon
@@ -37,6 +49,15 @@ let {
     outline: 0;
     font-weight: 600;
     border-radius: 4px;
+    &.active {
+        color: color-mix(in srgb, var(--brand) 50%, var(--foreground));
+        background: rgba(var(--brand-rgb), 0.15);
+    }
+
+    &.within_active {
+        background: rgba(var(--brand-rgb), 0.08);
+        color: var(--foreground);
+    }
 
     &:is(:hover, :focus) {
         color: var(--foreground);

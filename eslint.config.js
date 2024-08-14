@@ -3,6 +3,8 @@ import stylisticTs from "@stylistic/eslint-plugin-ts"
 import ts from "typescript-eslint"
 import svelte from "eslint-plugin-svelte"
 import globals from "globals"
+import sveltets from "svelte-ts"
+
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -21,9 +23,23 @@ export default [
         files: ["**/*.svelte"],
         languageOptions: {
             parserOptions: {
-                // project: true,
+                project: "./tsconfig.json",
+                projectService: {
+                    allowDefaultProject: ["*.svelte"]
+                },
+                // tsconfigRootDir: import.meta.dirname,
                 parser: ts.parser,
+                ecmaVersion: "latest",
+                extraFileExtensions: [".svelte"],
+                svelteFeatures: {
+                    runes: true
+                }
             }
+        },
+        rules: {
+            "@typescript-eslint/restrict-plus-operands": ["error"],
+            "@typescript-eslint/restrict-template-expressions": ["error"],
+            // "@svelte-ts/restrict-mustache-expressions": "error",
         }
     },
     {
@@ -33,12 +49,14 @@ export default [
             ".vercel",
             "dist/",
             "css/",
-            "src/lib/queries.ts"
+            "src/lib/queries.ts",
+            "svelte-ts/"
         ]
     },
     {
         plugins: {
             "@stylistic/ts": stylisticTs,
+            "@svelte-ts": sveltets,
         },
     },
     {
@@ -47,6 +65,9 @@ export default [
             "no-constant-condition": ["error", { "checkLoops": false }],
             "no-implicit-coercion": ["error", {
                 "allow": ["!!"],
+                "string": true,
+                "number": true,
+                "disallowTemplateShorthand": true,
             }],
             // disallow semi-colon
             "semi": ["error", "never"],
@@ -63,13 +84,12 @@ export default [
             "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
             "svelte/indent": ["error", {
                 "indentScript": false,
-                "ignoredNodes": ["script"],
                 "indent": 4,
             }],
             "svelte/prefer-style-directive": ["error"],
             "svelte/sort-attributes": ["error"],
             "svelte/shorthand-directive": ["error", {
-                "prefer": "always",
+                "prefer": "never",
             }],
             "svelte/no-spaces-around-equal-signs-in-attribute": ["error"],
             "svelte/html-quotes": ["error", {
@@ -88,6 +108,9 @@ export default [
                     "openingBrace": "never",
                     "closingBrace": "never",
                 }
+            }],
+            "svelte/block-lang": ["error", {
+                "script": "ts",
             }],
             "svelte/max-attributes-per-line": [
                 "error",
@@ -120,6 +143,7 @@ export default [
                 "ImportDeclaration": "never",
             }],
             "no-undef": "off",
+            "svelte/restrict-mustache-expressions": "off",
         },
     },
     {
@@ -127,5 +151,5 @@ export default [
         rules: {
             "@stylistic/ts/indent": ["error", 4],
         }
-    }
+    },
 ]

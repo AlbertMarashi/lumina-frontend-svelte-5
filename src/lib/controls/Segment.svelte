@@ -31,7 +31,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
 <svelte:element
     this={ tag }
     class="segment {style}"
-    class:disabled
+    class:disabled={ disabled }
     href={href}
     role="button"
     tabindex={tabindex ?? disabled ? -1 : 0}

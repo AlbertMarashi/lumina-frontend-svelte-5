@@ -42,7 +42,7 @@ function remove_value(value: T) {
 
 let dropdown_toggled = false
 </script>
-<InputWrapper bind:name>
+<InputWrapper bind:name={ name }>
     <ClickoutRegion clicked_outside={() => dropdown_toggled = false}>
         <FlexWrap>
             {#each values as value}
@@ -61,12 +61,12 @@ let dropdown_toggled = false
                         {#if typeof options === "function"}
                             <Search
                                 placeholder={search_placeholder}
-                                bind:search/>
+                                bind:search={ search }/>
                         {/if}
                         <Options
                             allow_other={allow_other}
                             options={available_options}
-                            bind:search
+                            bind:search={ search }
                             on:select={ option => {
                                 values = [...values, option.detail]
                                 search = "" // Clear search

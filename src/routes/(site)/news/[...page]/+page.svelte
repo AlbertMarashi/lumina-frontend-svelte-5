@@ -30,7 +30,7 @@ Object.assign(icons, data.icons)
     <Heading text={data.content?.data?.title || "Untitled Page"}/>
     <DateComponent date={new Date(data.content?.data?.datePublished || "")}/>
     <Author
-        name="Lumina Government"
+        author="Lumina Government"
         src="/images/lumina.png"/>
     <article>
         <inner>

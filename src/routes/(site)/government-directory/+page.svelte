@@ -304,7 +304,6 @@ let filtered_orgs = $derived(organisations.filter(org =>
 ))
 
 </script>
-
 <hero>
     <inner>
         <Flex
@@ -385,9 +384,11 @@ let filtered_orgs = $derived(organisations.filter(org =>
                                         left_icon={Government}
                                         level={4}
                                         text={org.name}/>
-                                    <Paragraph>
-                                        { org.description }
-                                    </Paragraph>
+                                    {#if org.description}
+                                        <Paragraph>
+                                            { org.description }
+                                        </Paragraph>
+                                    {/if}
                                 </Flex>
                                 <FlexWrap>
                                     <Tag text={org.type}/>
@@ -455,10 +456,10 @@ let filtered_orgs = $derived(organisations.filter(org =>
                                     left_icon={BulletedList}
                                     onclick={toggle}
                                     right_icon={MenuDown}>
-                                    {#if type === null}
-                                        All Types
-                                    {:else}
+                                    {#if type}
                                         { type }
+                                    {:else}
+                                        All Types
                                     {/if}
                                 </Segment>
                             {/snippet}
@@ -495,10 +496,10 @@ let filtered_orgs = $derived(organisations.filter(org =>
                                     left_icon={DotsCircle}
                                     onclick={toggle}
                                     right_icon={MenuDown}>
-                                    {#if status === null}
-                                        All Statuses
-                                    {:else}
+                                    {#if status}
                                         { status }
+                                    {:else}
+                                        All Statuses
                                     {/if}
                                 </Segment>
                             {/snippet}

@@ -25,7 +25,7 @@ function handle_keyup(e: KeyboardEvent) {
 <svelte:element
     this={ tag }
     class="button"
-    class:opacity
+    class:opacity={ opacity }
     href={href}
     onclick={onclick}
     onkeyup={handle_keyup}

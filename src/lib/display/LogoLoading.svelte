@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import LogoEdge from "$lib/icons/LogoEdge.svelte"
 export let size = "48px"
 

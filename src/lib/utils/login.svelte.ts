@@ -18,7 +18,7 @@ export async function login(email: string, password: string) {
     try {
         const { token } = await api<{
             token: string,
-            error: unknown 
+            error: unknown
         }>("/api/login", "POST", {
             email,
             password,

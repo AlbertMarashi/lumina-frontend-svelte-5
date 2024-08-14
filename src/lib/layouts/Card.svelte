@@ -36,14 +36,14 @@ function handle_keyup(e: KeyboardEvent) {
     style:gap={ typeof gap === "number" ? gap + "px" : gap }
     style:align-items={ align_items }
     style:justify-content={ justify_content }
-    style:padding
+    style:padding={ padding }
     class="card"
     class:clickable={ is_clickable }
-    class:disabled
+    class:disabled={ disabled }
     class:horizontal={ direction === "horizontal" }
-    class:opacity
-    class:reset_bg
-    class:shadow
+    class:opacity={ opacity }
+    class:reset_bg={ reset_bg }
+    class:shadow={ shadow }
     class:vertical={ direction === "vertical" }
     {href}
     role={is_clickable ? "button" : undefined}

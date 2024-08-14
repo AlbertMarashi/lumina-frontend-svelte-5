@@ -85,7 +85,7 @@ let search_component: Search
                 <Dropdown>
                     <Search
                         bind:this={ search_component }
-                        bind:search
+                        bind:search={ search }
                         on:keyup={ e => { if (e.key === "ArrowDown") options.focus() } }/>
                     <Options
                         bind:this={ options }

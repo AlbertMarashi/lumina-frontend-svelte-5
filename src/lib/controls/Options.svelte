@@ -6,7 +6,7 @@ import ScrollbarRegion from "./ScrollbarRegion.svelte"
 
 
 // TODO: REMOVE WHEN https://github.com/sveltejs/svelte-eslint-parser/issues/306 IS FIXED
-// eslint-disable-next-line no-undef, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type T = X | any
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -15,11 +15,11 @@ $: tag = is_clickable ? "a" : "div" as "a" | "div"
     this={ tag }
     style:align-items={ align_items }
     style:justify-content={ justify_content }
-    style:gap
+    style:gap={ gap }
     style:max-width={ max_width }
     class="box {padding ? "padding" : ""} {direction}"
     class:horizontal={ direction === "horizontal" }
-    class:padding
+    class:padding={ padding }
     class:vertical={ direction === "vertical" }
     href={href}>
     <slot/>

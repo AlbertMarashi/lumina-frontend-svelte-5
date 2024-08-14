@@ -25,5 +25,5 @@ export let focus_on_mount = false
     type={visible ? "text" : "password"}
     on:keyup
     on:keydown
-    bind:value>
+    bind:value={ value }>
 </Input>

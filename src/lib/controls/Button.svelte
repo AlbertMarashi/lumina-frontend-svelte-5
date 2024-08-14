@@ -2,16 +2,16 @@
 import type { IconComponent } from "$lib/utils/icon_type"
 
 let {
-    href = null,
-    left_icon = null,
-    right_icon = null,
+    href,
+    left_icon,
+    right_icon,
     style = "branded",
     hug = true,
     disabled,
     label,
-    onclick = () => {},
-} = $props<{
-    href?: string | null
+    onclick,
+}: {
+    href?: string
     left_icon?: IconComponent | string
     right_icon?: IconComponent | string
     style?: "translucent" | "transparent" | "branded"
@@ -19,13 +19,13 @@ let {
     disabled?: boolean
     label?: string
     onclick?: (e: Event) => void
-}>()
+} = $props()
 
 let tag: "a" | "div" = $derived(href ? "a" : "div")
 
 function clicked(e: Event) {
     if(disabled) e.preventDefault()
-    else onclick(e)
+    else onclick?.(e)
 }
 
 function handle_keyup(e: KeyboardEvent) {
@@ -39,10 +39,10 @@ function handle_keyup(e: KeyboardEvent) {
 <svelte:element
     this={ tag }
     class="button {style}"
-    class:disabled
-    class:hug
+    class:disabled={ disabled }
+    class:hug={ hug }
     href={href}
-    onclick={clicked}
+    onclick={onclick ? clicked : null}
     onkeyup={handle_keyup}
     role="button"
     tabindex={disabled ? -1 : 0}

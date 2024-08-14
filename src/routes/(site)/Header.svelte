@@ -57,9 +57,9 @@ function toggle(toggling: "notifications" | "account") {
 </script>
 <header
     bind:this={ header }
-    class:authenticated
+    class:authenticated={ authenticated }
     class:default={ sidebar_opened === "default" }
-    class:scrolled
+    class:scrolled={ scrolled }
     class:visible={ sidebar_opened === false }>
     <div class="side">
         <IconButton

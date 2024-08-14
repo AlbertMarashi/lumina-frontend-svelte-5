@@ -28,10 +28,10 @@ let {
 <svelte:element
     this={ href ? "a" : "button" }
     class="chip"
-    class:disabled
+    class:disabled={ disabled }
     class:filled={ style === "filled" }
     class:outline={ style === "outline" }
-    class:small
+    class:small={ small }
     class:tonal={ style === "tonal" }
     aria-disabled={disabled}
     {disabled}
@@ -43,7 +43,9 @@ let {
     {#if left_icon}
         <Icon icon={left_icon}/>
     {/if}
-    <span>{ label }</span>
+    {#if label}
+        <span>{ label }</span>
+    {/if}
     {#if right_icon}
         <Icon icon={right_icon}/>
     {/if}

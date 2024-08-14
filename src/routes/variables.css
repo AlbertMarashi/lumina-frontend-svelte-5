@@ -2,16 +2,9 @@
 
 /** ===== GLOBAL CSS VARIABLES ===== */
 :root {
-    --brand-rgb: 116,70,246;
+    /* --brand-rgb: 116,70,246; */
+    --brand-rgb: 134, 92, 255;
     --brand: rgb(var(--brand-rgb));
-
-    /** Light Mode Theme */
-    /* We now define these in the root layout for switching themes */
-    /* --background-rgb: 242, 240, 245;
-    --background: rgb(var(--background-rgb));
-
-    --foreground-rgb: 16, 14, 18;
-    --foreground: rgb(var(--foreground-rgb)); */
 
     /** Dark Mode Theme */
     --background-rgb: 23, 23, 28;
@@ -47,6 +40,8 @@
 
 /* check if any children have the light_mode class */
 html:has(.light_mode) {
+    --brand-rgb: 102, 66, 201;
+
     --background-rgb: 242, 240, 245;
     --background: rgb(var(--background-rgb));
 

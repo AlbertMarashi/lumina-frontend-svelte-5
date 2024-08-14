@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { page } from "$app/stores"
 import Card from "$lib/layouts/Card.svelte"
 import Button from "$lib/controls/Button.svelte"

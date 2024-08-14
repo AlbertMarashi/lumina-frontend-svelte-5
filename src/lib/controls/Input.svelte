@@ -35,7 +35,7 @@ onMount(() => {
 })
 </script>
 <InputWrapper
-    bind:name
+    bind:name={ name }
     on:click={ () => input_ref && input_ref.focus() }>
     <div class="input-pseudo-wrapper">
         {#if left_icon}

@@ -60,16 +60,16 @@ onMount(() => {
             <Select
                 next={next}
                 user={user}
-                bind:auth_page/>
+                bind:auth_page={ auth_page }/>
         {:else if auth_page == "authorize" && $page.data.user_store.user}
             <Authorize
                 user={$page.data.user_store.user}
-                bind:auth_page/>
+                bind:auth_page={ auth_page }/>
         {:else}
             {#if auth_page == "login"}
                 <Login
                     next={next}
-                    bind:auth_page/>
+                    bind:auth_page={ auth_page }/>
             {:else if auth_page == "forgot-password"}
                 <ForgotPassword/>
             {:else if auth_page == "create"}

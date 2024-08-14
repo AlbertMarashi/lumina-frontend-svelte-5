@@ -58,7 +58,7 @@ $: user = data.user
         }}
         gap={24}>
         {#if user && user.has_citizenship_application === undefined}
-            <FormComponent bind:user/>
+            <FormComponent bind:user={ user }/>
         {:else if user && user.has_citizenship_application}
             <StatusComponent/>
         {:else}

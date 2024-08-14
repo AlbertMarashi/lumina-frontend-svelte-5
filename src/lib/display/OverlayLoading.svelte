@@ -11,7 +11,7 @@ let {
 } = $props()
 </script>
 <div
-    style:position
+    style:position={ position }
     class="scrim">
     <LogoLoading/>
     {#if text}
