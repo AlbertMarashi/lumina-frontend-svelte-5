@@ -9,6 +9,7 @@ import { page } from "$app/stores"
 import OverlayLoading from "$lib/display/OverlayLoading.svelte"
 import { global_state } from "$lib/stores/global.svelte"
 import mixpanel from "mixpanel-browser"
+import ServiceWorkerUi from "./ServiceWorkerUI.svelte"
 
 let {
     children,
@@ -24,7 +25,7 @@ afterNavigate(() => {
     style:display="contents"
     class="wrapper"
     class:light_mode={ !global_state.dark_mode }>
-
+    <ServiceWorkerUi/>
     <PageLoaderBar/>
     <AlertBar/>
 
