@@ -9,7 +9,7 @@ export async function load({ data }) {
     // create an async local-storage isolated database client, for the current request
     const store = isolated_global.getStore()
     // resolve the database client promise, so that any subsequent load functions can use it
-    store.resolve_db(init_safe_surreal_db_client(data.token))
+    store.resolve_db(init_safe_surreal_db_client(data.token, data.namespace))
 
     const alerts = alerts_init([])
 

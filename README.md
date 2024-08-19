@@ -88,7 +88,7 @@ PUBLIC_MIXPANEL_TOKEN=
 SURREAL_USER=root
 SURREAL_PASS=root
 PUBLIC_SURREAL_HOST=http://localhost:8000
-PUBLIC_VITE_VERCEL_GIT_COMMIT_REF=development
+VERCEL_GIT_COMMIT_REF=development
 
 # =========
 # General Secrets
