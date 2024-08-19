@@ -10,6 +10,7 @@ export async function load_page_data(url: URL, f: typeof fetch) {
         userAttributes: {
             urlPath: url.pathname,
         },
+        fetch: f,
     })
 
     if (!url.searchParams.get("builder.preview") && !content) {

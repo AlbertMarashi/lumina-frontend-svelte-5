@@ -7,7 +7,8 @@ import NotificationsPopout from "./NotificationsPopout.svelte"
 import AccountPopout from "./AccountPopout.svelte"
 import { afterNavigate } from "$app/navigation"
 import type { LayoutData } from "./$types"
-import type { Snippet } from "svelte"
+import { type Snippet } from "svelte"
+import { register } from "@builder.io/sdk-svelte"
 
 let {
     data,
@@ -30,7 +31,6 @@ afterNavigate(() => {
     })
 })
 
-import { register } from "@builder.io/sdk-svelte"
 
 register("editor.settings", {
     designTokens: {
@@ -143,36 +143,26 @@ register("editor.settings", {
     <link
         href="/manifest.json"
         rel="manifest">
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-8MK9JSEJ2P"></script>
-    <script lang="ts">
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-8MK9JSEJ2P');
-    </script>
 </svelte:head>
 <div class="app">
     <Sidebar
-        bind:user={ data.user }
+        user={data.user}
         bind:sidebar_opened={ sidebar_opened }
         bind:dropdown={ dropdown }/>
     <div
         bind:this={ content }
         class="content">
         <Header
+            user={data.user}
             bind:sidebar_opened={ sidebar_opened }
-            bind:dropdown={ dropdown }
-            bind:user={ data.user }/>
+            bind:dropdown={ dropdown }/>
         <inner-content>
             {@render children()}
         </inner-content>
         <AppBar
+            user={data.user}
             bind:dropdown={ dropdown }
-            bind:sidebar_opened={ sidebar_opened }
-            bind:user={ data.user }/>
+            bind:sidebar_opened={ sidebar_opened }/>
     </div>
 </div>
 
@@ -183,7 +173,7 @@ register("editor.settings", {
                 <NotificationsPopout/>
             {/if}
             {#if dropdown === "account"}
-                <AccountPopout bind:user={ data.user }/>
+                <AccountPopout user={data.user}/>
             {/if}
         </div>
     </Scrim>

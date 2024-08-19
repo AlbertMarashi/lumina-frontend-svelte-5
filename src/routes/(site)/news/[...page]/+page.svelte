@@ -14,6 +14,9 @@ let {
     data,
 } = $props()
 
+$effect(() => {
+    Object.assign(icons, data.icons)
+})
 Object.assign(icons, data.icons)
 
 </script>

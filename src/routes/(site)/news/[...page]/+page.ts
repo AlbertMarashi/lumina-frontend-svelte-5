@@ -12,6 +12,7 @@ export async function load({
         userAttributes: {
             urlPath: url.pathname,
         },
+        fetch: f,
     })
 
     if (!url.searchParams.get("builder.preview") && !content) {

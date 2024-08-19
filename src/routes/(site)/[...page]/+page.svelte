@@ -9,7 +9,9 @@ import {Content, isPreviewing} from "@builder.io/sdk-svelte"
 let {
     data,
 } = $props()
-
+$effect(() => {
+    Object.assign(icons, data.icons)
+})
 Object.assign(icons, data.icons)
 
 </script>
@@ -27,6 +29,7 @@ Object.assign(icons, data.icons)
                 citizen: data.user?.has_citizenship_application,
                 site_data
             }}
+            enrich={true}
             model="page" />
     {:else}
         <h1>No Content</h1>
