@@ -1,5 +1,5 @@
 import { alerts_init } from "$lib/stores/alerts"
-import {browser, dev} from "$app/environment"
+import {browser } from "$app/environment"
 import { PUBLIC_MIXPANEL_TOKEN } from "$env/static/public"
 import mixpanel from "mixpanel-browser"
 import {init_safe_surreal_db_client, isolated_global, safe_db} from "$lib/stores/database"
@@ -26,7 +26,7 @@ export async function load({ data }) {
     }
 
     if(browser) {
-        mixpanel.init(PUBLIC_MIXPANEL_TOKEN, { debug: dev })
+        mixpanel.init(PUBLIC_MIXPANEL_TOKEN, {})
 
         if (user) {
             mixpanel.identify(user.id.toString())

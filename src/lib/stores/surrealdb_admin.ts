@@ -1,6 +1,7 @@
-import { SURREAL_PASS, SURREAL_USER, VERCEL_GIT_COMMIT_REF } from "$env/static/private"
+import { SURREAL_PASS, SURREAL_USER} from "$env/static/private"
 import { PUBLIC_SURREAL_HOST } from "$env/static/public"
 import { TypedSurreal } from "$lib/queries"
+import { get_surreal_namespace } from "$lib/utils/surreal_namespace"
 
 async function get_surreal_db_client() {
     const db = new TypedSurreal()
@@ -11,7 +12,7 @@ async function get_surreal_db_client() {
     if (surreal_host.protocol === "https:") surreal_host.protocol = "wss:"
     surreal_host.pathname = "/rpc"
     await db.connect(surreal_host, {
-        namespace: VERCEL_GIT_COMMIT_REF,
+        namespace: get_surreal_namespace(),
         database: "lumina",
         auth: {
             username: SURREAL_USER,

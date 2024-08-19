@@ -10,11 +10,6 @@ export async function login(email: string, password: string) {
     const page_data = get(page).data
     const db = await safe_db()
 
-    mixpanel.track("Authenticate", {
-        mode: "login",
-        method: "email_password"
-    })
-
     try {
         const { token } = await api<{
             token: string,
@@ -28,9 +23,18 @@ export async function login(email: string, password: string) {
         set_cookie("token", null)
         set_cookie("token", token)
         page_data.alerts.create_alert("success", "Login Successful")
+        mixpanel.track("Authenticate", {
+            mode: "login",
+            method: "email_password"
+        })
         await invalidateAll()
     } catch (error) {
         console.error(error)
+        mixpanel.track("Failed Authenticate", {
+            mode: "login",
+            method: "email_password",
+            error: error,
+        })
         page_data.alerts.create_alert("error", error)
         throw new Error("Failed to login")
     }
