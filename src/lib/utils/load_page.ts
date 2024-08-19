@@ -12,8 +12,8 @@ export async function load_page_data(url: URL, f: typeof fetch) {
             urlPath: url.pathname,
         },
         fetch: f,
-        // cacheSeconds: dev ? 0 : undefined,
-        // staleCacheSeconds: dev ? 0 : undefined,
+        cacheSeconds: dev ? 0 : undefined,
+        staleCacheSeconds: dev ? 0 : undefined,
     })
 
     if (!url.searchParams.get("builder.preview") && !content) {
