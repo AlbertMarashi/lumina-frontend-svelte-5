@@ -23,7 +23,6 @@ import { regex_search } from "$lib/utils/regex"
 import type { GetUserResult } from "$lib/queries"
 import asyncStatus from "$lib/utils/asyncStatus"
 import { safe_db } from "$lib/stores/database"
-import Tag from "$lib/display/Tag.svelte"
 
 $: data = $page.data
 

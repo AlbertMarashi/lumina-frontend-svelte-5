@@ -2,33 +2,36 @@
 import hljs from "highlight.js"
 import ContentCopy from "svelte-material-icons/ContentCopy.svelte"
 import Icon from "$lib/display/Icon.svelte"
-// import Tag from "$lib/display/Tag.svelte"
 import "./code-theme.css"
 
-export let language: string | null | undefined
-export let code: string
+let {
+    language,
+    code
+}: {
+    language?: string | null
+    code: string
+} = $props()
 
-let pre: HTMLPreElement
-let code_el: HTMLElement
+let pre: HTMLPreElement = $state()!
+let code_el: HTMLElement = $state()!
 
-$: highlighted_code = hljs.highlight(code, {
-    language: language === "pseudocode" || !language ? "plaintext" : language,
-})
+let highlighted_code = $derived(hljs.highlight(code, {
+    language: language === "pseudocode" || !language ? "plaintext" : language
+}))
 
-$: lines = highlighted_code.value.split("\n")
-$: digits = lines.length.toString().length
-$: numbers = lines.map((_, i) => {
+let lines = $derived(highlighted_code.value.split("\n"))
+let digits = $derived(lines.length.toString().length)
+let numbers = $derived(lines.map((_, i) => {
     const number = (i + 1).toString()
 
     return [
         "0".repeat(digits - number.length),
         number,
     ]
-})
+}))
 
 function copy() {
     navigator.clipboard.writeText(code)
-
 }
 
 </script>
@@ -36,14 +39,12 @@ function copy() {
         <div
             class="header"
             class:show-header={ false }>
-            <!-- {#if language}
-                <Tag>{ language }</Tag>
-            {/if} -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="copy"
-                on:keypress={ e => e.key === "Enter" ? copy() : null }
-                on:click={ copy }>
+                onclick={copy}
+                onkeypress={e => e.key === "Enter" ? copy() : null}
+                role="button"
+                tabindex="0">
                 <Icon icon={ContentCopy}/>
             </div>
         </div>

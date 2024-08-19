@@ -30,9 +30,9 @@ export default [
                 parser: ts.parser,
                 ecmaVersion: "latest",
                 extraFileExtensions: [".svelte"],
-                svelteFeatures: {
-                    runes: true
-                }
+                // svelteFeatures: {
+                //     runes: true
+                // }
             }
         },
         rules: {

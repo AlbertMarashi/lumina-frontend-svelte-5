@@ -16,26 +16,21 @@ else
 fi
 echo "SURREAL_NAMESPACE set to: $SURREAL_NAMESPACE"
 
-# 3. Run codegen for queries
-echo "Running query codegen..."
-bun sync:queries
+# need to make surreal-codegen a binary we can install here
+# echo "Running query codegen..."
+# bun sync:queries
 
-# 4. Run build
 echo "Running build..."
 bun run build
 
-# 5. Run check
 echo "Running checks..."
 bun check
 
-# 6. Run lint
 echo "Running linter..."
 bun lint
 
-# 7. If all checks pass, proceed with database operations
 echo "All checks passed. Proceeding with database operations..."
 
-# 8. Import schema
 echo "Importing schema..."
 surreal import \
     --endpoint $PUBLIC_SURREAL_HOST \
@@ -45,7 +40,6 @@ surreal import \
     --db lumina \
     schema.surql
 
-# 9. Define token
 echo "Defining token..."
 echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" | surreal sql \
     --endpoint $PUBLIC_SURREAL_HOST \
