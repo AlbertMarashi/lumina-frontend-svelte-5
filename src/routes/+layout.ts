@@ -13,8 +13,11 @@ export async function load({ data }) {
 
     const alerts = alerts_init([])
 
-
     const db = await safe_db()
+
+    // console.log(await db.query(`
+    //     http::get("https://google.com")
+    // `))
 
     let user: GetUserResult[0][0] | null = null
 
