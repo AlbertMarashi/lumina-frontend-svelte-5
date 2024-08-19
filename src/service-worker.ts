@@ -1,5 +1,6 @@
+/// <reference types="@sveltejs/kit" />
 /// <reference no-default-lib="true"/>
-/// <reference lib="ES2015" />
+/// <reference lib="esnext" />
 /// <reference lib="webworker" />
 declare let self: ServiceWorkerGlobalScope
 
