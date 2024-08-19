@@ -9,5 +9,5 @@ export default defineConfig({
         arraybuffer()
     ],
 
-    optimizeDeps: { exclude: ["isolated-vm"] },
+    // optimizeDeps: { exclude: ["isolated-vm"] },
 })

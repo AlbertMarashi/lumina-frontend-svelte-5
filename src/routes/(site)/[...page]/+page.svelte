@@ -14,6 +14,8 @@ $effect(() => {
 })
 Object.assign(icons, data.icons)
 
+// $inspect(data.content?.data?.state)
+
 </script>
 <PageHead
     description={data.description}
@@ -25,11 +27,11 @@ Object.assign(icons, data.icons)
             content={data.content}
             customComponents={components}
             data={{
+                ...(data.content?.data?.state || {}),
                 user: data.user,
                 citizen: data.user?.has_citizenship_application,
                 site_data
             }}
-            enrich={true}
             model="page" />
     {:else}
         <h1>No Content</h1>
