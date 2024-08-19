@@ -1,5 +1,5 @@
 import { create_resolver } from "$lib/utils/resolver"
-import {PUBLIC_SURREAL_HOST, PUBLIC_VERCEL_GIT_COMMIT_REF} from "$env/static/public"
+import {PUBLIC_SURREAL_HOST, PUBLIC_VITE_VERCEL_GIT_COMMIT_REF} from "$env/static/public"
 import { TypedSurreal } from "$lib/queries"
 
 class ClientStore {
@@ -44,7 +44,7 @@ export async function init_safe_surreal_db_client(token: string | null) {
     if (surreal_host.protocol === "https:") surreal_host.protocol = "wss:"
     surreal_host.pathname = "/rpc"
     await db.connect(surreal_host, {
-        namespace: PUBLIC_VERCEL_GIT_COMMIT_REF,
+        namespace: PUBLIC_VITE_VERCEL_GIT_COMMIT_REF,
         database: "lumina",
         auth: token ?? undefined,
     })
