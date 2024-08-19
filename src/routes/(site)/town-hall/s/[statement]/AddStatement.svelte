@@ -3,9 +3,9 @@ import { invalidate } from "$app/navigation"
 import { page } from "$app/stores"
 import CleanTextInput from "$lib/controls/CleanTextInput.svelte"
 import Segment from "$lib/controls/Segment.svelte"
-import {AddStatementQuery, VoteForStatementQuery} from "$lib/queries/surreal_queries"
+import {AddStatementQuery, VoteForStatementQuery} from "$lib/queries"
 import { safe_db } from "$lib/stores/database"
-import type { RecordId } from "surrealdb.js"
+import type { RecordId } from "$lib/pojo_surreal"
 import ArrowUp from "svelte-material-icons/ArrowUp.svelte"
 
 let {

@@ -21,8 +21,6 @@ let path = $derived($page.url.pathname)
 let active = $derived(path === href)
 let within_active = $derived( href !== "/" && path.length > href.length && path.startsWith(href) )
 
-$inspect(within_active)
-
 </script>
 <a
     class="nav-link"

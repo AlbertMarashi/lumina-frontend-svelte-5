@@ -5,7 +5,6 @@ import NavLink from "./NavLink.svelte"
 import LuminaUniversity from "$lib/icons/LuminaUniversity.svelte"
 import Passport from "svelte-material-icons/Passport.svelte"
 import Apps from "svelte-material-icons/Apps.svelte"
-import HomeOutline from "svelte-material-icons/HomeOutline.svelte"
 import Telescope from "svelte-material-icons/Telescope.svelte"
 import FormatListBulleted from "svelte-material-icons/FormatListBulleted.svelte"
 import RocketLaunch from "svelte-material-icons/RocketLaunch.svelte"
@@ -23,7 +22,7 @@ import Discord from "svelte-material-icons/Discord.svelte"
 import TikTok from "$lib/icons/TikTok.svelte"
 import Facebook from "svelte-material-icons/Facebook.svelte"
 import Youtube from "svelte-material-icons/Youtube.svelte"
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries"
 import { global_state } from "$lib/stores/global.svelte"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
 import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
@@ -63,7 +62,7 @@ function toggle(toggling: "notifications" | "account") {
         </div>
         <div class="section">
             <NavLink
-                href="/dashboard"
+                href="/"
                 left_icon={Apps}
                 text="Dashboard"/>
         </div>
@@ -82,26 +81,17 @@ function toggle(toggling: "notifications" | "account") {
                 left_icon={LuminaUniversity}
                 target="_blank"
                 text="Lumina University"/>
-            <NavLink
-                href={site_data.socials.discord}
-                left_icon={Discord}
-                target="_blank"
-                text="Join Discord Server"/>
         </section>
         <div class="section">
             <h4>Information</h4>
             <NavLink
-                href="/"
-                left_icon={HomeOutline}
-                text="About Lumina"/>
+                href="/government-directory"
+                left_icon={FormatListBulleted}
+                text="Government Directory"/>
             <NavLink
                 href="/mission-and-vision"
                 left_icon={Telescope}
                 text="Mission & Vision"/>
-            <NavLink
-                href="/government-directory"
-                left_icon={FormatListBulleted}
-                text="Government Directory"/>
             <NavLink
                 href="/milestones"
                 left_icon={RocketLaunch}
@@ -113,6 +103,14 @@ function toggle(toggling: "notifications" | "account") {
         </div>
     </nav>
     <div class="content">
+        <section class="section">
+            <Button
+                style="translucent"
+                href={site_data.socials.discord}
+                label="Join Discord Server"
+                left_icon={Discord}
+                target="_blank"/>
+        </section>
         <div class="section">
             <div class="socials">
                 <a

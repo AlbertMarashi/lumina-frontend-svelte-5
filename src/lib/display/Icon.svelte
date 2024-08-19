@@ -2,15 +2,17 @@
 
 import type { IconComponent } from "$lib/utils/icon_type"
 
-export let icon: IconComponent
+let {
+    icon,
+}: {
+    icon: IconComponent
+} = $props()
+
+let Icon = $derived(icon)
 
 </script>
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-    class="icon"
-    on:click
-    on:keypress>
-    <svelte:component this={ icon }/>
+<div class="icon">
+    <Icon/>
 </div>
 <style>
 

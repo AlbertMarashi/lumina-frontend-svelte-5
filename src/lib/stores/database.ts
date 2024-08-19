@@ -1,15 +1,15 @@
 import { create_resolver } from "$lib/utils/resolver"
 import {PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE} from "$env/static/public"
-import Surreal from "surrealdb.js"
+import { TypedSurreal } from "$lib/queries"
 
 class ClientStore {
     store: {
-        db: Promise<Surreal>,
-        resolve_db: (db: Surreal | PromiseLike<Surreal>) => void
+        db: Promise<TypedSurreal>,
+        resolve_db: (db: TypedSurreal | PromiseLike<TypedSurreal>) => void
     }
 
     constructor() {
-        const resolver = create_resolver<Surreal>()
+        const resolver = create_resolver<TypedSurreal>()
         this.store = {
             db: resolver.promise,
             resolve_db: resolver.resolve,
@@ -29,14 +29,14 @@ export const isolated_global = {
     },
 }
 
-export async function safe_db(): Promise<Surreal> {
+export async function safe_db(): Promise<TypedSurreal> {
     const store = isolated_global.getStore()
 
     return store.db
 }
 
 export async function init_safe_surreal_db_client(token: string | null) {
-    const db = new Surreal()
+    const db = new TypedSurreal()
 
     const surreal_host = new URL(PUBLIC_SURREAL_HOST)
 

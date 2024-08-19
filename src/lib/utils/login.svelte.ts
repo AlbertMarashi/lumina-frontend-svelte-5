@@ -24,10 +24,10 @@ export async function login(email: string, password: string) {
             password,
         })
 
-        page_data.alerts.create_alert("success", "Login Successful")
         await db.authenticate(token)
         set_cookie("token", null)
         set_cookie("token", token)
+        page_data.alerts.create_alert("success", "Login Successful")
         await invalidateAll()
     } catch (error) {
         console.error(error)

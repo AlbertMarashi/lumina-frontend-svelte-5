@@ -16,6 +16,7 @@ import Passport from "svelte-material-icons/Passport.svelte"
 import PageHead from "$lib/components/PageHead.svelte"
 import LoginPrompt from "$lib/components/LoginPrompt.svelte"
 import type { ComponentProps } from "svelte"
+import Tag from "$lib/display/Tag.svelte"
 
 export let data
 
@@ -57,6 +58,7 @@ $: user = data.user
             mobile: "span 4"
         }}
         gap={24}>
+        <Tag text="Citizenship"/>
         {#if user && user.has_citizenship_application === undefined}
             <FormComponent bind:user={ user }/>
         {:else if user && user.has_citizenship_application}

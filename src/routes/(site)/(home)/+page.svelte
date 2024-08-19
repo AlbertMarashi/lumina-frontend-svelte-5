@@ -39,6 +39,7 @@ const GlobeComponent = {
             GlobeComponent,
         ]}
         data={{
+            user: data.user,
             user_count: data.user_count,
         }}
         model="page" />

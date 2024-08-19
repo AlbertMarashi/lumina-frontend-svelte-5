@@ -3,7 +3,7 @@ import stylisticTs from "@stylistic/eslint-plugin-ts"
 import ts from "typescript-eslint"
 import svelte from "eslint-plugin-svelte"
 import globals from "globals"
-import sveltets from "svelte-ts"
+// import sveltets from "svelte-ts"
 
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -27,7 +27,6 @@ export default [
                 projectService: {
                     allowDefaultProject: ["*.svelte"]
                 },
-                // tsconfigRootDir: import.meta.dirname,
                 parser: ts.parser,
                 ecmaVersion: "latest",
                 extraFileExtensions: [".svelte"],
@@ -56,7 +55,7 @@ export default [
     {
         plugins: {
             "@stylistic/ts": stylisticTs,
-            "@svelte-ts": sveltets,
+            // "@svelte-ts": sveltets,
         },
     },
     {

@@ -1,6 +1,6 @@
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult, TypedSurreal } from "$lib/queries"
 import type { AlertsStore } from "$lib/stores/alerts"
-import type { Surreal } from "surrealdb.js"
+import type { TypedSurreal } from "$lib/queries"
 // import type { Session } from "@auth/core/types"
 
 // See https://kit.svelte.dev/docs/types#app
@@ -16,7 +16,7 @@ declare global {
 
         interface PageData {
             // Safe client-authenticated SurrealDB
-            db: Surreal;
+            db: TypedSurreal;
             alerts: AlertsStore;
             user: GetUserResult[0][0] | null
         }

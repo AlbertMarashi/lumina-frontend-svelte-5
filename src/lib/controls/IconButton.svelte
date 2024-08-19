@@ -1,4 +1,5 @@
 <script lang="ts">
+import Icon from "$lib/display/Icon.svelte"
 import type { IconComponent } from "$lib/utils/icon_type"
 
 let {
@@ -8,7 +9,7 @@ let {
     onclick = () => {}
 }: {
     href?: string
-    icon?: IconComponent
+    icon: IconComponent
     opacity?: boolean,
     onclick?: (e: Event) => void
 } = $props()
@@ -20,6 +21,8 @@ function handle_keyup(e: KeyboardEvent) {
         onclick(e)
     }
 }
+
+// let Icon = $derived(icon)
 </script>
 
 <svelte:element
@@ -31,7 +34,7 @@ function handle_keyup(e: KeyboardEvent) {
     onkeyup={handle_keyup}
     role="button"
     tabindex="0">
-    <svelte:component this={ icon } />
+    <Icon icon={icon}/>
 </svelte:element>
 <style>
 .button {

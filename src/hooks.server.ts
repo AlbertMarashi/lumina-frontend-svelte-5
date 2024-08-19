@@ -3,11 +3,11 @@ import { sequence } from "@sveltejs/kit/hooks"
 import { AsyncLocalStorage } from "node:async_hooks"
 import { isolated_global } from "./lib/stores/database"
 import { create_resolver } from "$lib/utils/resolver"
-import type Surreal from "surrealdb.js"
+import type { TypedSurreal } from "$lib/queries"
 
 const local_storage = new AsyncLocalStorage<{
-    db: Promise<Surreal>
-    resolve_db: (db: Surreal | PromiseLike<Surreal>) => void
+    db: Promise<TypedSurreal>
+    resolve_db: (db: TypedSurreal | PromiseLike<TypedSurreal>) => void
 }>()
 
 isolated_global.getStore = () => local_storage.getStore()!
@@ -38,7 +38,7 @@ export async function handleError({ error }) {
 async function create_async_local_storage({
     event, resolve
 }: Parameters<typeof handle>[0]) {
-    const resolver = create_resolver<Surreal>()
+    const resolver = create_resolver<TypedSurreal>()
 
     // let safe_surreal_db_client(event.locals.token)
     return local_storage.run({

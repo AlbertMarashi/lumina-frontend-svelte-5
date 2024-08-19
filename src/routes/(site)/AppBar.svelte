@@ -5,7 +5,7 @@ import Apps from "svelte-material-icons/Apps.svelte"
 import NotificationOutline from "svelte-material-icons/BellOutline.svelte"
 import ProfileButton from "$lib/controls/ProfileButton.svelte"
 import { afterNavigate } from "$app/navigation"
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries"
 
 let {
     user = $bindable(),

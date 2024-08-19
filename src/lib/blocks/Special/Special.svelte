@@ -11,5 +11,7 @@ let {
 const components: Record<string, Component> = {
     beacon: Beacon,
 }
+
+let Special = $derived(components[type])
 </script>
-<svelte:component this={ components[type] }/>
+<Special/>

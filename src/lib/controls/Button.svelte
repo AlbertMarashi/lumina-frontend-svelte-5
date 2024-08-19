@@ -9,6 +9,7 @@ let {
     hug = true,
     disabled,
     label,
+    target,
     onclick,
 }: {
     href?: string
@@ -16,6 +17,7 @@ let {
     right_icon?: IconComponent | string
     style?: "translucent" | "transparent" | "branded"
     hug?: boolean
+    target?: "_blank"
     disabled?: boolean
     label?: string
     onclick?: (e: Event) => void
@@ -34,6 +36,9 @@ function handle_keyup(e: KeyboardEvent) {
     }
 }
 
+let LeftIcon = $derived(typeof left_icon === "string" ? null : left_icon)
+let RightIcon = $derived(typeof right_icon === "string" ? null : right_icon)
+
 </script>
 
 <svelte:element
@@ -46,11 +51,12 @@ function handle_keyup(e: KeyboardEvent) {
     onkeyup={handle_keyup}
     role="button"
     tabindex={disabled ? -1 : 0}
+    target={target}
 >
     {#if left_icon}
         <span class="icon">
             {#if typeof left_icon !== "string"}
-                <svelte:component this={ left_icon } />
+                <LeftIcon />
             {:else if typeof left_icon === "string"}
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html left_icon}
@@ -65,7 +71,7 @@ function handle_keyup(e: KeyboardEvent) {
     {#if right_icon}
         <span class="icon">
             {#if typeof right_icon !== "string"}
-                <svelte:component this={ right_icon } />
+                <RightIcon />
             {:else if typeof right_icon === "string"}
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html right_icon}

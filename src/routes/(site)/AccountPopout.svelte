@@ -6,7 +6,7 @@ import ExitToApp from "svelte-material-icons/ExitToApp.svelte"
 import { delete_cookie } from "$lib/utils/cookie"
 import {goto, invalidateAll} from "$app/navigation"
 import asyncStatus from "$lib/utils/asyncStatus"
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries"
 import Profile from "$lib/display/Profile.svelte"
 
 let {

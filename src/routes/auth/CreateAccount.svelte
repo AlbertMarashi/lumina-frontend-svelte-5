@@ -12,7 +12,7 @@ import Icon from "$lib/display/Icon.svelte"
 import asyncStatus from "$lib/utils/asyncStatus"
 import { page } from "$app/stores"
 import { safe_db } from "$lib/stores/database"
-import { CreateUserQuery } from "$lib/queries/surreal_queries"
+import { CreateUserQuery } from "$lib/queries"
 import mixpanel from "mixpanel-browser"
 import { login } from "$lib/utils/login.svelte"
 
@@ -32,7 +32,7 @@ let user = $state({
 
 let phone: {
     country: Country | null,
-    number: string 
+    number: string
 } = $state({
     country: null,
     number: "",
@@ -61,15 +61,14 @@ async function signup () {
             phone_number: phone.number,
             country_code: phone.country.code,
             calling_code: phone.country.calling_code,
-        // TODO
-            // referrer: undefined,
+        // TODO: referrer: undefined,
         })
 
         console.log(created)
 
         if (!created) return $page.data.alerts.create_alert("error", {
             code: "FAILED_ACCOUNT_CREATION",
-            message: "Failed to create account" 
+            message: "Failed to create account"
         })
 
         mixpanel.track("Create Account", {
@@ -80,7 +79,7 @@ async function signup () {
     } catch (e) {
         return $page.data.alerts.create_alert("error", {
             code: "FAILED_ACCOUNT_CREATION",
-            message: e 
+            message: e
         })
     }
 

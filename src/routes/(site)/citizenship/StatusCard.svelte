@@ -1,9 +1,18 @@
 <script lang="ts">
-
 import type { IconComponent } from "$lib/utils/icon_type"
+import type { Snippet } from "svelte"
 
-export let title: string
-export let left_icon: IconComponent
+let {
+    title,
+    left_icon,
+    children
+}: {
+    title: string,
+    left_icon: IconComponent,
+    children: Snippet
+} = $props()
+
+let LeftIcon = $derived(left_icon)
 </script>
 <div class="status">
     <div class="title">
@@ -11,9 +20,9 @@ export let left_icon: IconComponent
     </div>
     <div class="data">
         <div class="icon">
-            <svelte:component this={ left_icon }/>
+            <LeftIcon/>
         </div>
-        <slot/>
+        {@render children()}
     </div>
 </div>
 

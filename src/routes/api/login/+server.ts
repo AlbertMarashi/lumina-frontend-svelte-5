@@ -1,9 +1,10 @@
 import {error, json} from "@sveltejs/kit"
 import { z } from "zod"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
-import { UserLoginQuery } from "$lib/queries/surreal_queries.js"
+import { UserLoginQuery } from "$lib/queries.js"
 import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 import { sign_jwt } from "$lib/utils/jwt.js"
+import { record_to_string } from "$lib/pojo_surreal.js"
 
 const input = z.object({
     email: z.string().email(),
@@ -12,13 +13,15 @@ const input = z.object({
 
 export async function POST({ request }) {
     const {
-        email, password 
+        email, password
     } = input.parse(await request.json())
 
     const [[user]] = await surrealdb_admin.typed(UserLoginQuery, {
         email,
         password,
     })
+
+    console.log(user)
 
     if (!user) {
         throw error(400, {
@@ -27,9 +30,16 @@ export async function POST({ request }) {
         })
     }
 
-    const token = await sign_jwt({
+    const token = await sign_jwt<{
+        ns: string,
+        id: string,
+        db: string,
+        tk: string,
+        sc: string,
+        scopes: string[]
+    }>({
         ns: PUBLIC_SURREAL_NAMESPACE,
-        id: user.id,
+        id: record_to_string(user.id),
         db: "lumina",
         tk: "lumina_token",
         sc: "users",

@@ -64,7 +64,7 @@ jobs:
           -p $SURREAL_PASS \
           --ns $PUBLIC_SURREAL_NAMESPACE \
           --db lumina \
-          database_schema.surql
+          schema.surql
 
         # Define the token using echo to pipe the SQL command
         echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" | \

@@ -5,7 +5,7 @@ import { z } from "zod"
 import dedent from "dedent"
 import { sign_jwt } from "$lib/utils/jwt.js"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
-import { PasswordResetGetUserQuery } from "$lib/queries/surreal_queries.js"
+import { PasswordResetGetUserQuery } from "$lib/queries.js"
 
 sgMail.setApiKey(SENDGRID_KEY)
 
@@ -21,12 +21,12 @@ export async function POST({ request }) {
     if (!user) {
         return json({
             status: 404,
-            body: { error: "No user found with that email address" } 
+            body: { error: "No user found with that email address" }
         })
     }
     const token = await sign_jwt({
         id: user.id.id,
-        email 
+        email
     }, { expiresIn: "1h" })
 
     const request_url = new URL(request.url)
@@ -62,13 +62,13 @@ export async function POST({ request }) {
             }
         })
         return json({ success: true })
-     
+
     } catch (_) {
         return json({
             error: {
                 message: "Failed to send password reset email",
-                code: "failed_to_send_email" 
-            } 
+                code: "failed_to_send_email"
+            }
         }, { status: 500 })
     }
 }

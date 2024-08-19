@@ -3,8 +3,7 @@ import { z } from "zod"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin"
 import { verify_jwt } from "$lib/utils/jwt.js"
 import { json } from "@sveltejs/kit"
-import { ResetPasswordQuery } from "$lib/queries/surreal_queries.js"
-import { RecordId } from "surrealdb.js"
+import { ResetPasswordQuery } from "$lib/queries.js"
 
 const input = z.object({
     token: z.string(),
@@ -13,13 +12,16 @@ const input = z.object({
 
 export async function POST({ request }) {
     const {
-        token, password 
+        token, password
     } = input.parse(await request.json())
 
     const { payload: { id } } = await verify_jwt<{ id: string }>(token)
 
     const [user] = await surrealdb_admin.typed(ResetPasswordQuery, {
-        user: new RecordId("user", id),
+        user: {
+            tb: "user",
+            id,
+        },
         password,
     })
 
@@ -27,8 +29,8 @@ export async function POST({ request }) {
         return json({
             error: {
                 message: "Something went wrong",
-                code: "failed_to_update_user" 
-            } 
+                code: "failed_to_update_user"
+            }
         }, { status: 400 })
     }
 

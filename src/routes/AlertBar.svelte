@@ -28,7 +28,7 @@ let interval: ReturnType<typeof setInterval> | null = null
 function intervalFn () {
     $alerts.shift()
     setBottomHeights()
-    $alerts = $alerts
+    $page.data.alerts.store = alerts
 }
 
 $: {

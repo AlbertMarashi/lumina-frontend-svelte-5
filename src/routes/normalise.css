@@ -15,7 +15,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px color-mix(in srgb, var(--background), yellow 10%) inset !important;
     -webkit-text-fill-color: color-mix(in srgb, var(--foreground), yellow 30%) !important;
-
 }
 
 input {

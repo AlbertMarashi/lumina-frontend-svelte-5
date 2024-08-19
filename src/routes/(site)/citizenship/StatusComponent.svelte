@@ -1,9 +1,8 @@
 <script lang="ts">
 import Button from "$lib/controls/Button.svelte"
 import Heading from "$lib/display/Heading.svelte"
-import Tag from "$lib/display/Tag.svelte"
 import Apps from "svelte-material-icons/Apps.svelte"
-import Settlement from "$lib/icons/Settlement.svelte"
+import Passport from "svelte-material-icons/Passport.svelte"
 import StatusCard from "./StatusCard.svelte"
 import ClockTimeFour from "svelte-material-icons/ClockTimeFour.svelte"
 import Paragraph from "$lib/display/Paragraph.svelte"
@@ -13,10 +12,8 @@ import Discord from "svelte-material-icons/Discord.svelte"
 import Flex from "$lib/layouts/Flex.svelte"
 
 </script>
-
-<Tag text="Citizenship"/>
 <Heading
-    right_icon={Settlement}
+    left_icon={Passport}
     text="Citizenship Status"/>
 <StatusCard
     left_icon={ClockTimeFour}

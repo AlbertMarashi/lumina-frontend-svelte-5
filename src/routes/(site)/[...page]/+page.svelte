@@ -1,10 +1,6 @@
 <script lang="ts">
 import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
-import ButtonComponent from "$lib/blocks/Button/ButtonComponent"
-import HeadingComponent from "$lib/blocks/Heading/HeadingComponent.js"
-import IconComponent from "$lib/blocks/Icon/IconComponent.js"
-import SpecialComponent from "$lib/blocks/Special/SpecialComponent.js"
-import TagComponent from "$lib/blocks/TagComponent/TagComponent.js"
+import { components } from "$lib/blocks/custom_components.js"
 import PageHead from "$lib/components/PageHead.svelte"
 import { icons } from "$lib/data/icons.svelte"
 import site_data from "$lib/data/site_data.js"
@@ -25,14 +21,9 @@ Object.assign(icons, data.icons)
         <Content
             apiKey={PUBLIC_BUILDERIO_KEY}
             content={data.content}
-            customComponents={[
-                ButtonComponent,
-                SpecialComponent,
-                TagComponent,
-                HeadingComponent,
-                IconComponent,
-            ]}
+            customComponents={components}
             data={{
+                user: data.user,
                 citizen: data.user?.has_citizenship_application,
                 site_data
             }}

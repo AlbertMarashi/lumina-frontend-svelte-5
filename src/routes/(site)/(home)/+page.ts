@@ -1,10 +1,10 @@
-import { UserCountQuery } from "$lib/queries/surreal_queries.js"
+import { UserCountQuery } from "$lib/queries.js"
 import { safe_db } from "$lib/stores/database.js"
 import { load_page_data } from "$lib/utils/load_page.js"
 import { error } from "@sveltejs/kit"
 
 export async function load({
-    url, fetch 
+    url, fetch
 }) {
     const db = await safe_db()
 

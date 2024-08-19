@@ -6,13 +6,13 @@ import DotsHorizontal from "svelte-material-icons/DotsHorizontal.svelte"
 import Comment from "svelte-material-icons/Comment.svelte"
 import CommentOutline from "svelte-material-icons/CommentOutline.svelte"
 import Tag from "$lib/display/Tag.svelte"
-import { RecordId } from "surrealdb.js"
 import RatingModal from "./RatingModal.svelte"
 import {receive, send} from "./crossfade_statement.svelte"
 import GenericDropdown from "$lib/controls/GenericDropdown.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Expand from "svelte-material-icons/ArrowExpand.svelte"
+import { is_record_id, type RecordId } from "$lib/pojo_surreal"
 
 type Statement = {
     id: RecordId<"statement">,
@@ -48,7 +48,7 @@ let {
 
 let show_rating_ui = $state(false)
 </script>
-{#if statement.replying_to && !(statement.replying_to instanceof RecordId)}
+{#if statement.replying_to && !(is_record_id(statement.replying_to))}
     <svelte:self
         scale={scale * 0.9}
         statement={statement.replying_to}/>
@@ -80,7 +80,7 @@ let show_rating_ui = $state(false)
                 </a>
                 <a
                     class="statement-button"
-                    href="/town-hall/s/${statement.id.id}"
+                    href="/town-hall/s/{statement.id.id}"
                     onclick={e => e.stopPropagation()}>
                     { statement.total_replies || "" }
                     <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />

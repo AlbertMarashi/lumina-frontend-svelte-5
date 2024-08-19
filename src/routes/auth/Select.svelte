@@ -5,7 +5,7 @@ import AccountCircle from "svelte-material-icons/AccountCircle.svelte"
 import ExitToApp from "svelte-material-icons/ExitToApp.svelte"
 import AccountPlus from "svelte-material-icons/AccountPlus.svelte"
 import ChevronRight from "svelte-material-icons/ChevronRight.svelte"
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries"
 
 let {
     auth_page = $bindable(),

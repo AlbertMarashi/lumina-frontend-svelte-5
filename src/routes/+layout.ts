@@ -3,7 +3,7 @@ import {browser, dev} from "$app/environment"
 import { PUBLIC_MIXPANEL_TOKEN } from "$env/static/public"
 import mixpanel from "mixpanel-browser"
 import {init_safe_surreal_db_client, isolated_global, safe_db} from "$lib/stores/database"
-import {GetUserQuery, type GetUserResult} from "$lib/queries/surreal_queries.js"
+import {GetUserQuery, type GetUserResult} from "$lib/queries.js"
 
 export async function load({ data }) {
     // create an async local-storage isolated database client, for the current request

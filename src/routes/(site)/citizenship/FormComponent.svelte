@@ -20,9 +20,10 @@ import Heading from "$lib/display/Heading.svelte"
 import Passport from "svelte-material-icons/Passport.svelte"
 import { invalidateAll } from "$app/navigation"
 import { regex_search } from "$lib/utils/regex"
-import type { GetUserResult } from "$lib/queries/surreal_queries"
+import type { GetUserResult } from "$lib/queries"
 import asyncStatus from "$lib/utils/asyncStatus"
 import { safe_db } from "$lib/stores/database"
+import Tag from "$lib/display/Tag.svelte"
 
 $: data = $page.data
 
@@ -112,7 +113,7 @@ async function register() {
 }
 </script>
 <Heading
-    right_icon={Passport}
+    left_icon={Passport}
     text="Citizenship Registration"/>
 <div class="inputs">
     <IdentityPicker

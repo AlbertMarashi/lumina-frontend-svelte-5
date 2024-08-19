@@ -1,12 +1,12 @@
 <script lang="ts">
-import {UpdateStatementVoteQuery, VoteForStatementQuery} from "$lib/queries/surreal_queries"
+import {UpdateStatementVoteQuery, VoteForStatementQuery} from "$lib/queries"
 import type { ComponentProps } from "svelte"
 import type Statement from "./Statement.svelte"
 import Icon from "$lib/display/Icon.svelte"
 import Info from "svelte-material-icons/Information.svelte"
 import { safe_db } from "$lib/stores/database"
 import { page } from "$app/stores"
-import type { RecordId } from "surrealdb.js"
+import type { RecordId } from "$lib/pojo_surreal"
 import { invalidate } from "$app/navigation"
 
 let {
@@ -38,7 +38,7 @@ async function vote(rating: number) {
 
             my_rating = {
                 id: vote.id,
-                rating 
+                rating
             }
             await invalidate("app:statements")
             show_rating_ui = false
@@ -54,7 +54,7 @@ async function vote(rating: number) {
 
             my_rating = {
                 id: vote.id,
-                rating 
+                rating
             }
             await invalidate("app:statements")
             show_rating_ui = false

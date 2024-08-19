@@ -1,0 +1,1 @@
+CREATE ONLY application CONTENT $application

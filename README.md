@@ -47,7 +47,7 @@ DEFINE SCOPE users;
 DEFINE TOKEN lumina_token on SCOPE users type HS256 VALUE "RANDOM_SECRET_KEY_HEX";
 ```
 
-1. Run the following command to import the database schema from `database_schema.surql` from this project directory
+1. Run the following command to import the database schema from `schema.surql` from this project directory
 
 ```sh
 bun sync

@@ -57,8 +57,10 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
         return b_controversy - a_controversy
     })
 }
-
+let foo = {foo: "bar"}
 </script>
+{ foo }
+<a href="/foo/{foo}">baz</a>
 <section>
     <inner>
         <Button
