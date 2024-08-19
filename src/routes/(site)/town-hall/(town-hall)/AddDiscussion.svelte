@@ -41,8 +41,6 @@ async function add_statement() {
             }
         })
 
-        console.log(statement)
-
         if (!statement) return $page.data.alerts.create_alert("error", "Could not create statement")
 
         // vote for the statement

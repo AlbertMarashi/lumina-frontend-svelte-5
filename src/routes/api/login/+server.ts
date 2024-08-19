@@ -21,8 +21,6 @@ export async function POST({ request }) {
         password,
     })
 
-    console.log(user)
-
     if (!user) {
         throw error(400, {
             code: "INVALID_CREDENTIALS",

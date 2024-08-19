@@ -26,7 +26,6 @@ async function reset_password() {
         password
     })
 
-    console.log(error)
     if (error) return $page.data.alerts.create_alert("error", error)
 
     $page.data.alerts.create_alert("success", "Password reset")

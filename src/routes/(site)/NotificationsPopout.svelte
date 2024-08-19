@@ -26,7 +26,6 @@ async function request_notification_permissions() {
         return
     }
 
-    console.log("waiting for service worker")
     // get the service worker push manager
     const registration = await navigator.serviceWorker.ready
     const push_manager = registration.pushManager
@@ -43,7 +42,6 @@ async function request_notification_permissions() {
     })).toJSON()
 
     {
-        console.log(push_subscription)
 
         let { errors } = await graph.req<{ attach_notification_endpoint: null }>`
             message {

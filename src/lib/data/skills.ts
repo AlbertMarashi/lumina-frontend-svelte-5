@@ -1,5 +1,4 @@
 // source https://www.notion.so/lumina-gov/List-of-Skill-8807c1e577bb4070b57822e1fa4ad519
-// code console.log(JSON.stringify(table_body_minus_head.map(row => row.childNodes[1].textContent).filter(stuff => stuff !== "").map(stuff => stuff.split(",").map(skill => skill.trim()))))
 
 
 export const skills: string[][] = [

@@ -1,6 +1,5 @@
 
-// console.log(JSON.stringify([...table_body.childNodes].map(row => row.childNodes[1]).filter(ethnic => ethnic).map(ethnic => ethnic.textContent.trim())))
-// from https://en.wikipedia.org/wiki/List_of_contemporary_ethnic_groups
+// source https://en.wikipedia.org/wiki/List_of_contemporary_ethnic_groups
 
 export const ethnicities = [
     "!Kung",

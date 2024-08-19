@@ -3,7 +3,7 @@ import { load_page_data } from "$lib/utils/load_page.js"
 import { fetchEntries } from "@builder.io/sdk-svelte"
 
 export async function load({
-    url, fetch 
+    url, fetch
 }) {
 
     const press_releases = (await fetchEntries({
@@ -15,10 +15,8 @@ export async function load({
         },
     }) || []).map(release => ({
         ...release.data,
-        tags: release.data?.tags?.map((tag: Record<string, unknown>) => tag.tag) 
+        tags: release.data?.tags?.map((tag: Record<string, unknown>) => tag.tag)
     }))
-
-    console.log(press_releases[0])
 
     return {
         press_releases,

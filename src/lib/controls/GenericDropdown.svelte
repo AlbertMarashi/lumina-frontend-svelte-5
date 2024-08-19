@@ -96,10 +96,6 @@ let {
 
         top -= scrollY
         left -= scrollX
-        // top -= offset.top
-        // left -= offset.left
-
-        // console.log(top, left)
 
         top = Math.max(side_offset, Math.min(top, max_top))
         left = Math.max(side_offset, Math.min(left, max_left))

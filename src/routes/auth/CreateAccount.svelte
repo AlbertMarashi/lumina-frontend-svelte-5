@@ -64,8 +64,6 @@ async function signup () {
         // TODO: referrer: undefined,
         })
 
-        console.log(created)
-
         if (!created) return $page.data.alerts.create_alert("error", {
             code: "FAILED_ACCOUNT_CREATION",
             message: "Failed to create account"

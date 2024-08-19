@@ -29,7 +29,7 @@ export let margin: {
     top?: number,
     right?: number,
     bottom?: number,
-    left?: number 
+    left?: number
 } = {}
 
 
@@ -101,7 +101,7 @@ function setupViewport(viewport: Element|null) {
     element.addEventListener("scroll", onScroll, { passive: true })
 
     const observer = new ResizeObserver(entries => {
-         
+
         for (const _entry of entries) {
             wholeHeight = viewport?.scrollHeight ?? 0
             wholeWidth = viewport?.scrollWidth ?? 0
@@ -161,10 +161,9 @@ function setupThumb(thumb: HTMLDivElement) {
     }
     if (thumb === HThumb) {
         HTeardownThumb?.()
-        HThumb.addEventListener("mousedown" , () => console.log("foo"))
         HThumb.addEventListener("mousedown", onThumbDown, {
             passive: true,
-            capture: true 
+            capture: true
         })
         HThumb.addEventListener("touchstart", onThumbDown, { passive: true })
 
@@ -185,7 +184,7 @@ function setupContents(contents: Element) {
     }
 
     const observer = new ResizeObserver(entries => {
-         
+
         for (const _entry of entries) {
             wholeHeight = viewport?.scrollHeight ?? 0
             wholeWidth = viewport?.scrollWidth ?? 0
