@@ -58,36 +58,3 @@ async function read_cookie({
 
     return resolve(event)
 }
-
-// async function setup_client_db({ event, resolve }: Parameters<typeof handle>[0]) {
-//     const store = stores_object.getStore()!
-
-//     if (!store.db) {
-//         store.db = safe_surreal_db_client(event.locals.token)
-//     }
-
-//     return resolve(event)
-// }
-
-// async function token_data({ event, resolve }: Parameters<typeof handle>[0]) {
-//     const session = await event.locals.auth()
-//     const user_id = session?.user?.id
-
-//     /// TODO: Should we be generating this every time?
-//     /// This is the database authentication token
-//     /// We use it to authenticate the user to the database
-//     const token = user_id
-//         ? await sign_jwt({
-//             ns: PUBLIC_SURREAL_NAMESPACE,
-//             id: user_id,
-//             db: "lumina",
-//             tk: "lumina_token",
-//             sc: "users",
-//         })
-//         : null
-
-//     event.locals.session = session
-//     event.locals.token = token
-
-//     return resolve(event)
-// }

@@ -2,7 +2,7 @@ import {error, json} from "@sveltejs/kit"
 import { z } from "zod"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
 import { UserLoginQuery } from "$lib/queries.js"
-import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
+import { PUBLIC_VERCEL_GIT_COMMIT_REF } from "$env/static/public"
 import { sign_jwt } from "$lib/utils/jwt.js"
 import { record_to_string } from "$lib/pojo_surreal.js"
 
@@ -38,7 +38,7 @@ export async function POST({ request }) {
         sc: string,
         scopes: string[]
     }>({
-        ns: PUBLIC_SURREAL_NAMESPACE,
+        ns: PUBLIC_VERCEL_GIT_COMMIT_REF,
         id: record_to_string(user.id),
         db: "lumina",
         tk: "lumina_token",
