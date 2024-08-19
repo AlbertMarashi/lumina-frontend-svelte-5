@@ -4,6 +4,7 @@ import { AsyncLocalStorage } from "node:async_hooks"
 import { isolated_global } from "./lib/stores/database"
 import { create_resolver } from "$lib/utils/resolver"
 import type { TypedSurreal } from "$lib/queries"
+import { verify_jwt } from "$lib/utils/jwt"
 
 const local_storage = new AsyncLocalStorage<{
     db: Promise<TypedSurreal>
@@ -53,7 +54,14 @@ async function read_cookie({
     const token = event.cookies.get("token")
 
     if (token) {
-        event.locals.token = token
+        // attempt to validate the token
+        try {
+            await verify_jwt<string>(token)
+            event.locals.token = token
+        } catch (error) {
+            console.error("Invalid Auth token received, removing cookie", error)
+            event.cookies.delete("token", { path: "/" })
+        }
     }
 
     return resolve(event)
