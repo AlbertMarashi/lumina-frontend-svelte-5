@@ -1,51 +1,51 @@
 #!/bin/bash
 # This script is used to deploy the project to Vercel.
 
-# Exit immediately if a command exits with a non-zero status
-set -e
+# # Exit immediately if a command exits with a non-zero status
+# set -e
 
-# 1. Install SurrealDB
-echo "Installing SurrealDB..."
-curl -L https://install.surrealdb.com | sh
+# # 1. Install SurrealDB
+# echo "Installing SurrealDB..."
+# curl -L https://install.surrealdb.com | sh
 
-# 2. Set SURREAL_NAMESPACE based on VERCEL_GIT_COMMIT_REF
-if [[ $VERCEL_GIT_COMMIT_REF == "main" ]]; then
-    SURREAL_NAMESPACE="main"
-else
-    SURREAL_NAMESPACE="preview"
-fi
-echo "SURREAL_NAMESPACE set to: $SURREAL_NAMESPACE"
+# # 2. Set SURREAL_NAMESPACE based on VERCEL_GIT_COMMIT_REF
+# if [[ $VERCEL_GIT_COMMIT_REF == "main" ]]; then
+#     SURREAL_NAMESPACE="main"
+# else
+#     SURREAL_NAMESPACE="preview"
+# fi
+# echo "SURREAL_NAMESPACE set to: $SURREAL_NAMESPACE"
 
-# need to make surreal-codegen a binary we can install here
-# echo "Running query codegen..."
-# bun sync:queries
+# # need to make surreal-codegen a binary we can install here
+# # echo "Running query codegen..."
+# # bun sync:queries
 
-echo "Running build..."
-bun run build
+# echo "Running build..."
+# bun run build
 
-echo "Running checks..."
-bun check
+# echo "Running checks..."
+# bun check
 
-echo "Running linter..."
-bun lint
+# echo "Running linter..."
+# bun lint
 
-echo "All checks passed. Proceeding with database operations..."
+# echo "All checks passed. Proceeding with database operations..."
 
-echo "Importing schema..."
-surreal import \
-    --endpoint $PUBLIC_SURREAL_HOST \
-    -u $SURREAL_USER \
-    -p $SURREAL_PASS \
-    --ns $SURREAL_NAMESPACE \
-    --db lumina \
-    schema.surql
+# echo "Importing schema..."
+# surreal import \
+#     --endpoint $PUBLIC_SURREAL_HOST \
+#     -u $SURREAL_USER \
+#     -p $SURREAL_PASS \
+#     --ns $SURREAL_NAMESPACE \
+#     --db lumina \
+#     schema.surql
 
-echo "Defining token..."
-echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" | surreal sql \
-    --endpoint $PUBLIC_SURREAL_HOST \
-    -u $SURREAL_USER \
-    -p $SURREAL_PASS \
-    --ns $SURREAL_NAMESPACE \
-    --db lumina
+# echo "Defining token..."
+# echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" | surreal sql \
+#     --endpoint $PUBLIC_SURREAL_HOST \
+#     -u $SURREAL_USER \
+#     -p $SURREAL_PASS \
+#     --ns $SURREAL_NAMESPACE \
+#     --db lumina
 
-echo "Deployment script completed successfully."
+# echo "Deployment script completed successfully."

@@ -6,3 +6,5 @@ export async function load({ locals }) {
         namespace: get_surreal_namespace()
     }
 }
+
+

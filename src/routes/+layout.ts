@@ -43,3 +43,6 @@ export async function load({ data }) {
         alerts,
     }
 }
+
+export const ssr = false
+export const prerender = true

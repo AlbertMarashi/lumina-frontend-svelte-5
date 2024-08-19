@@ -15,8 +15,8 @@ isolated_global.getStore = () => local_storage.getStore()!
 
 export const handle = sequence(
     // auth_handler,
-    read_cookie,
-    create_async_local_storage,
+    // read_cookie,
+    // create_async_local_storage,
     // setup_client_db,
 )
 
@@ -36,33 +36,33 @@ export async function handleError({ error }) {
     }
 }
 
-async function create_async_local_storage({
-    event, resolve
-}: Parameters<typeof handle>[0]) {
-    const resolver = create_resolver<TypedSurreal>()
+// async function create_async_local_storage({
+//     event, resolve
+// }: Parameters<typeof handle>[0]) {
+//     const resolver = create_resolver<TypedSurreal>()
 
-    // let safe_surreal_db_client(event.locals.token)
-    return local_storage.run({
-        db: resolver.promise,
-        resolve_db: resolver.resolve
-    }, async () => await resolve(event))
-}
+//     // let safe_surreal_db_client(event.locals.token)
+//     return local_storage.run({
+//         db: resolver.promise,
+//         resolve_db: resolver.resolve
+//     }, async () => await resolve(event))
+// }
 
-async function read_cookie({
-    event, resolve
-}: Parameters<typeof handle>[0]) {
-    const token = event.cookies.get("token")
+// async function read_cookie({
+//     event, resolve
+// }: Parameters<typeof handle>[0]) {
+//     const token = event.cookies.get("token")
 
-    if (token) {
-        // attempt to validate the token
-        try {
-            await verify_jwt<string>(token)
-            event.locals.token = token
-        } catch (error) {
-            console.error("Invalid Auth token received, removing cookie", error)
-            event.cookies.delete("token", { path: "/" })
-        }
-    }
+//     if (token) {
+//         // attempt to validate the token
+//         try {
+//             await verify_jwt<string>(token)
+//             event.locals.token = token
+//         } catch (error) {
+//             console.error("Invalid Auth token received, removing cookie", error)
+//             event.cookies.delete("token", { path: "/" })
+//         }
+//     }
 
-    return resolve(event)
-}
+//     return resolve(event)
+// }
