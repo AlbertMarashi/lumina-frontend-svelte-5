@@ -4,6 +4,5 @@ export async function load({ locals }) {
     return {
         token: locals.token,
         namespace: VERCEL_GIT_COMMIT_REF
-        // session: locals.session
     }
 }

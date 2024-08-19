@@ -2,7 +2,7 @@ import {error, json} from "@sveltejs/kit"
 import { z } from "zod"
 import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
 import { UserLoginQuery } from "$lib/queries.js"
-import { VERCEL_GIT_COMMIT_REF } from "$env/static/public"
+import { VERCEL_GIT_COMMIT_REF } from "$env/static/private"
 import { sign_jwt } from "$lib/utils/jwt.js"
 import { record_to_string } from "$lib/pojo_surreal.js"
 

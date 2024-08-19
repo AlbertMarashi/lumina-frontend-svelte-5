@@ -1,5 +1,5 @@
-import {SURREAL_PASS, SURREAL_USER, VERCEL_GIT_COMMIT_REF} from "$env/static/private"
-import {PUBLIC_SURREAL_HOST } from "$env/static/public"
+import { SURREAL_PASS, SURREAL_USER, VERCEL_GIT_COMMIT_REF } from "$env/static/private"
+import { PUBLIC_SURREAL_HOST } from "$env/static/public"
 import { TypedSurreal } from "$lib/queries"
 
 async function get_surreal_db_client() {
