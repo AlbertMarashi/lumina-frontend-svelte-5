@@ -304,6 +304,9 @@ let filtered_orgs = $derived(organisations.filter(org =>
 ))
 
 </script>
+<PageHead
+    description="Your guide to the structures, organisations and key people in the government of Lumina."
+    title="Government Directory"/>
 <hero>
     <inner>
         <Flex
@@ -449,7 +452,7 @@ let filtered_orgs = $derived(organisations.filter(org =>
                         </Paragraph>
                     </Flex>
                     <FlexWrap>
-                        <GenericDropdown>
+                        <GenericDropdown position="bottom-center">
                             {#snippet element({ toggle})}
                                 <Segment
                                     style={type ? "branded" : "translucent"}

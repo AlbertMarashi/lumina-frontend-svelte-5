@@ -4,7 +4,6 @@ import { safe_db } from "$lib/stores/database"
 export async function load({
     depends, url
 }){
-
     const db = await safe_db()
 
     const [statements] = await db.typed(LoadTownHallQuery, {

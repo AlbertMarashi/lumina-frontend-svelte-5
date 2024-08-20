@@ -1,8 +1,9 @@
 <script lang="ts">
+import stop_propagation from "$lib/utils/stop_propagation"
+
 let {
-    vote_data = $bindable(),
+    vote_data,
     show_rating_ui = $bindable(false),
-    my_rating = $bindable(),
 }: {
     my_rating?: {
         rating: number,
@@ -15,15 +16,13 @@ let {
 } = $props()
 
 let show_rating = $derived(vote_data && vote_data.total_votes > 1)
-// let show_rating = $derived(true)
 let width = $derived(((vote_data?.rating_avg || 0) / 4) * 100)
-
 </script>
 
 <div class="wrapper">
     <div
         class="rating-bar"
-        onclick={() => show_rating_ui = !show_rating_ui}
+        onclick={stop_propagation(() => show_rating_ui = !show_rating_ui)}
         onkeydown={e => {
             if (e.key === "Enter") show_rating_ui = !show_rating_ui }}
         role="button"
@@ -34,21 +33,6 @@ let width = $derived(((vote_data?.rating_avg || 0) / 4) * 100)
                 class:indeterminate={ !show_rating }></bar>
         </inner-bar>
     </div>
-    {#if !show_rating || !my_rating}
-        <tag
-            class="purple"
-            onclick={() => show_rating_ui = !show_rating_ui}
-            onkeydown={e => {
-                if (e.key === "Enter") show_rating_ui = !show_rating_ui }}
-            role="button"
-            tabindex="0">
-            { my_rating ? "New - Rate Me" : "Rate Me" }
-        </tag>
-    {:else if my_rating}
-        <tag>
-            Rated
-        </tag>
-    {/if}
 </div>
 <style>
 
@@ -65,25 +49,6 @@ bar {
     gap: 10px;
     flex: 1;
     align-items: center;
-    tag {
-        font-size: 14px;
-        color: rgba(var(--foreground-rgb), 0.5);
-        font-style: italic;
-        padding: 3px 6px;
-        background: rgba(var(--foreground-rgb), 0.1);
-        border: 1px solid rgba(var(--foreground-rgb), 0.1);
-        border-radius: 8px;
-        outline: none;
-        &.purple {
-            cursor: pointer;
-            background: rgba(var(--brand-rgb), 0.1);
-            color: rgba(var(--brand-rgb), 1);
-            border-color: rgba(var(--brand-rgb), 0.2);
-            &:hover, &:focus {
-                background: rgba(var(--brand-rgb), 0.2);
-            }
-        }
-    }
 }
 .rating-bar {
     display: flex;
@@ -97,7 +62,6 @@ bar {
     margin: -4px;
     &:hover, &:focus {
         outline: 2px solid rgba(var(--foreground-rgb), 0.2);
-        /* outline-offset: 4px; */
     }
     inner-bar {
         display: flex;

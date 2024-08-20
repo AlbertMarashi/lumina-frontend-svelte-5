@@ -40,7 +40,7 @@ async function vote(rating: number) {
                 id: vote.id,
                 rating
             }
-            await invalidate("app:statements")
+            await invalidate(`app:statement:${statement.id.id}`)
             show_rating_ui = false
 
             $page.data.alerts.create_alert("success", "Voted successfully")
@@ -56,7 +56,7 @@ async function vote(rating: number) {
                 id: vote.id,
                 rating
             }
-            await invalidate("app:statements")
+            await invalidate(`app:statement:${statement.id.id}`)
             show_rating_ui = false
 
             $page.data.alerts.create_alert("success", "Updated vote successfully")

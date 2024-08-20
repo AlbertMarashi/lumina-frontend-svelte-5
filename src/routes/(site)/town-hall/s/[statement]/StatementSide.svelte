@@ -5,7 +5,8 @@ import Segment from "$lib/controls/Segment.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"
 import Button from "$lib/controls/Button.svelte"
 import AddStatement from "./AddStatement.svelte"
-
+import Close from "svelte-material-icons/Close.svelte"
+import { page } from "$app/stores"
 
 let {
     statements,
@@ -29,6 +30,9 @@ let title = {
 
 let show_add_statement = $state(false)
 let textinput: AddStatement = $state(undefined! as AddStatement)
+$effect(() => {
+    show_add_statement = $page.url.searchParams.get("replying") === side
+})
 
 </script>
 <side style:--side-color-rgb={ side_colors[side] }>
@@ -37,11 +41,13 @@ let textinput: AddStatement = $state(undefined! as AddStatement)
             <side-tag>{ title[side] }</side-tag>
             <Segment
                 style="translucent"
-                left_icon={Plus}
+                left_icon={show_add_statement ? Close : Plus}
                 onclick={async () => {
-                    show_add_statement = true
-                    await tick()
-                    textinput.focus()
+                    show_add_statement = !show_add_statement
+                    if(show_add_statement) {
+                        await tick()
+                        textinput.focus()
+                    }
                 }}/>
         </top>
     </heading-area>

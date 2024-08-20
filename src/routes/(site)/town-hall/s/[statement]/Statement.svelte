@@ -7,12 +7,16 @@ import Comment from "svelte-material-icons/Comment.svelte"
 import CommentOutline from "svelte-material-icons/CommentOutline.svelte"
 import Tag from "$lib/display/Tag.svelte"
 import RatingModal from "./RatingModal.svelte"
-import {receive, send} from "./crossfade_statement.svelte"
 import GenericDropdown from "$lib/controls/GenericDropdown.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Expand from "svelte-material-icons/ArrowExpand.svelte"
+import Plus from "svelte-material-icons/Plus.svelte"
 import { is_record_id, type RecordId } from "$lib/pojo_surreal"
+import { page } from "$app/stores"
+import { goto } from "$app/navigation"
+import stop_propagation from "$lib/utils/stop_propagation"
+import NoPropagate from "$lib/controls/NoPropagate.svelte"
 
 type Statement = {
     id: RecordId<"statement">,
@@ -39,14 +43,31 @@ type Statement = {
 }
 
 let {
-    statement,
+    statement = $bindable(),
     scale = 1,
 }: {
     scale?: number,
     statement: Statement
 } = $props()
 
+let interactive = $derived($page.url.pathname !== `/town-hall/s/${statement.id.id}`)
 let show_rating_ui = $state(false)
+
+function handleClick() {
+    if (!interactive) return
+
+    // Check if there's any selected text
+    const selection = window.getSelection()
+    if (selection && selection.toString().trim().length > 0) {
+        // Text is selected, do not navigate
+        return
+    }
+
+    // No text selected, proceed with navigation
+    goto("/town-hall/s/" + statement.id.id)
+}
+
+
 </script>
 {#if statement.replying_to && !(is_record_id(statement.replying_to))}
     <svelte:self
@@ -55,54 +76,63 @@ let show_rating_ui = $state(false)
 {/if}
 <statement
     style:--side-color-rgb={ statement.replying_to ? statement.side === "support" ? "var(--green-rgb)" : "var(--red-rgb)" : undefined }
-    style:zoom={ scale }
-    in:send={ { key: statement.id.id } }
-    out:receive={ { key: statement.id.id } }>
+    style:zoom={ scale }>
     {#if show_rating_ui}
         <RatingModal
             statement={statement}
             bind:show_rating_ui={ show_rating_ui }
             bind:my_rating={ statement.my_rating }/>
     {/if}
-    <inner>
+    <inner
+        class:interactive={ interactive }
+        onclick={handleClick}
+        role="presentation">
         <top>
-            <RatingBar
-                bind:my_rating={ statement.my_rating }
-                bind:vote_data={ statement.vote_data }
-                bind:show_rating_ui={ show_rating_ui }/>
+            <NoPropagate>
+                <RatingBar
+                    vote_data={statement.vote_data}
+                    bind:show_rating_ui={ show_rating_ui }/>
+            </NoPropagate>
             <right>
-                <a
-                    class="statement-button"
-                    href="/town-hall/s/{statement.id.id}"
-
-                    onclick={e => e.stopPropagation()}>
-                    <Icon icon={Expand}/>
-                </a>
-                <a
-                    class="statement-button"
-                    href="/town-hall/s/{statement.id.id}"
-                    onclick={e => e.stopPropagation()}>
-                    { statement.total_replies || "" }
-                    <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
-                </a>
-                <!-- <button>
-                { statement.laughs || null }
-                <Icon icon={Emoticon} />
-            </button> -->
-                <GenericDropdown position="bottom-right">
-                    {#snippet element({ toggle })}
-                    <button
+                <NoPropagate>
+                    <a
                         class="statement-button"
-                        onclick={toggle}>
-                        <Icon icon={DotsHorizontal} />
-                    </button>
-                    {/snippet}
-                    {#snippet dropdown()}
-                        <div class="dropdown">
-                            Nothing here yet
-                        </div>
-                    {/snippet}
-                </GenericDropdown>
+                        href="/town-hall/s/{statement.id.id}">
+                        <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
+                        { statement.total_replies || "0" }
+                    </a>
+                    {#if interactive}
+                        <GenericDropdown position="bottom-right">
+                            {#snippet element({ toggle })}
+                            <button
+                                class="statement-button"
+                                onclick={stop_propagation(toggle)}>
+                                <Icon icon={DotsHorizontal} />
+                            </button>
+                        {/snippet}
+                            {#snippet dropdown()}
+                            <a
+                                style:--color="var(--brand)"
+                                class="option"
+                                href="/town-hall/s/{statement.id.id}">
+                                <Icon icon={Expand}/> View Statement
+                            </a>
+                            <a
+                                style:--color="var(--green)"
+                                class="option"
+                                href="/town-hall/s/{statement.id.id}?replying=support">
+                                <Icon icon={Plus}/> Reply <Tag text="In Support"/>
+                            </a>
+                            <a
+                                style:--color="var(--red)"
+                                class="option"
+                                href="/town-hall/s/{statement.id.id}?replying=against">
+                                <Icon icon={Plus}/> Reply <Tag text="In Opposition"/>
+                            </a>
+                        {/snippet}
+                        </GenericDropdown>
+                    {/if}
+                </NoPropagate>
             </right>
         </top>
         <content>
@@ -120,11 +150,13 @@ let show_rating_ui = $state(false)
         </bottom>
         {#if statement.tags}
             <FlexWrap>
-                {#each statement.tags as tag}
-                    <Hashtag
-                        active={true}
-                        text={tag}/>
-                {/each}
+                <NoPropagate>
+                    {#each statement.tags as tag}
+                        <Hashtag
+                            active={true}
+                            text={tag}/>
+                    {/each}
+                </NoPropagate>
             </FlexWrap>
         {/if}
     </inner>
@@ -145,12 +177,19 @@ statement {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        &.interactive {
+            cursor: pointer;
+            &:hover {
+                background: rgba(var(--foreground-rgb), 0.01);
+            }
+        }
     }
 }
 
 content {
     color: rgba(var(--foreground-rgb), 0.8);
     font-size: 16px;
+    font-weight: 500;
 }
 
 bottom {
@@ -182,8 +221,22 @@ top {
     }
 }
 
-.dropdown {
-    padding: 16px;
+.option {
+    padding: 0 12px;
+    height: 42px;
+    color: white;
+    display: flex;
+    font-weight: 600;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.1);
+    &:hover {
+        background: rgba(var(--foreground-rgb), 0.05);
+    }
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 .statement-button {

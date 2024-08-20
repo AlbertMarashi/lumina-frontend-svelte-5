@@ -28,9 +28,10 @@ Object.assign(icons, data.icons)
             customComponents={components}
             data={{
                 ...(data.content?.data?.state || {}),
+                ...data.specific_data,
                 user: data.user,
                 citizen: data.user?.has_citizenship_application,
-                site_data
+                site_data,
             }}
             model="page" />
     {:else}

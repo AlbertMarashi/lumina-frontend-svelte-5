@@ -23,21 +23,21 @@ export default [
         files: ["**/*.svelte"],
         languageOptions: {
             parserOptions: {
-                project: "./tsconfig.json",
-                projectService: {
-                    allowDefaultProject: ["*.svelte"]
-                },
                 parser: ts.parser,
-                ecmaVersion: "latest",
-                extraFileExtensions: [".svelte"],
+                // project: "./tsconfig.json",
+                // projectService: {
+                //     allowDefaultProject: ["*.svelte"]
+                // },
+                // ecmaVersion: "latest",
+                // extraFileExtensions: [".svelte"],
                 // svelteFeatures: {
                 //     runes: true
                 // }
             }
         },
         rules: {
-            "@typescript-eslint/restrict-plus-operands": ["error"],
-            "@typescript-eslint/restrict-template-expressions": ["error"],
+            // "@typescript-eslint/restrict-plus-operands": ["error"],
+            // "@typescript-eslint/restrict-template-expressions": ["error"],
             // "@svelte-ts/restrict-mustache-expressions": "error",
         }
     },

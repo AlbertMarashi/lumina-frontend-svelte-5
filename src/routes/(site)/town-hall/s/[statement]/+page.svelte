@@ -10,6 +10,7 @@ import type { ComponentProps } from "svelte"
 import ChevronLeft from "svelte-material-icons/ChevronLeft.svelte"
 import Capitol from "$lib/icons/Capitol.svelte"
 import Button from "$lib/controls/Button.svelte"
+import PageHead from "$lib/components/PageHead.svelte"
 
 let { data } = $props()
 
@@ -57,10 +58,10 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
         return b_controversy - a_controversy
     })
 }
-let foo = {foo: "bar"}
 </script>
-{ foo }
-<a href="/foo/{foo}">baz</a>
+<PageHead
+    description={data.statement.content}
+    title="{data.statement.author_data?.author_name} on Town Hall"/>
 <section>
     <inner>
         <Button

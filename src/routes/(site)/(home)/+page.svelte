@@ -25,7 +25,8 @@ const GlobeComponent = {
 </script>
 <PageHead
     description={data.description}
-    title={data.title || "Untitled Page"}/>
+    include_suffix={false}
+    title={"Lumina » The City of the Future"}/>
 
 {#if data.content || isPreviewing()}
     <Content

@@ -3,7 +3,7 @@ import { StatementPageQuery } from "$lib/queries"
 import { error } from "@sveltejs/kit"
 
 export async function load({
-    params, depends
+    params
 }) {
     const db = await safe_db()
 
@@ -17,8 +17,6 @@ export async function load({
     if (!statement) {
         throw error(404, "Statement not found")
     }
-
-    depends("app:statements")
 
     return {
         statement

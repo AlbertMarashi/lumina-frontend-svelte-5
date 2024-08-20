@@ -8,13 +8,15 @@ import Clock from "svelte-material-icons/Clock.svelte"
 import RocketLaunch from "svelte-material-icons/RocketLaunch.svelte"
 import Plus from "svelte-material-icons/Plus.svelte"
 import type { ComponentProps } from "svelte"
-import Statement from "../s/[statement]/Statement.svelte"
+import Statement from "./s/[statement]/Statement.svelte"
 import Heading from "$lib/display/Heading.svelte"
 import Capitol from "$lib/icons/Capitol.svelte"
 import AddDiscussion from "./AddDiscussion.svelte"
 import GenericScrimPopout from "$lib/controls/GenericScrimPopout.svelte"
 import { page } from "$app/stores"
 import { SvelteSet } from "svelte/reactivity"
+import auth_guard from "$lib/utils/auth_guard"
+import PageHead from "$lib/components/PageHead.svelte"
 
 let {
     data
@@ -81,6 +83,9 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
 }
 
 </script>
+<PageHead
+    description="enabling citizens to debate and vote online, ensuring every citizen's voice has a say in the direction of our society."
+    title="Town Hall"/>
 <section>
     <inner class="justify horizontal">
         <Heading
@@ -91,7 +96,7 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
             <Button
                 style="translucent"
                 label="New Discussion"
-                onclick={toggle}
+                onclick={auth_guard(toggle)}
                 right_icon={Plus} />
             {/snippet}
             {#snippet dropdown({close})}

@@ -48,7 +48,7 @@ async function add_statement() {
 
     if (!vote) return $page.data.alerts.create_alert("error", "Could not vote for your new statement")
 
-    await invalidate("app:statements")
+    await invalidate(`app:statement:${statement.id.id}`)
     $page.data.alerts.create_alert("success", "Statement added")
     onclose()
 }
