@@ -16,6 +16,9 @@ else
 fi
 echo "PUBLIC_SURREAL_NAMESPACE set to: $PUBLIC_SURREAL_NAMESPACE"
 
+echo "Creating .env file..."
+echo "PUBLIC_SURREAL_NAMESPACE=$PUBLIC_SURREAL_NAMESPACE" >> .env
+
 # need to make surreal-codegen a binary we can install here
 # echo "Running query codegen..."
 # bun sync:queries
