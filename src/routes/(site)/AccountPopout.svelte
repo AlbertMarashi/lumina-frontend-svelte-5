@@ -8,6 +8,7 @@ import {goto, invalidateAll} from "$app/navigation"
 import asyncStatus from "$lib/utils/asyncStatus"
 import type { GetUserResult } from "$lib/queries"
 import Profile from "$lib/display/Profile.svelte"
+import { safe_db } from "$lib/stores/database"
 
 let {
     user = $bindable()
@@ -20,6 +21,8 @@ let email = $derived(user.email)
 
 async function logout() {
     delete_cookie("token")
+    const db = await safe_db()
+    await db.invalidate()
     await invalidateAll()
     await goto("/")
 }

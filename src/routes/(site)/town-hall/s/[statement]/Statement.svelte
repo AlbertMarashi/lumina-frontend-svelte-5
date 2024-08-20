@@ -10,7 +10,6 @@ import RatingModal from "./RatingModal.svelte"
 import GenericDropdown from "$lib/controls/GenericDropdown.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
-import Expand from "svelte-material-icons/ArrowExpand.svelte"
 import CommentCheck from "svelte-material-icons/CommentCheck.svelte"
 import CommentRemove from "svelte-material-icons/CommentRemove.svelte"
 import CheckCircle from "svelte-material-icons/CheckCircle.svelte"
@@ -56,7 +55,6 @@ let {
 let interactive = $derived($page.url.pathname !== `/town-hall/s/${statement.id.id}`)
 
 function handleClick() {
-    console.log("handle click")
     if (!interactive) return
 
     // Check if there's any selected text
@@ -82,9 +80,9 @@ function handleClick() {
     style:zoom={ scale }>
     {#if show_rating_ui}
         <RatingModal
+            my_rating={statement.my_rating}
             statement={statement}
-            bind:show_rating_ui={ show_rating_ui }
-            bind:my_rating={ statement.my_rating }/>
+            bind:show_rating_ui={ show_rating_ui }/>
     {/if}
     <inner
         class:interactive={ interactive }
@@ -97,28 +95,32 @@ function handleClick() {
                     bind:show_rating_ui={ show_rating_ui }/>
             </NoPropagate>
             <right>
-                <NoPropagate>
-                    <a
-                        class="statement-button"
-                        href="/town-hall/s/{statement.id.id}">
-                        <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
-                        { statement.total_replies || "0" }
-                    </a>
-                    {#if interactive}
-                        <GenericDropdown position="bottom-right">
-                            {#snippet element({ toggle })}
+                <a
+                    class="statement-button"
+                    href="/town-hall/s/{statement.id.id}">
+                    <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
+                    { statement.total_replies || "0" }
+                </a>
+                {#if interactive}
+                    <GenericDropdown position="bottom-right">
+                        {#snippet element({ toggle })}
                             <button
                                 class="statement-button"
                                 onclick={stop_propagation(toggle)}>
                                 <Icon icon={DotsHorizontal} />
                             </button>
                         {/snippet}
-                            {#snippet dropdown()}
-                            <button
-                                class="option"
-                                onclick={() => show_rating_ui = true}>
-                                <Icon icon={CheckCircle}/> Rate this statement
-                            </button>
+                        {#snippet dropdown({ close })}
+                            <NoPropagate>
+                                <button
+                                    class="option"
+                                    onclick={() => {
+                                        close()
+                                        show_rating_ui = true
+                                    }}>
+                                    <Icon icon={CheckCircle}/> Rate this statement
+                                </button>
+                            </NoPropagate>
                             <a
                                 class="option"
                                 href="/town-hall/s/{statement.id.id}?replying=support">
@@ -134,9 +136,8 @@ function handleClick() {
                                     text="In Opposition"/>
                             </a>
                         {/snippet}
-                        </GenericDropdown>
-                    {/if}
-                </NoPropagate>
+                    </GenericDropdown>
+                {/if}
             </right>
         </top>
         <content>

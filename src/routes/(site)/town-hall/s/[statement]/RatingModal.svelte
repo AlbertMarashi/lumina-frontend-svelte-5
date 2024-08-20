@@ -37,10 +37,10 @@ async function vote(rating: number) {
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to vote")
 
-            my_rating = {
-                id: vote.id,
-                rating
-            }
+            // my_rating = {
+            //     id: vote.id,
+            //     rating
+            // }
 
             $page.data.alerts.create_alert("success", "Voted successfully")
         } else {
@@ -51,10 +51,10 @@ async function vote(rating: number) {
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to update vote")
 
-            my_rating = {
-                id: vote.id,
-                rating
-            }
+            // my_rating = {
+            //     id: vote.id,
+            //     rating
+            // }
 
             $page.data.alerts.create_alert("success", "Updated vote successfully")
         }
