@@ -82,8 +82,6 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
     })
 }
 
-$inspect(data.statements)
-
 </script>
 <PageHead
     description="enabling citizens to debate and vote online, ensuring every citizen's voice has a say in the direction of our society."
