@@ -1,7 +1,4 @@
 <script lang="ts">
-import { page } from "$app/stores"
-import { SvelteSet } from "svelte/reactivity"
-
 let {
     text,
     active = false,
