@@ -105,12 +105,15 @@ function toggle(toggling: "notifications" | "account") {
     <div class="content">
         <section class="section">
             <Button
-                style="translucent"
+                style="transparent"
                 href={site_data.socials.discord}
                 label="Join Discord Server"
                 left_icon={Discord}
                 target="_blank"/>
         </section>
+        <div class="section">
+            <DonateButton/>
+        </div>
         <div class="section">
             <div class="socials">
                 <a
@@ -129,9 +132,6 @@ function toggle(toggling: "notifications" | "account") {
                     class="social-media-icon"
                     href={site_data.socials.youtube}><Youtube/></a>
             </div>
-        </div>
-        <div class="section">
-            <DonateButton/>
         </div>
         <div class="section">
             {#if user}

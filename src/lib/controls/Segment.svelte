@@ -113,6 +113,7 @@ $: tag = href ? "a" : "div" as "a" | "div"
         opacity: 0.5;
         background: transparent;
         border: 1px solid rgba(var(--foreground-rgb), 0.1);
+        color: rgba(var(--foreground-rgb), 0.5);
         &:hover {
             background: transparent;
             outline: none;

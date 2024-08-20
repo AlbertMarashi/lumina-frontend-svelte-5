@@ -9,9 +9,10 @@ import HandCoin from "svelte-material-icons/HandCoin.svelte"
 </a>
 <style>
 a {
-    border: 2px solid color-mix(in srgb, var(--brand) 30%, transparent);
+    /* border: 2px solid color-mix(in srgb, var(--brand) 30%, transparent); */
+    background: rgba(var(--brand-rgb), 0.1);
     border-radius: 4px;
-    padding: 10px;
+    padding: 11px;
     display: flex;
     align-items: center;
     width: 100%;

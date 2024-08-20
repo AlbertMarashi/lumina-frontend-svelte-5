@@ -187,7 +187,7 @@ statement {
         &.interactive {
             cursor: pointer;
             &:hover {
-                background: rgba(var(--foreground-rgb), 0.01);
+                background: rgba(var(--foreground-rgb), 0.02);
             }
         }
     }
