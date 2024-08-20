@@ -1,3 +1,7 @@
+<PageHead
+    description={data.description}
+    title={data.title || "Untitled Page"}
+    type="article"/>
 <script lang="ts">
 import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
 import { components } from "$lib/blocks/custom_components.js"
@@ -20,10 +24,6 @@ $effect(() => {
 Object.assign(icons, data.icons)
 
 </script>
-<PageHead
-    description={data.description}
-    title={data.title || "Untitled Page"}
-    type="article"/>
 <main>
     <FlexWrap>
         {#each data.content?.data?.tags || [] as tag}

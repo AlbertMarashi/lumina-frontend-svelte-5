@@ -1,3 +1,6 @@
+<PageHead
+    description="enabling citizens to debate and vote online, ensuring every citizen's voice has a say in the direction of our society."
+    title="Town Hall"/>
 <script lang="ts">
 import Button from "$lib/controls/Button.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
@@ -83,9 +86,6 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
 }
 
 </script>
-<PageHead
-    description="enabling citizens to debate and vote online, ensuring every citizen's voice has a say in the direction of our society."
-    title="Town Hall"/>
 <section>
     <inner class="justify horizontal">
         <Heading

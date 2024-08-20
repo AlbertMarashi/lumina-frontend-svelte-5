@@ -1,5 +1,5 @@
 <PageHead
-    description="Find information about government agencies, departments, and elected officials."
+    description="Your guide to the structures, organisations and entities in the government of Lumina."
     title="Government Directory"/>
 <script lang="ts">
 import PageHead from "$lib/components/PageHead.svelte"
@@ -304,9 +304,6 @@ let filtered_orgs = $derived(organisations.filter(org =>
 ))
 
 </script>
-<PageHead
-    description="Your guide to the structures, organisations and key people in the government of Lumina."
-    title="Government Directory"/>
 <hero>
     <inner>
         <Flex

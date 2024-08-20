@@ -47,9 +47,6 @@ $: user = data.user
 
 
 </script>
-<PageHead
-    description="Apply for citizenship or check your citizenship status"
-    title="Citizenship"/>
 <Grid
     padding_vertical={80}
     vertical_gap={40}>

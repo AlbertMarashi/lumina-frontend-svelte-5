@@ -1,3 +1,7 @@
+<PageHead
+    description={data.description}
+    include_suffix={false}
+    title={"Lumina » The City of the Future"}/>
 <script lang="ts">
 import { PUBLIC_BUILDERIO_KEY } from "$env/static/public"
 import ButtonComponent from "$lib/blocks/Button/ButtonComponent"
@@ -23,11 +27,6 @@ const GlobeComponent = {
 } satisfies RegisteredComponent
 
 </script>
-<PageHead
-    description={data.description}
-    include_suffix={false}
-    title={"Lumina » The City of the Future"}/>
-
 {#if data.content || isPreviewing()}
     <Content
         apiKey={PUBLIC_BUILDERIO_KEY}

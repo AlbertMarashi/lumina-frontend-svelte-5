@@ -1,3 +1,6 @@
+<PageHead
+    description={data.statement.content}
+    title="{data.statement.author_data?.author_name} on Town Hall"/>
 <script lang="ts">
 import Statement from "./Statement.svelte"
 import StatementSide from "./StatementSide.svelte"
@@ -59,9 +62,6 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
     })
 }
 </script>
-<PageHead
-    description={data.statement.content}
-    title="{data.statement.author_data?.author_name} on Town Hall"/>
 <section>
     <inner>
         <Button
