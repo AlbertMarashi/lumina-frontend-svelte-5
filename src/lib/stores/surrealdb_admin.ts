@@ -1,7 +1,6 @@
 import { SURREAL_PASS, SURREAL_USER} from "$env/static/private"
-import { PUBLIC_SURREAL_HOST } from "$env/static/public"
+import { PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 import { TypedSurreal } from "$lib/queries"
-import { get_surreal_namespace } from "$lib/utils/surreal_namespace"
 
 async function get_surreal_db_client() {
     const db = new TypedSurreal()
@@ -12,7 +11,7 @@ async function get_surreal_db_client() {
     if (surreal_host.protocol === "https:") surreal_host.protocol = "wss:"
     surreal_host.pathname = "/rpc"
     await db.connect(surreal_host, {
-        namespace: get_surreal_namespace(),
+        namespace: PUBLIC_SURREAL_NAMESPACE,
         database: "lumina",
         auth: {
             username: SURREAL_USER,

@@ -13,7 +13,7 @@ export function new_record<Tb extends string>(tb: Tb, id: string): RecordId<Tb> 
     }
 }
 
-export function record_to_string(record: RecordId<string>): string {
+export function record_to_string(record: RecordId<string> & { id: string }): string {
     return `${record.tb}:${record.id}`
 }
 
@@ -36,7 +36,7 @@ function convert_to_record_id(value: unknown): unknown {
     if (value instanceof BaseRecordId) {
         return {
             tb: value.tb,
-            id: value.id,
+            id: convert_to_record_id(value.id),
         }
     }
 
@@ -55,7 +55,7 @@ function convert_to_record_id_class(value: unknown): unknown {
     if (value instanceof BaseRecordId) return value
     if (Array.isArray(value)) return value.map(convert_to_record_id_class)
     if (typeof value === "object" && value !== null) {
-        if (is_record_id(value)) return new BaseRecordId(value.tb, value.id)
+        if (is_record_id(value)) return new BaseRecordId(value.tb, convert_to_record_id(value.id) as RecordIdValue)
         const converted: Record<string, unknown> = {}
         for (const [key, val] of Object.entries(value)) {
             converted[key] = convert_to_record_id_class(val)

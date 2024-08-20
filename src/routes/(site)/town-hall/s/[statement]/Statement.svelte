@@ -11,7 +11,9 @@ import GenericDropdown from "$lib/controls/GenericDropdown.svelte"
 import Hashtag from "$lib/controls/Hashtag.svelte"
 import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Expand from "svelte-material-icons/ArrowExpand.svelte"
-import Plus from "svelte-material-icons/Plus.svelte"
+import CommentCheck from "svelte-material-icons/CommentCheck.svelte"
+import CommentRemove from "svelte-material-icons/CommentRemove.svelte"
+import CheckCircle from "svelte-material-icons/CheckCircleOutline.svelte"
 import { is_record_id, type RecordId } from "$lib/pojo_surreal"
 import { page } from "$app/stores"
 import { goto } from "$app/navigation"
@@ -32,7 +34,6 @@ type Statement = {
         author_name: string,
         id: RecordId<"statement_author_data">,
     },
-    // will always be "support" or "against"
     side?: "support" | "against" | string,
     total_replies?: number,
     my_rating?: {
@@ -111,23 +112,29 @@ function handleClick() {
                             </button>
                         {/snippet}
                             {#snippet dropdown()}
+                            <button
+                                class="option"
+                                onclick={() => show_rating_ui = true}>
+                                <Icon icon={CheckCircle}/> Rate this statement
+                            </button>
                             <a
-                                style:--color="var(--brand)"
                                 class="option"
                                 href="/town-hall/s/{statement.id.id}">
                                 <Icon icon={Expand}/> View Statement
                             </a>
                             <a
-                                style:--color="var(--green)"
                                 class="option"
                                 href="/town-hall/s/{statement.id.id}?replying=support">
-                                <Icon icon={Plus}/> Reply <Tag text="In Support"/>
+                                <Icon icon={CommentCheck}/> Reply <Tag
+                                    --color="var(--green)"
+                                    text="In Support"/>
                             </a>
                             <a
-                                style:--color="var(--red)"
                                 class="option"
                                 href="/town-hall/s/{statement.id.id}?replying=against">
-                                <Icon icon={Plus}/> Reply <Tag text="In Opposition"/>
+                                <Icon icon={CommentRemove}/> Reply <Tag
+                                    --color="var(--red)"
+                                    text="In Opposition"/>
                             </a>
                         {/snippet}
                         </GenericDropdown>

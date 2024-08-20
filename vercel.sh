@@ -8,13 +8,13 @@ set -e
 echo "Installing SurrealDB..."
 curl -L https://install.surrealdb.com | sh
 
-# 2. Set SURREAL_NAMESPACE based on VERCEL_GIT_COMMIT_REF
+# 2. Set PUBLIC_SURREAL_NAMESPACE based on VERCEL_GIT_COMMIT_REF
 if [[ $VERCEL_GIT_COMMIT_REF == "main" ]]; then
-    SURREAL_NAMESPACE="main"
+    PUBLIC_SURREAL_NAMESPACE="main"
 else
-    SURREAL_NAMESPACE="preview"
+    PUBLIC_SURREAL_NAMESPACE="preview"
 fi
-echo "SURREAL_NAMESPACE set to: $SURREAL_NAMESPACE"
+echo "PUBLIC_SURREAL_NAMESPACE set to: $PUBLIC_SURREAL_NAMESPACE"
 
 # need to make surreal-codegen a binary we can install here
 # echo "Running query codegen..."
@@ -36,7 +36,7 @@ surreal import \
     --endpoint $PUBLIC_SURREAL_HOST \
     -u $SURREAL_USER \
     -p $SURREAL_PASS \
-    --ns $SURREAL_NAMESPACE \
+    --ns $PUBLIC_SURREAL_NAMESPACE \
     --db lumina \
     schema.surql
 
@@ -45,7 +45,7 @@ echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" 
     --endpoint $PUBLIC_SURREAL_HOST \
     -u $SURREAL_USER \
     -p $SURREAL_PASS \
-    --ns $SURREAL_NAMESPACE \
+    --ns $PUBLIC_SURREAL_NAMESPACE \
     --db lumina
 
 echo "Deployment script completed successfully."

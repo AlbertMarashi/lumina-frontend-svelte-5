@@ -9,12 +9,13 @@ import {Content, isPreviewing} from "@builder.io/sdk-svelte"
 let {
     data,
 } = $props()
+
+Object.assign(icons, data.icons)
+
 $effect(() => {
     Object.assign(icons, data.icons)
 })
-Object.assign(icons, data.icons)
 
-// $inspect(data.content?.data?.state)
 
 </script>
 <PageHead

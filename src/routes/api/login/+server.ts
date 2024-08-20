@@ -4,7 +4,7 @@ import { surrealdb_admin } from "$lib/stores/surrealdb_admin.js"
 import { UserLoginQuery } from "$lib/queries.js"
 import { sign_jwt } from "$lib/utils/jwt.js"
 import { record_to_string } from "$lib/pojo_surreal.js"
-import { get_surreal_namespace } from "$lib/utils/surreal_namespace.js"
+import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 
 const input = z.object({
     email: z.string().email(),
@@ -36,7 +36,7 @@ export async function POST({ request }) {
         sc: string,
         scopes: string[]
     }>({
-        ns: get_surreal_namespace(),
+        ns: PUBLIC_SURREAL_NAMESPACE,
         id: record_to_string(user.id),
         db: "lumina",
         tk: "lumina_token",

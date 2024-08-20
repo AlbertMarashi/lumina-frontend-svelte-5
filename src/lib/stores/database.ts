@@ -1,38 +1,31 @@
-import { create_resolver } from "$lib/utils/resolver"
-import { PUBLIC_SURREAL_HOST } from "$env/static/public"
+import { browser } from "$app/environment"
+import { PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 import { TypedSurreal } from "$lib/queries"
+import { get_cookie_from_document } from "$lib/utils/cookie"
 
-class ClientStore {
-    store: {
-        db: Promise<TypedSurreal>,
-        resolve_db: (db: TypedSurreal | PromiseLike<TypedSurreal>) => void
-    }
-
-    constructor() {
-        const resolver = create_resolver<TypedSurreal>()
-        this.store = {
-            db: resolver.promise,
-            resolve_db: resolver.resolve,
-        }
-    }
-
-    getStore() {
-        return this.store
-    }
+const wrapper: { db?: Promise<TypedSurreal> } = {
+    db: browser
+        ? init_safe_surreal_db_client(get_cookie_from_document("token"), PUBLIC_SURREAL_NAMESPACE)
+        : undefined,
 }
 
-const local_stores = new ClientStore()
+export function setDatabase(db: Promise<TypedSurreal>) {
+    wrapper.db = db
+}
 
 export const isolated_global = {
-    getStore(): ClientStore["store"] {
-        return local_stores.getStore()
-    },
+    getStore(): typeof wrapper {
+        throw new Error("AsyncLocalStorage not initialized")
+    }
 }
 
 export async function safe_db(): Promise<TypedSurreal> {
-    const store = isolated_global.getStore()
-
-    return store.db
+    if (browser) {
+        return await wrapper.db!
+    } else {
+        const store = isolated_global.getStore()
+        return await store.db!
+    }
 }
 
 export async function init_safe_surreal_db_client(token: string | null, namespace: string) {
