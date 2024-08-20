@@ -23,7 +23,7 @@ let {
     this={ onclick ? "span" : "a" }
     class="hashtag"
     class:active={ active }
-    href={onclick ? undefined : `/town-hall/?tag=${text}`}
+    href={onclick ? undefined : `/town-hall/?tag=${encodeURIComponent(text)}`}
     onclick={onclick}
     role={onclick ? "button" : undefined}>
     <span>#{ text }</span>
