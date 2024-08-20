@@ -3,28 +3,22 @@ import { PUBLIC_SURREAL_HOST, PUBLIC_SURREAL_NAMESPACE } from "$env/static/publi
 import { TypedSurreal } from "$lib/queries"
 import { get_cookie_from_document } from "$lib/utils/cookie"
 
-const wrapper: { db?: Promise<TypedSurreal> } = {
-    db: browser
-        ? init_safe_surreal_db_client(get_cookie_from_document("token"), PUBLIC_SURREAL_NAMESPACE)
-        : undefined,
-}
-
-export function setDatabase(db: Promise<TypedSurreal>) {
-    wrapper.db = db
-}
+const db = browser
+    ? init_safe_surreal_db_client(get_cookie_from_document("token"), PUBLIC_SURREAL_NAMESPACE)
+    : undefined
 
 export const isolated_global = {
-    getStore(): typeof wrapper {
+    getStore(): { get_db(): Promise<TypedSurreal> } {
         throw new Error("AsyncLocalStorage not initialized")
     }
 }
 
 export async function safe_db(): Promise<TypedSurreal> {
     if (browser) {
-        return await wrapper.db!
+        return await db!
     } else {
         const store = isolated_global.getStore()
-        return await store.db!
+        return await store.get_db()
     }
 }
 

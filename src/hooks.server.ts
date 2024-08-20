@@ -4,6 +4,7 @@ import { AsyncLocalStorage } from "node:async_hooks"
 import { init_safe_surreal_db_client, isolated_global } from "$lib/stores/database"
 import { verify_jwt } from "$lib/utils/jwt"
 import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
+import type { TypedSurreal } from "$lib/queries"
 
 const local_storage = new AsyncLocalStorage<ReturnType<typeof isolated_global.getStore>>()
 
@@ -33,8 +34,10 @@ export async function handleError({ error }) {
 async function create_async_local_storage({
     event, resolve
 }: Parameters<typeof handle>[0]) {
+    let db: Promise<TypedSurreal> | undefined
     return local_storage.run({
-        db: init_safe_surreal_db_client(event.locals.token, PUBLIC_SURREAL_NAMESPACE),
+        // only initialize the db once per request, and only if we need it
+        get_db: () => db ?? (db = init_safe_surreal_db_client(event.locals.token, PUBLIC_SURREAL_NAMESPACE)),
     }, async () => await resolve(event))
 }
 
