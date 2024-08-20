@@ -14,19 +14,19 @@ let {
     onclick?: () => void,
 } = $props()
 
-let current_tags = $derived(new SvelteSet($page.url.searchParams.get("tag")?.split(",")))
-let in_current = $derived(current_tags.has(text))
-let without_self = $derived(new SvelteSet([...current_tags].filter(tag => tag !== text)))
-let with_self = $derived(new SvelteSet([...current_tags, text]))
-let nav_url_tags = $derived(in_current ? [...without_self] : [...with_self])
-let tags_query = $derived(nav_url_tags.length ? `?tag=${nav_url_tags.join(",")}` : "")
+// let current_tags = $derived(new SvelteSet($page.url.searchParams.get("tag")?.split(",")))
+// let in_current = $derived(current_tags.has(text))
+// let without_self = $derived(new SvelteSet([...current_tags].filter(tag => tag !== text)))
+// let with_self = $derived(new SvelteSet([...current_tags, text]))
+// let nav_url_tags = $derived(in_current ? [...without_self] : [...with_self])
+// let tags_query = $derived(nav_url_tags.length ? `?tag=${nav_url_tags.join(",")}` : "")
 
 </script>
 <svelte:element
     this={ onclick ? "span" : "a" }
     class="hashtag"
     class:active={ active }
-    href={onclick ? undefined : `/town-hall/${tags_query}`}
+    href={onclick ? undefined : `/town-hall/?tag=${text}`}
     onclick={onclick}
     role={onclick ? "button" : undefined}>
     <span>#{ text }</span>
