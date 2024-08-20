@@ -7,6 +7,7 @@ import {AddStatementQuery, VoteForStatementQuery} from "$lib/queries"
 import { safe_db } from "$lib/stores/database"
 import type { RecordId } from "$lib/pojo_surreal"
 import ArrowUp from "svelte-material-icons/ArrowUp.svelte"
+import auth_guard from "$lib/utils/auth_guard"
 
 let {
     side,
@@ -48,7 +49,7 @@ async function add_statement() {
 
     if (!vote) return $page.data.alerts.create_alert("error", "Could not vote for your new statement")
 
-    await invalidate(`app:statement:${statement.id.id}`)
+    await invalidate("app:statements")
     $page.data.alerts.create_alert("success", "Statement added")
     onclose()
 }
@@ -67,7 +68,7 @@ async function add_statement() {
         disabled={!content}
         left_icon={ArrowUp}
         left_icon_opacity={1}
-        onclick={add_statement}/>
+        onclick={auth_guard(add_statement)}/>
 </add-statement>
 <style>
 add-statement {

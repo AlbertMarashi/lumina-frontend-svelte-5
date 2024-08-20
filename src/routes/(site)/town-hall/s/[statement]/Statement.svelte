@@ -13,7 +13,7 @@ import FlexWrap from "$lib/display/FlexWrap.svelte"
 import Expand from "svelte-material-icons/ArrowExpand.svelte"
 import CommentCheck from "svelte-material-icons/CommentCheck.svelte"
 import CommentRemove from "svelte-material-icons/CommentRemove.svelte"
-import CheckCircle from "svelte-material-icons/CheckCircleOutline.svelte"
+import CheckCircle from "svelte-material-icons/CheckCircle.svelte"
 import { is_record_id, type RecordId } from "$lib/pojo_surreal"
 import { page } from "$app/stores"
 import { goto } from "$app/navigation"
@@ -45,16 +45,18 @@ type Statement = {
 
 let {
     statement = $bindable(),
+    show_rating_ui = $bindable(false),
     scale = 1,
 }: {
     scale?: number,
+    show_rating_ui?: boolean,
     statement: Statement
 } = $props()
 
 let interactive = $derived($page.url.pathname !== `/town-hall/s/${statement.id.id}`)
-let show_rating_ui = $state(false)
 
 function handleClick() {
+    console.log("handle click")
     if (!interactive) return
 
     // Check if there's any selected text
@@ -117,11 +119,6 @@ function handleClick() {
                                 onclick={() => show_rating_ui = true}>
                                 <Icon icon={CheckCircle}/> Rate this statement
                             </button>
-                            <a
-                                class="option"
-                                href="/town-hall/s/{statement.id.id}">
-                                <Icon icon={Expand}/> View Statement
-                            </a>
                             <a
                                 class="option"
                                 href="/town-hall/s/{statement.id.id}?replying=support">
@@ -229,15 +226,17 @@ top {
 }
 
 .option {
+    --size: 20px;
+    --opacity: 0.5;
     padding: 0 12px;
-    height: 42px;
-    color: white;
+    height: 46px;
+    color: rgba(var(--foreground-rgb), 1);
     display: flex;
     font-weight: 600;
     gap: 8px;
     align-items: center;
     cursor: pointer;
-    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.1);
+    /* border-bottom: 1px solid rgba(var(--foreground-rgb), 0.1); */
     &:hover {
         background: rgba(var(--foreground-rgb), 0.05);
     }

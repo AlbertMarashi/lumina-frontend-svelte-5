@@ -2,12 +2,9 @@
 import stop_propagation from "$lib/utils/stop_propagation"
 
 let {
-    vote_data,
+    vote_data = $bindable(),
     show_rating_ui = $bindable(false),
 }: {
-    my_rating?: {
-        rating: number,
-    }
     vote_data?: {
         rating_avg: number,
         total_votes: number,

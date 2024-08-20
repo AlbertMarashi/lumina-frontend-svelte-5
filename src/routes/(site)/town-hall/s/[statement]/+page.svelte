@@ -73,7 +73,9 @@ function sort_by(type: typeof tab,  statements: ComponentProps<Statement>["state
     </inner>
 </section>
 <section>
-    <Statement statement={data.statement as ComponentProps<Statement>["statement"]} />
+    <Statement
+        show_rating_ui={data.statement.my_rating === undefined}
+        statement={data.statement as ComponentProps<Statement>["statement"]} />
 </section>
 
 <section>

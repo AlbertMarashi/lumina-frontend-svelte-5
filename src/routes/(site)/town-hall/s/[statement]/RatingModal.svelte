@@ -8,9 +8,10 @@ import { safe_db } from "$lib/stores/database"
 import { page } from "$app/stores"
 import type { RecordId } from "$lib/pojo_surreal"
 import { invalidate } from "$app/navigation"
+import auth_guard from "$lib/utils/auth_guard"
 
 let {
-    statement,
+    statement = $bindable(),
     my_rating = $bindable(),
     show_rating_ui = $bindable(),
 }: {
@@ -40,8 +41,6 @@ async function vote(rating: number) {
                 id: vote.id,
                 rating
             }
-            await invalidate(`app:statement:${statement.id.id}`)
-            show_rating_ui = false
 
             $page.data.alerts.create_alert("success", "Voted successfully")
         } else {
@@ -56,11 +55,12 @@ async function vote(rating: number) {
                 id: vote.id,
                 rating
             }
-            await invalidate(`app:statement:${statement.id.id}`)
-            show_rating_ui = false
 
             $page.data.alerts.create_alert("success", "Updated vote successfully")
         }
+
+        await invalidate("app:statements")
+        show_rating_ui = false
     } catch (e) {
         console.error(e)
         $page.data.alerts.create_alert("error", e)
@@ -77,9 +77,9 @@ async function vote(rating: number) {
             <button
                 class="clicker i_{i}"
                 class:selected={ i === my_rating?.rating }
-                onclick={() => vote(i)}
+                onclick={auth_guard(() => vote(i))}
                 onkeydown={e => {
-                    if (e.key === "Enter") vote(i)
+                    if (e.key === "Enter") auth_guard(() => vote(i)!)
                 }}
                 tabindex="0">
                 <circle-item>
