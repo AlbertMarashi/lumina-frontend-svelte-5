@@ -101,16 +101,16 @@ function handleClick() {
                     <Icon icon={(statement.total_replies || 0) ? Comment : CommentOutline} />
                     { statement.total_replies || "0" }
                 </a>
-                {#if interactive}
-                    <GenericDropdown position="bottom-right">
-                        {#snippet element({ toggle })}
+                <GenericDropdown position="bottom-right">
+                    {#snippet element({ toggle })}
                             <button
                                 class="statement-button"
                                 onclick={stop_propagation(toggle)}>
                                 <Icon icon={DotsHorizontal} />
                             </button>
                         {/snippet}
-                        {#snippet dropdown({ close })}
+                    {#snippet dropdown({ close })}
+                        {#if !show_rating_ui}
                             <NoPropagate>
                                 <button
                                     class="option"
@@ -121,23 +121,25 @@ function handleClick() {
                                     <Icon icon={CheckCircle}/> Rate this statement
                                 </button>
                             </NoPropagate>
-                            <a
-                                class="option"
-                                href="/town-hall/s/{statement.id.id}?replying=support">
-                                <Icon icon={CommentCheck}/> Reply <Tag
-                                    --color="var(--green)"
-                                    text="In Support"/>
-                            </a>
-                            <a
-                                class="option"
-                                href="/town-hall/s/{statement.id.id}?replying=against">
-                                <Icon icon={CommentRemove}/> Reply <Tag
-                                    --color="var(--red)"
-                                    text="In Opposition"/>
-                            </a>
-                        {/snippet}
-                    </GenericDropdown>
-                {/if}
+                        {/if}
+                        <a
+                            class="option"
+                            href="/town-hall/s/{statement.id.id}?replying=support"
+                            onclick={close}>
+                            <Icon icon={CommentCheck}/> Reply <Tag
+                                --color="var(--green)"
+                                text="In Support"/>
+                        </a>
+                        <a
+                            class="option"
+                            href="/town-hall/s/{statement.id.id}?replying=against"
+                            onclick={close}>
+                            <Icon icon={CommentRemove}/> Reply <Tag
+                                --color="var(--red)"
+                                text="In Opposition"/>
+                        </a>
+                    {/snippet}
+                </GenericDropdown>
             </right>
         </top>
         <content>
@@ -256,7 +258,7 @@ top {
     color: rgba(var(--foreground-rgb), 0.5);
     border-radius: 4px;
     line-height: 100%;;
-    --size: 16px;
+    --size: 18px;
     &:hover, &:focus {
         color: rgba(var(--foreground-rgb), 0.8);
         background: rgba(var(--foreground-rgb), 0.1);

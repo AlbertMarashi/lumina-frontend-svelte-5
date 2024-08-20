@@ -152,7 +152,7 @@ function close_if_outside(e: MouseEvent) {
 </script>
 
 <svelte:window
-    onclick={e => close_if_outside(e)}
+    onclickcapture={e => close_if_outside(e)}
     bind:innerHeight={ window_height }
     bind:innerWidth={ window_width }
 />

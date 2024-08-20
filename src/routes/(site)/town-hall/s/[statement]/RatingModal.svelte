@@ -4,6 +4,7 @@ import type { ComponentProps } from "svelte"
 import type Statement from "./Statement.svelte"
 import Icon from "$lib/display/Icon.svelte"
 import Info from "svelte-material-icons/Information.svelte"
+import Minus from "svelte-material-icons/Minus.svelte"
 import { safe_db } from "$lib/stores/database"
 import { page } from "$app/stores"
 import type { RecordId } from "$lib/pojo_surreal"
@@ -11,8 +12,8 @@ import { invalidate } from "$app/navigation"
 import auth_guard from "$lib/utils/auth_guard"
 
 let {
-    statement = $bindable(),
-    my_rating = $bindable(),
+    statement,
+    my_rating,
     show_rating_ui = $bindable(),
 }: {
     statement: ComponentProps<Statement>["statement"],
@@ -37,11 +38,6 @@ async function vote(rating: number) {
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to vote")
 
-            // my_rating = {
-            //     id: vote.id,
-            //     rating
-            // }
-
             $page.data.alerts.create_alert("success", "Voted successfully")
         } else {
             const [[vote]] = await db.typed(UpdateStatementVoteQuery, {
@@ -50,11 +46,6 @@ async function vote(rating: number) {
             })
 
             if (!vote) return $page.data.alerts.create_alert("error", "Failed to update vote")
-
-            // my_rating = {
-            //     id: vote.id,
-            //     rating
-            // }
 
             $page.data.alerts.create_alert("success", "Updated vote successfully")
         }
@@ -69,8 +60,13 @@ async function vote(rating: number) {
 </script>
 <rating-modal>
     <description>
-        <Icon icon={Info}/>
-        Rate the impact of this statement
+        <left>
+            <Icon icon={Info}/>
+            Rate the impact of this statement
+        </left>
+        <button onclick={() => show_rating_ui = false}>
+            <Icon icon={Minus}/>
+        </button>
     </description>
     <rating-clickers>
         {#each Array(5) as _, i}
@@ -98,13 +94,29 @@ rating-modal {
     description {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 12px;
-        padding: 16px;
-        font-size: 15px;
-        --size: 15px;
+        padding: 12px 16px;
+        font-size: 16px;
         line-height: 100%;
         font-style: italic;
         color: rgba(var(--foreground-rgb), 0.5);
+        left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            --size: 16px;
+            border-radius: 4px;
+            &:hover, &:focus {
+                background: rgba(var(--side-color-rgb, var(--foreground-rgb)), 0.1);
+            }
+        }
     }
 }
 

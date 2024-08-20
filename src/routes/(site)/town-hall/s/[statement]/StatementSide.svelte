@@ -7,6 +7,7 @@ import Button from "$lib/controls/Button.svelte"
 import AddStatement from "./AddStatement.svelte"
 import Close from "svelte-material-icons/Close.svelte"
 import { page } from "$app/stores"
+import auth_guard from "$lib/utils/auth_guard"
 
 let {
     statements,
@@ -42,13 +43,13 @@ $effect(() => {
             <Segment
                 style="translucent"
                 left_icon={show_add_statement ? Close : Plus}
-                onclick={async () => {
+                onclick={auth_guard(async () => {
                     show_add_statement = !show_add_statement
                     if(show_add_statement) {
                         await tick()
                         textinput.focus()
                     }
-                }}/>
+                })}/>
         </top>
     </heading-area>
     <statements>

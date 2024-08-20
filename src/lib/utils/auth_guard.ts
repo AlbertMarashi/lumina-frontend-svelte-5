@@ -11,7 +11,7 @@ export default function auth_guard<Args extends unknown[], T>(
             return callback(...args)
         } else {
             get(page).data.alerts.create_alert("error", "You must be logged in to perform this action.")
-            goto("/auth")
+            goto(`/auth?redirect=${window.location.pathname}`)
         }
     }
 }
