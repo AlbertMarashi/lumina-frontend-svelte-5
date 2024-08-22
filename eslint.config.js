@@ -5,7 +5,6 @@ import svelte from "eslint-plugin-svelte"
 import globals from "globals"
 // import sveltets from "svelte-ts"
 
-
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     js.configs.recommended,
@@ -15,31 +14,17 @@ export default [
         languageOptions: {
             globals: {
                 ...globals.browser,
-                ...globals.node
-            }
-        }
+                ...globals.node,
+            },
+        },
     },
     {
         files: ["**/*.svelte"],
         languageOptions: {
             parserOptions: {
                 parser: ts.parser,
-                // project: "./tsconfig.json",
-                // projectService: {
-                //     allowDefaultProject: ["*.svelte"]
-                // },
-                // ecmaVersion: "latest",
-                // extraFileExtensions: [".svelte"],
-                // svelteFeatures: {
-                //     runes: true
-                // }
-            }
+            },
         },
-        rules: {
-            // "@typescript-eslint/restrict-plus-operands": ["error"],
-            // "@typescript-eslint/restrict-template-expressions": ["error"],
-            // "@svelte-ts/restrict-mustache-expressions": "error",
-        }
     },
     {
         ignores: [
@@ -49,82 +34,17 @@ export default [
             "dist/",
             "css/",
             "src/lib/queries.ts",
-            "svelte-ts/"
-        ]
+            "svelte-ts/",
+        ],
     },
     {
+        files: ["*.ts"],
         plugins: {
             "@stylistic/ts": stylisticTs,
             // "@svelte-ts": sveltets,
         },
-    },
-    {
         rules: {
-            "arrow-parens": ["error", "as-needed", { requireForBlockBody: false }],
-            "no-constant-condition": ["error", { "checkLoops": false }],
-            "no-implicit-coercion": ["error", {
-                "allow": ["!!"],
-                "string": true,
-                "number": true,
-                "disallowTemplateShorthand": true,
-            }],
-            // disallow semi-colon
-            "semi": ["error", "never"],
-            "quotes": ["error", "double"],
-            "array-element-newline": ["error", "consistent"],
-            "no-self-assign": "off",
-            // "indent": ["error", 4, { "SwitchCase": 1 }],
-            "no-empty": "off",
-            "@typescript-eslint/no-unused-vars": ["warn", {
-                "argsIgnorePattern": "^_",
-                "varsIgnorePattern": "^_",
-                "caughtErrors": "none",
-            }],
-            "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
-            "svelte/indent": ["error", {
-                "indentScript": false,
-                "indent": 4,
-            }],
-            "svelte/prefer-style-directive": ["error"],
-            "svelte/sort-attributes": ["error"],
-            "svelte/shorthand-directive": ["error", {
-                "prefer": "never",
-            }],
-            "svelte/no-spaces-around-equal-signs-in-attribute": ["error"],
-            "svelte/html-quotes": ["error", {
-                "prefer": "double",
-                "dynamic": {
-                    "quoted": false,
-                    "avoidInvalidUnquotedInHTML": false
-                }
-            }],
-            "svelte/no-at-html-tags": "warn",
-            "svelte/mustache-spacing": ["error", {
-                "textExpressions": "always", // or "always"
-                "attributesAndProps": "never", // or "always"
-                "directiveExpressions": "always", // or "always"
-                "tags": {
-                    "openingBrace": "never",
-                    "closingBrace": "never",
-                }
-            }],
-            "svelte/block-lang": ["error", {
-                "script": "ts",
-            }],
-            "svelte/max-attributes-per-line": [
-                "error",
-                {
-                    "multiline": 1,
-                    "singleline": 1
-                }
-            ],
-            "svelte/first-attribute-linebreak": [
-                "error",
-                {
-                    "multiline": "below", // or "beside"
-                    "singleline": "beside" // "below"
-                }
-            ],
+            "@stylistic/ts/indent": ["error", 4],
             "@stylistic/ts/object-property-newline": ["error", {
                 "allowAllPropertiesOnSameLine": true,
             }],
@@ -141,14 +61,112 @@ export default [
                 },
                 "ImportDeclaration": "never",
             }],
+        },
+
+    },
+    // {
+    //     files: ["*.ts"],
+    //     rules: {
+    //         "@stylistic/ts/indent": ["error", 4],
+    //     },
+    // },
+    {
+        rules: {
+            "arrow-parens": [
+                "error",
+                "as-needed",
+                { requireForBlockBody: false },
+            ],
+            "no-constant-condition": ["error", { checkLoops: false }],
+            "no-implicit-coercion": [
+                "error",
+                {
+                    allow: ["!!"],
+                    string: true,
+                    number: true,
+                    disallowTemplateShorthand: true,
+                },
+            ],
+            // disallow semi-colon
+            semi: ["error", "never"],
+            quotes: ["error", "double"],
+            "array-element-newline": ["error", "consistent"],
+            "no-self-assign": "off",
+            // "indent": ["error", 4, { "SwitchCase": 1 }],
+            "no-empty": "off",
+            "@typescript-eslint/no-unused-vars": [
+                "warn",
+                {
+                    argsIgnorePattern: "^_",
+                    varsIgnorePattern: "^_",
+                    caughtErrors: "none",
+                },
+            ],
+            "@typescript-eslint/consistent-type-imports": [
+                "error",
+                { prefer: "type-imports" },
+            ],
+            "svelte/indent": [
+                "error",
+                {
+                    indentScript: false,
+                    indent: 4,
+                },
+            ],
+            "svelte/prefer-style-directive": ["error"],
+            "svelte/sort-attributes": ["error"],
+            "svelte/shorthand-directive": [
+                "error",
+                {
+                    prefer: "never",
+                },
+            ],
+            "svelte/no-spaces-around-equal-signs-in-attribute": ["error"],
+            "svelte/html-quotes": [
+                "error",
+                {
+                    prefer: "double",
+                    dynamic: {
+                        quoted: false,
+                        avoidInvalidUnquotedInHTML: false,
+                    },
+                },
+            ],
+            "svelte/no-at-html-tags": "warn",
+            "svelte/mustache-spacing": [
+                "error",
+                {
+                    textExpressions: "always", // or "always"
+                    attributesAndProps: "never", // or "always"
+                    directiveExpressions: "always", // or "always"
+                    tags: {
+                        openingBrace: "never",
+                        closingBrace: "never",
+                    },
+                },
+            ],
+            "svelte/block-lang": [
+                "error",
+                {
+                    script: "ts",
+                },
+            ],
+            "svelte/max-attributes-per-line": [
+                "error",
+                {
+                    multiline: 1,
+                    singleline: 1,
+                },
+            ],
+            "svelte/first-attribute-linebreak": [
+                "error",
+                {
+                    multiline: "below", // or "beside"
+                    singleline: "beside", // "below"
+                },
+            ],
             "no-undef": "off",
             "svelte/restrict-mustache-expressions": "off",
         },
-    },
-    {
-        files: ["*.ts"],
-        rules: {
-            "@stylistic/ts/indent": ["error", 4],
-        }
     },
 ]

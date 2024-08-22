@@ -51,40 +51,40 @@ export function getElementOffset(el: HTMLElement): {
 }
 
 export function visualizeBoundingRect(element: HTMLElement): () => void {
-        const rect = element.getBoundingClientRect()
-        const offset = getElementOffset(element)
+    const rect = element.getBoundingClientRect()
+    const offset = getElementOffset(element)
 
-        const elementRectangle = document.createElement("div")
+    const elementRectangle = document.createElement("div")
 
-        const rectangleStyles: Partial<CSSStyleDeclaration> = {
-            position: "fixed",
-            pointerEvents: "none",
-            zIndex: "9999"
-        }
-
-        Object.assign(elementRectangle.style, rectangleStyles, {
-            border: "2px solid red"
-        })
-
-        if (elementRectangle) {
-            Object.assign(elementRectangle.style, rectangleStyles, {
-                border: "2px dashed blue"
-            })
-        }
-
-        const updateRectangles = () => {
-            Object.assign(elementRectangle.style, {
-                left: `${offset.left}px`,
-                top: `${offset.top}px`,
-                width: `${rect.width}px`,
-                height: `${rect.height}px`
-            })
-        }
-
-        updateRectangles()
-        document.body.appendChild(elementRectangle)
-
-        return () => {
-            elementRectangle.remove()
-        }
+    const rectangleStyles: Partial<CSSStyleDeclaration> = {
+        position: "fixed",
+        pointerEvents: "none",
+        zIndex: "9999"
     }
+
+    Object.assign(elementRectangle.style, rectangleStyles, {
+        border: "2px solid red"
+    })
+
+    if (elementRectangle) {
+        Object.assign(elementRectangle.style, rectangleStyles, {
+            border: "2px dashed blue"
+        })
+    }
+
+    const updateRectangles = () => {
+        Object.assign(elementRectangle.style, {
+            left: `${offset.left}px`,
+            top: `${offset.top}px`,
+            width: `${rect.width}px`,
+            height: `${rect.height}px`
+        })
+    }
+
+    updateRectangles()
+    document.body.appendChild(elementRectangle)
+
+    return () => {
+        elementRectangle.remove()
+    }
+}

@@ -23,7 +23,7 @@ import TikTok from "$lib/icons/TikTok.svelte"
 import Facebook from "svelte-material-icons/Facebook.svelte"
 import Youtube from "svelte-material-icons/Youtube.svelte"
 import type { GetUserResult } from "$lib/queries"
-import { global_state } from "$lib/stores/global.svelte"
+import { global_state, toggle_theme } from "$lib/stores/global.svelte"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
 import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
 import Capitol from "$lib/icons/Capitol.svelte"
@@ -57,8 +57,8 @@ function toggle(toggling: "notifications" | "account") {
             <Logo/>
             <spacer></spacer>
             <IconButton
-                icon={global_state.dark_mode ? Moon : Sun}
-                onclick={() => global_state.dark_mode = !global_state.dark_mode}/>
+                icon={global_state.inner.dark_mode ? Moon : Sun}
+                onclick={() => toggle_theme()}/>
         </div>
         <div class="section">
             <NavLink

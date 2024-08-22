@@ -3,7 +3,7 @@ import type { MaybePromise } from "$lib/types/ts_utils"
 
 export default <Args extends unknown[], T>(
     callback: (...args: Args) => MaybePromise<T>,
-    subscriber: (value: boolean) => unknown = status => global_state.loading = status
+    subscriber: (value: boolean) => unknown = status => global_state.inner.loading = status
 ) => {
     return async (...args: Args) => {
         subscriber(true)

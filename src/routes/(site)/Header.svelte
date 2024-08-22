@@ -11,7 +11,7 @@ import { onMount } from "svelte"
 import Button from "$lib/controls/Button.svelte"
 import { getNearestScrollableParent } from "$lib/utils/element_utils"
 import type { GetUserResult } from "$lib/queries"
-import { global_state } from "$lib/stores/global.svelte"
+import { global_state, toggle_theme } from "$lib/stores/global.svelte"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
 import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
 
@@ -69,8 +69,8 @@ function toggle(toggling: "notifications" | "account") {
     </div>
     <div class="side">
         <IconButton
-            icon={global_state.dark_mode ? Moon : Sun}
-            onclick={() => global_state.dark_mode = !global_state.dark_mode}/>
+            icon={global_state.inner.dark_mode ? Moon : Sun}
+            onclick={() => toggle_theme()}/>
         {#if user}
             <IconButton
                 href="/"
