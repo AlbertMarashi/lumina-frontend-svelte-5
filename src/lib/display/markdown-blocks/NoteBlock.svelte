@@ -3,17 +3,13 @@ import Callout from "$lib/display/Callout.svelte"
 import type { ContainerDirective } from "mdast-util-directive"
 import BlocksArray from "./BlocksArray.svelte"
 
-export let block: ContainerDirective
+let {
+    block,
+}: {
+    block: ContainerDirective,
+} = $props()
 
-enum Mapping {
-    warning = "warning",
-    error = "error",
-    note = "note",
-    tip = "success",
-}
-
-$: type = Mapping[block.name as keyof typeof Mapping]
 </script>
-<Callout type={type}>
+<Callout type={block.type as "note"}>
     <BlocksArray blocks={block.children}/>
 </Callout>

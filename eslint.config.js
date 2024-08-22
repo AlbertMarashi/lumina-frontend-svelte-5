@@ -41,7 +41,6 @@ export default [
         files: ["*.ts"],
         plugins: {
             "@stylistic/ts": stylisticTs,
-            // "@svelte-ts": sveltets,
         },
         rules: {
             "@stylistic/ts/indent": ["error", 4],
@@ -64,12 +63,6 @@ export default [
         },
 
     },
-    // {
-    //     files: ["*.ts"],
-    //     rules: {
-    //         "@stylistic/ts/indent": ["error", 4],
-    //     },
-    // },
     {
         rules: {
             "arrow-parens": [

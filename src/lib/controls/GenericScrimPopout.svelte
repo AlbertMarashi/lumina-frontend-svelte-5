@@ -26,7 +26,7 @@ let scrim = $state(undefined! as HTMLElement)
 {#if opened}
     <scrim
         bind:this={ scrim }
-        onclick={e => {
+        onclick={(e: { target: HTMLElement; }) => {
             if (e.target === scrim) opened = false
         }}
         role="presentation">
