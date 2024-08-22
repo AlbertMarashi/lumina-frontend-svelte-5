@@ -7,7 +7,6 @@ export const global_state = safe_state("global_state", {
 })
 
 export function toggle_theme() {
-    console.log("toggle theme", global_state.inner.dark_mode)
     global_state.inner.dark_mode = !global_state.inner.dark_mode
     set_cookie("dark_mode", global_state.inner.dark_mode ? "true" : "false")
 }
