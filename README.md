@@ -43,8 +43,8 @@
 7. Run the following SurrealQL code in the `Query` editor sidebar tab, replacing `RANDOM_SECRET_KEY_HEX` with the random secret key you generated:
 
 ```sql
-DEFINE SCOPE users;
-DEFINE TOKEN lumina_token on SCOPE users type HS256 VALUE "RANDOM_SECRET_KEY_HEX";
+DEFINE SCOPE lumina_scope;
+DEFINE TOKEN lumina_token on SCOPE lumina_scope type HS256 VALUE "RANDOM_SECRET_KEY_HEX";
 ```
 
 1. Run the following command to import the database schema from `schema.surql` from this project directory

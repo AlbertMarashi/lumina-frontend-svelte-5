@@ -40,7 +40,7 @@ export async function POST({ request }) {
         id: record_to_string(user.id),
         db: "lumina",
         tk: "lumina_token",
-        sc: "users",
+        sc: "lumina_scope",
         scopes: ["*"]
     })
 

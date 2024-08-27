@@ -44,7 +44,7 @@ surreal import \
     schema.surql
 
 echo "Defining token..."
-echo "DEFINE TOKEN lumina_token ON SCOPE users TYPE HS256 VALUE '$AUTH_SECRET'" | surreal sql \
+echo "DEFINE SCOPE lumina_scope;DEFINE TOKEN lumina_token ON SCOPE lumina_scope TYPE HS256 VALUE '$AUTH_SECRET';" | surreal sql \
     --endpoint $PUBLIC_SURREAL_HOST \
     -u $SURREAL_USER \
     -p $SURREAL_PASS \
