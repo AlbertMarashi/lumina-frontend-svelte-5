@@ -1,7 +1,7 @@
 import { safe_request_wrapper } from "safe-ssr/safe_request_wrapper"
 import { request_symbol } from "safe-ssr"
 import { sequence } from "@sveltejs/kit/hooks"
-import {init_safe_surreal_db_client, ssr_databases } from "$lib/stores/database"
+import { init_safe_surreal_db_client, ssr_databases } from "$lib/stores/database"
 import { verify_jwt } from "$lib/utils/jwt"
 import { PUBLIC_SURREAL_NAMESPACE } from "$env/static/public"
 import type { TypedSurreal } from "$lib/queries"

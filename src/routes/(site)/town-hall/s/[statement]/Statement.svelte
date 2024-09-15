@@ -18,6 +18,7 @@ import { page } from "$app/stores"
 import { goto } from "$app/navigation"
 import stop_propagation from "$lib/utils/stop_propagation"
 import NoPropagate from "$lib/controls/NoPropagate.svelte"
+import MarkdownRenderer from "$lib/display/MarkdownRenderer.svelte"
 
 type Statement = {
     id: RecordId<"statement">,
@@ -67,7 +68,6 @@ function handleClick() {
     // No text selected, proceed with navigation
     goto("/town-hall/s/" + statement.id.id)
 }
-
 
 </script>
 {#if statement.replying_to && !(is_record_id(statement.replying_to))}
@@ -143,7 +143,7 @@ function handleClick() {
             </right>
         </top>
         <content>
-            { statement.content }
+            <MarkdownRenderer markdown={statement.content} />
         </content>
         <bottom>
             <author>

@@ -1,4 +1,4 @@
-import { global_state } from "$lib/stores/global.svelte"
+import { global_state } from "$lib/stores/global"
 import type { MaybePromise } from "$lib/types/ts_utils"
 
 export default <Args extends unknown[], T>(

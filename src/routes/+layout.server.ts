@@ -1,4 +1,4 @@
-import { global_state } from "$lib/stores/global.svelte"
+import { global_state } from "$lib/stores/global"
 
 export async function load({ cookies }) {
     if(cookies.get("dark_mode") === "false") {

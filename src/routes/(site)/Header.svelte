@@ -11,7 +11,7 @@ import { onMount } from "svelte"
 import Button from "$lib/controls/Button.svelte"
 import { getNearestScrollableParent } from "$lib/utils/element_utils"
 import type { GetUserResult } from "$lib/queries"
-import { global_state, toggle_theme } from "$lib/stores/global.svelte"
+import { global_state, toggle_theme } from "$lib/stores/global"
 import Moon from "svelte-material-icons/WeatherNight.svelte"
 import Sun from "svelte-material-icons/WhiteBalanceSunny.svelte"
 
